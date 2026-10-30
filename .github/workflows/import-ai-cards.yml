@@ -1,0 +1,55 @@
+name: Import AI cards to project
+
+# Run from the Actions tab: Import AI cards to project > Run workflow.
+# Needs the repository secret PROJECT_TOKEN (see SETUP.md).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'trial = one card (AI-CHT-001), all = every card, check = only test access'
+        type: choice
+        options:
+          - trial
+          - all
+          - check
+        default: trial
+      drafts:
+        description: 'Create project-only draft items instead of repository issues'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+      OWNER: Dhruva-One
+      PROJECT: 1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check token and access
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::The repository secret PROJECT_TOKEN is missing. Add it under Settings > Secrets and variables > Actions (see SETUP.md)."
+            exit 1
+          fi
+          gh repo view "${{ github.repository }}" > /dev/null || { echo "::error::The token cannot see this repository."; exit 1; }
+          gh project view "$PROJECT" --owner "$OWNER" > /dev/null || { echo "::error::The token cannot open project $PROJECT of $OWNER. It needs the 'project' permission and your account must have access to the project."; exit 1; }
+          echo "Access OK: repository and project are reachable."
+
+      - name: Import cards
+        if: ${{ inputs.mode != 'check' }}
+        working-directory: Funtional/Spec/cards/ai
+        run: |
+          ARGS="--repo ${{ github.repository }} --owner $OWNER --project $PROJECT --branch ${{ github.event.repository.default_branch }} --delay 1"
+          if [ "${{ inputs.mode }}" = "trial" ]; then ARGS="$ARGS --only AI-CHT-001"; fi
+          if [ "${{ inputs.drafts }}" = "true" ]; then ARGS="$ARGS --drafts"; fi
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 import_cards.py $ARGS | tee -a "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
