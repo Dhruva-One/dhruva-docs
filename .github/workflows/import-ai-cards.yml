@@ -43,11 +43,30 @@ jobs:
           gh project view "$PROJECT" --owner "$OWNER" > /dev/null || { echo "::error::The token cannot open project $PROJECT of $OWNER. It needs the 'project' permission and your account must have access to the project."; exit 1; }
           echo "Access OK: repository and project are reachable."
 
+      - name: Find the card files
+        id: loc
+        if: ${{ inputs.mode != 'check' }}
+        run: |
+          SCRIPT=$(find . -name import_cards.py -not -path './.git/*' | head -n 1)
+          if [ -z "$SCRIPT" ]; then
+            echo "::error::import_cards.py was not found anywhere in the repository. Upload the Funtional folder from the zip (SETUP.md step 3). Files currently in the repository:"
+            find . -type f -not -path './.git/*' | head -n 60
+            exit 1
+          fi
+          DIR=$(dirname "$SCRIPT"); DIR=${DIR#./}
+          if [ ! -f "$DIR/cards.json" ]; then
+            echo "::error::cards.json is not in the same folder as import_cards.py ($DIR). Upload cards.json next to it."
+            exit 1
+          fi
+          if [ ! -d "$DIR/images" ]; then echo "::warning::No images folder in $DIR, so screenshots will show as broken links."; fi
+          echo "dir=$DIR" >> "$GITHUB_OUTPUT"
+          echo "Found the card files in: $DIR"
+
       - name: Import cards
         if: ${{ inputs.mode != 'check' }}
-        working-directory: Funtional/Spec/cards/ai
+        working-directory: ${{ steps.loc.outputs.dir }}
         run: |
-          ARGS="--repo ${{ github.repository }} --owner $OWNER --project $PROJECT --branch ${{ github.event.repository.default_branch }} --delay 1"
+          ARGS="--repo ${{ github.repository }} --owner $OWNER --project $PROJECT --branch ${{ github.event.repository.default_branch }} --images-path ${{ steps.loc.outputs.dir }}/images --delay 1"
           if [ "${{ inputs.mode }}" = "trial" ]; then ARGS="$ARGS --only AI-CHT-001"; fi
           if [ "${{ inputs.drafts }}" = "true" ]; then ARGS="$ARGS --drafts"; fi
           echo '```' >> "$GITHUB_STEP_SUMMARY"
