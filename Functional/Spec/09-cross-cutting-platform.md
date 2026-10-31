@@ -832,25 +832,25 @@ Canonical entities and relationships across areas.
 
 ### APIs
 
-Paths are indicative. All are tenant-scoped through the session; all return 401 unauthenticated, 403 forbidden, 404 for out-of-scope IDs, 429 when rate-limited.
+All are tenant-scoped through the session, except the provider webhooks and `/v1/status`; all return 401 unauthenticated, 403 forbidden, 404 for out-of-scope IDs, 429 when rate-limited.
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /v1/notifications | List own notifications, filters | Own profile | 401 |
+| GET /v1/notifications?profile=&filter=&cursor= | List own notifications with unread count | Own profile | 401 |
 | POST /v1/notifications/{id}/read, /v1/notifications/read-all | Mark read | Own | 404 |
-| GET/PUT /v1/notification-settings | Read and update preferences | Own; locked toggles ignored | 422 locked setting |
-| POST /v1/devices | Register push token | Own | 422 |
+| GET/PUT /v1/notification-preferences | Read and update notification preferences for the profile | Own; locked topics ignored | 422 locked setting |
+| POST /internal/v1/push/send | Notification service fan-out to APNs and FCM | Internal service | 202 accepted |
 | POST /v1/notices | Create notice | Per sender audience rules | 403 audience, 422 missing title |
 | GET /v1/notices/{id}/receipts | Read counts and delivery | Sender, principal, owner | 403 |
-| GET /v1/approvals?status=pending | Queue | Approver | |
+| GET /v1/approvals?status=&module= | Approval queue for every module (finance, HR, fees, admissions and more) | Approver | |
 | POST /v1/approvals | Raise request | Requester role | 422 limit config missing |
-| POST /v1/approvals/{id}/decision | Approve or decline | Approver, not requester | 409 already decided, 403 self-approval, 422 reason required |
+| POST /v1/approvals/{id}/decision | Approve, decline, send back or mark noted | Approver for the current step, not the requester | 409 already decided, 403 self-approval or above limit, 422 reason required |
 | POST /v1/approvals/delegations | Create delegation | Approver | 422 exceeds authority |
-| GET /v1/audit | Search audit | Per XCT-AUD-004 | 403 |
-| POST /v1/audit/exports | Export audit | Owner, principal | 413 too large |
+| GET /v1/audit?category=&q= | Search the audit log: identity, configuration, AI and business records | Per XCT-AUD-004 | 403 |
+| POST /v1/audit/exports | Export audit | Owner, principal, Tenant Administrator | 413 too large |
 | GET /v1/reports | Library | Role | |
-| POST /v1/reports/{id}/runs | Generate | Role, campus scope | 202 background |
-| POST /v1/report-schedules, DELETE /v1/report-schedules/{id} | Schedule and stop | Owner, principal | 422 recipients |
+| POST /v1/reports/{key}/runs | Generate and download a report | Role, campus scope | 202 background, 400 |
+| POST /v1/report-schedules, DELETE /v1/report-schedules/{id} | Schedule a report email, and stop it | Owner, principal | 422 recipients |
 | GET/POST /v1/calendar/events | Calendar | Role | 403 scope |
 | GET /v1/search?q= | Search | Per record permissions | 422 short query |
 | POST /v1/files | Upload (signed URL) | Role | 415 type, 413 size, 422 scan failed |
@@ -860,9 +860,14 @@ Paths are indicative. All are tenant-scoped through the session; all return 401 
 | POST /v1/campuses, PATCH /v1/campuses/{id} | Add campus | Owner | 422 step invalid |
 | POST /v1/consents | Record consent | Guardian | 409 duplicate |
 | POST /v1/data-requests | Raise request | Guardian, staff | |
-| POST /v1/webhooks/gateway, /webhooks/whatsapp | Provider callbacks | Signature verified | 401 bad signature |
+| POST /v1/webhooks/gateway | Payment gateway callbacks for every channel (app, web and WhatsApp orders); the only source of truth for a fee payment | Signature verified | 401 bad signature, 409 duplicate, 422 amount mismatch |
+| POST /internal/v1/wa/events | WhatsApp gateway forwards delivery statuses, opt-outs and in-chat payment notices | Internal service (WhatsApp gateway) | 409 duplicate |
 | POST /v1/integrations/tally/sync | On-demand sync | Finance | 503 connector offline |
+| POST /v1/telemetry/events | Product telemetry from the apps (first-party, no advertising identifiers) | Session | 413 batch too large |
+| POST /v1/support/requests | Raise a help and support request | Any staff | 422 |
 | GET /v1/status | Health for status page | Public | |
+
+Devices and push tokens are registered through Section 3 (`POST /v1/devices`, `PUT /v1/devices/{id}/push-token`).
 
 ### Events
 
@@ -882,7 +887,8 @@ Paths are indicative. All are tenant-scoped through the session; all return 401 
 | consent.recorded / consent.withdrawn | Parent action | student, guardian | Access gates |
 | datarequest.opened / datarequest.fulfilled | Privacy | type, due date | Grievance Officer |
 | integration.sync_failed | Connector error | provider, reason | Finance, platform alerts |
-| flag.changed | Flag edit | key, scope | All clients |
+
+Flag changes raise `feature.changed` (Section 4); all clients consume it.
 
 ### State machines / workflows
 

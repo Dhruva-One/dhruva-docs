@@ -879,34 +879,35 @@ Feature control is itself not switchable (`core`), but it governs these switches
 
 ### APIs
 
-All paths are under `/api/v1`. Errors use the envelope `{"error":{"code","message","feature?","reason?","request_id"}}`.
+All paths are under `/v1` (see 2.5). Errors use the envelope `{"error":{"code","message","feature?","reason?","request_id"}}`.
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /tenants/{id}/features | List features with plan state, base state, rules summary, chip, pending requests; query `category`, `q`, `status`, `campus` | TA, CP (own campus), PO | 403 `FORBIDDEN_ROLE`, 404 |
-| GET /tenants/{id}/features/{key} | Drawer data: rules, dependents, history, preview inputs | as above | 404 `UNKNOWN_FEATURE` |
-| PUT /tenants/{id}/features/{key} | Set base state, rules, lock, delegation, stage; requires `reason`, `If-Match: version`; returns a change request (applied or pending) | TA, CP within delegation | 409 `VERSION_CONFLICT`, 422 `PLAN_LOCKED`, `DEPENDENCY_OFF`, `LOCKED_BY_HIGHER_LEVEL`, `CONSENT_MISSING`, `ADMIN_LOCKOUT_PREVENTED`, `BLOCKING_CONDITION` |
-| POST /tenants/{id}/features/{key}/preview | Compute impact preview without saving | TA, CP | 422 |
-| POST /tenants/{id}/features/{key}/schedule | Add a schedule to a change (starts_at, ends_at) | TA, CP | 422 `SCHEDULE_INVALID`, `TOO_MANY_SCHEDULES` |
-| DELETE /tenants/{id}/features/{key}/schedule/{sid} | Cancel a scheduled change | requester, TA | 409 `ALREADY_APPLIED` |
-| POST /tenants/{id}/features:bulk | Apply an action to up to 100 features; supports `preset` | TA | 422 per item, 207 partial if `apply_others` |
-| GET /features/evaluate | Evaluate `key` or all for a context (`tenant`, `campus`, `role`, `profile`, `channel`, `app_version`); caller identity decides allowed contexts | Service tokens, signed-in client (own context only) | 400 `NO_CONTEXT` |
-| GET /tenants/{id}/features/{key}/explain | "Why on or off" for a person | TA, PO | 404 |
-| GET /tenants/{id}/change-requests, POST .../{rid}/approve, POST .../{rid}/decline, POST .../{rid}/withdraw | Approvals flow | approver, requester | 403 `SELF_APPROVAL_NOT_ALLOWED`, 409 `REQUEST_NOT_PENDING`, 410 `REQUEST_EXPIRED` |
-| GET /tenants/{id}/snapshots | List snapshots | TA | |
-| POST /tenants/{id}/snapshots | Create named snapshot | TA | |
-| GET /tenants/{id}/snapshots/{sid}/diff | Diff with current | TA | |
-| POST /tenants/{id}/snapshots/{sid}:rollback | Create rollback change request | TA | 422 per item |
-| GET /tenants/{id}/audit-events, POST .../audit-events:export | Query and export | TA, CP (campus), PO | 202 for large exports |
-| GET/POST /tenants/{id}/ai/consent | Read consent state; accept terms or capability acknowledgement | Group Owner or School Admin (trustee countersign if enabled) | 403 `CONSENT_NOT_AUTHORISED`, 409 `STALE_VERSION` |
-| GET/PUT /tenants/{id}/ai/settings | Data-use, human approval policy, pause | TA | 422 `LOCKED_POLICY` |
-| POST /tenants/{id}/ai:pause, POST /tenants/{id}/ai:resume | Tenant kill switch | TA | |
-| GET/PUT /tenants/{id}/ai/quota | Read, set soft cap, per-campus allotment | TA | 422 |
-| GET/PUT /tenants/{id}/settings | Tenant settings (6 groups) | TA | 422 |
-| GET /plans, GET /plans/{id}, POST /plans, POST /plans/{id}:publish | Plan management | PO (Platform Admin) | 409 `PLAN_PUBLISHED` |
-| PUT /tenants/{id}/plan, PUT /tenants/{id}/entitlements/{key}, POST /tenants/{id}/trial, POST /tenants/{id}/ai/topup | Assign plan, overrides, trials, AI top-up | PO | 422 |
-| POST /platform/kill-switches, DELETE /platform/kill-switches/{id} | Global or per-tenant kill, lift | PO (Platform Security, Platform Admin; lift needs second person) | 403 `SECOND_APPROVER_REQUIRED` |
-| GET /platform/tenants, GET /platform/tenants/{id}, GET /platform/usage | Platform console | PO | |
+| GET /v1/tenants/{id}/features | List features with plan state, base state, rules summary, chip, pending requests; query `category`, `q`, `status`, `campus` | TA, CP (own campus), PO | 403 `FORBIDDEN_ROLE`, 404 |
+| GET /v1/tenants/{id}/features/{key} | Drawer data: rules, dependents, history, preview inputs | as above | 404 `UNKNOWN_FEATURE` |
+| PUT /v1/tenants/{id}/features/{key} | Set base state, rules, lock, delegation, stage; requires `reason`, `If-Match: version`; returns a change request (applied or pending) | TA, CP within delegation | 409 `VERSION_CONFLICT`, 422 `PLAN_LOCKED`, `DEPENDENCY_OFF`, `LOCKED_BY_HIGHER_LEVEL`, `CONSENT_MISSING`, `ADMIN_LOCKOUT_PREVENTED`, `BLOCKING_CONDITION` |
+| POST /v1/tenants/{id}/features/{key}/preview | Compute impact preview without saving | TA, CP | 422 |
+| POST /v1/tenants/{id}/features/{key}/schedule | Add a schedule to a change (starts_at, ends_at) | TA, CP | 422 `SCHEDULE_INVALID`, `TOO_MANY_SCHEDULES` |
+| DELETE /v1/tenants/{id}/features/{key}/schedule/{sid} | Cancel a scheduled change | requester, TA | 409 `ALREADY_APPLIED` |
+| POST /v1/tenants/{id}/features:bulk | Apply an action to up to 100 features; supports `preset` | TA | 422 per item, 207 partial if `apply_others` |
+| GET /v1/features/evaluate | Evaluate `key` or all for a context (`tenant`, `campus`, `role`, `profile`, `channel`, `app_version`); caller identity decides allowed contexts | Service tokens, signed-in client (own context only) | 400 `NO_CONTEXT` |
+| GET /v1/tenants/{id}/features/{key}/explain | "Why on or off" for a person | TA, PO | 404 |
+| GET /v1/tenants/{id}/change-requests, POST .../{rid}/approve, POST .../{rid}/decline, POST .../{rid}/withdraw | Approvals flow | approver, requester | 403 `SELF_APPROVAL_NOT_ALLOWED`, 409 `REQUEST_NOT_PENDING`, 410 `REQUEST_EXPIRED` |
+| GET /v1/tenants/{id}/snapshots | List snapshots | TA | |
+| POST /v1/tenants/{id}/snapshots | Create named snapshot | TA | |
+| GET /v1/tenants/{id}/snapshots/{sid}/diff | Diff with current | TA | |
+| POST /v1/tenants/{id}/snapshots/{sid}:rollback | Create rollback change request | TA | 422 per item |
+| GET /v1/tenants/{id}/administrators ; POST /v1/tenants/{id}/administrators ; DELETE /v1/tenants/{id}/administrators/{profileId} | List, assign and remove Tenant Administrators and Group Admins | TA (cannot remove the last one), PO | 422 `ADMIN_LOCKOUT_PREVENTED` |
+| GET /v1/tenants/{id}/hierarchy | Group, campus and standalone hierarchy with campus status | TA, PO | 404 |
+| GET/POST /v1/tenants/{id}/ai/consent | Read consent state; accept terms or capability acknowledgement | Group Owner or School Admin (trustee countersign if enabled) | 403 `CONSENT_NOT_AUTHORISED`, 409 `STALE_VERSION` |
+| GET/PUT /v1/tenants/{id}/ai/settings | AI settings: data use, capability toggles, human approval modes, retention | TA; principal read | 422 `LOCKED_POLICY`, 422 `CONSENT_REQUIRED` |
+| POST /v1/tenants/{id}/ai:pause, POST /v1/tenants/{id}/ai:resume | Tenant kill switch | TA | |
+| GET/PUT /v1/tenants/{id}/ai/quota | Read, set soft cap, per-campus allotment | TA | 422 |
+| GET/PUT /v1/tenants/{id}/settings | Tenant settings (6 groups) | TA | 422 |
+| GET /v1/plans, GET /v1/plans/{id}, POST /v1/plans, POST /v1/plans/{id}:publish | Plan management | PO (Platform Admin) | 409 `PLAN_PUBLISHED` |
+| PUT /v1/tenants/{id}/plan, PUT /v1/tenants/{id}/entitlements/{key}, POST /v1/tenants/{id}/trial, POST /v1/tenants/{id}/ai/topup | Assign plan, overrides, trials, AI top-up | PO | 422 |
+| POST /v1/platform/kill-switches, DELETE /v1/platform/kill-switches/{id} | Global or per-tenant kill and lift, including the platform AI kill (`scope: ai`) | PO (Platform Security, Platform Admin; lift needs second person) | 403 `SECOND_APPROVER_REQUIRED` |
+| GET /v1/platform/tenants, GET /v1/platform/tenants/{id}, GET /v1/platform/usage | Platform console | PO | |
 | Any feature route | Gated by middleware | feature flag | 403 `FEATURE_DISABLED` with `reason`; 429 `AI_QUOTA_EXCEEDED` |
 
 Example denial body:
@@ -914,6 +915,8 @@ Example denial body:
 {"error":{"code":"FEATURE_DISABLED","message":"Marks from photo is switched off for your school.","feature":"ai.marks_from_photo","reason":"ROLE_OVERRIDE","request_id":"req_8f2c1"}}
 ```
 (`reason` is returned to admin tokens only.)
+
+Configuration audit (feature changes, change requests, snapshots, AI settings) is read and exported through `GET /v1/audit?category=configuration` and `POST /v1/audit/exports` (Section 9); entries link to their change request and snapshot.
 
 ### Events
 
@@ -927,7 +930,7 @@ Example denial body:
 | config.snapshot_created, config.rolled_back | Snapshot or restore | snapshot id, diff size | Audit, notifications |
 | plan.changed, plan.expiring, plan.expired, plan.grace_started, entitlement.changed, trial.started, trial.ending | Plan lifecycle | tenant, plan, dates | Evaluation service, notifications, platform console |
 | killswitch.set, killswitch.lifted | Platform kill switch | scope, key, reason, message | Evaluation service, notifications, audit |
-| ai.consent_accepted, ai.consent_required, ai.paused, ai.resumed | AI consent and pause | version, by, at | Evaluation service, audit |
+| ai.consent_accepted, ai.consent_required, ai.settings_changed, ai.paused, ai.resumed | AI consent, settings and tenant pause | version, by, at | Evaluation service, audit |
 | ai.quota_threshold, ai.quota_exhausted, ai.quota_reset | Quota | tenant, used, allowance, threshold | Notifications, AI gateway |
 | feature.blocked_attempt | A request was denied (sampled) | key, reason, role, campus, channel | Evaluation log, tenant "Blocked attempts" |
 | settings.changed | Tenant settings changed | group, before, after | Audit, notifications |

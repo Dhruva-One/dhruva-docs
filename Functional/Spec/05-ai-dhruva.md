@@ -680,39 +680,34 @@ The orb shall expose accessible names and state to screen readers ("Dhruva, thin
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| POST /ai/ask | Ask Dhruva a question (conversation id optional) | Any signed-in profile with ai.assistant_chat | 403 AI_DISABLED; 429 RATE_LIMITED; 503 AI_UNAVAILABLE; 422 OUT_OF_SCOPE |
-| GET /ai/ask/suggestions | Suggested questions for role | Signed-in profile | 403 AI_DISABLED |
-| GET /ai/conversations/{id} | Conversation history | Owner of conversation | 404; 410 PURGED |
-| POST /ai/conversations/{id}/feedback | Thumbs and reason | Owner | 404 |
-| GET /ai/focus | Ranked task list with reasons | Signed-in profile | 200 with rule-based list if AI unavailable |
-| POST /ai/focus/{itemId}/later | Defer item | Owner | 404 |
-| GET /ai/suggestions | List suggestions for current role (filter by capability, state) | Role queue | 403 |
-| GET /ai/suggestions/{id} | Suggestion with reason and sources | Role queue | 404 |
-| POST /ai/suggestions/{id}/approve | Approve (optionally edited payload) | Role that owns the target action | 409 STALE_TARGET; 403 NOT_APPROVER; 409 EXPIRED |
-| POST /ai/suggestions/{id}/reject | Reject with reason | Same | 409 |
-| POST /ai/suggestions/batch-approve | Approve many with one confirmation | Same; max 500 per call | 207 per-item results |
-| POST /ai/drafts | Create a draft (notice, reply, paper, plan, reminder) | Capability role | 400 MISSING_SLOT; 429; 503 |
-| PATCH /ai/drafts/{id} | Edit or shorten or translate | Owner | 409 |
-| POST /ai/drafts/{id}/send | Approve and send through the module's own API | Owner with send rights | 403; 409 |
-| POST /ai/timetable/generate | Start generation (classes, rules, use_from) | Academic coordinator, admin | 409 GENERATION_RUNNING |
-| GET /ai/timetable/drafts/{id} | Draft with clashes and fixes | Same | 404 |
-| POST /ai/timetable/drafts/{id}/clashes/{cid}/apply | Apply fix (or option n) | Same | 409 NEW_CLASH |
-| POST /ai/timetable/drafts/{id}/apply-all | Fix all | Same | 207 remaining clashes |
-| POST /ai/timetable/drafts/{id}/approve | Approve classes with use_from | Same | 422 UNRESOLVED_CLASH |
-| POST /ai/ocr/marks | Read a mark sheet photo into a draft entry | Teacher of the class | 413 IMAGE_TOO_LARGE; 422 UNREADABLE |
-| POST /ai/ocr/{id}/confirm | Confirm read values | Same | 409 FLAGS_OPEN |
-| POST /ai/homework/{id}/check | Run checking on a set | Teacher | 422 NO_KEY |
-| POST /ai/voice/transcribe | Speech to text | Signed-in profile with ai.voice_input | 415; 422 UNINTELLIGIBLE |
-| POST /ai/translate | Translate a draft | Signed-in profile with ai.translation | 422 UNSUPPORTED_LOCALE |
-| GET /ai/usage | Usage and cost per capability | Tenant AI administrator, principal (read) | 403 |
-| GET /ai/settings | Read tenant AI settings | Tenant AI administrator | 403 |
-| PUT /ai/settings | Update consent, toggles, approval modes, retention | Tenant AI administrator | 409 LOCKED_SETTING; 422 CONSENT_REQUIRED |
-| POST /ai/settings/pause | Kill switch (tenant) | Tenant AI administrator | 200 idempotent |
-| POST /ai/admin/pause | Kill switch (platform) | Platform operator | 403 |
-| GET /ai/audit | Audit log search and export | Tenant AI administrator, principal | 403 |
-| GET /ai/explain/{outputId} | "How is this worked out" | Anyone who can see the output | 404 |
-| GET /ai/models | Model registry (read) | Platform operator | 403 |
-| POST /ai/eval/runs | Run an evaluation | Platform quality | 400 |
+| POST /v1/ai/ask | Ask Dhruva a question (conversation id optional) | Any signed-in profile with ai.assistant_chat | 403 AI_DISABLED; 429 RATE_LIMITED; 503 AI_UNAVAILABLE; 422 OUT_OF_SCOPE |
+| GET /v1/ai/ask/suggestions | Suggested questions for role | Signed-in profile | 403 AI_DISABLED |
+| GET /v1/ai/conversations/{id} | Conversation history | Owner of conversation | 404; 410 PURGED |
+| POST /v1/ai/conversations/{id}/feedback | Thumbs and reason | Owner | 404 |
+| GET /v1/ai/focus | Ranked task list with reasons | Signed-in profile | 200 with rule-based list if AI unavailable |
+| POST /v1/ai/focus/{itemId}/later | Defer item | Owner | 404 |
+| GET /v1/ai/suggestions | List suggestions for current role (filter by capability, state) | Role queue | 403 |
+| GET /v1/ai/suggestions/{id} | Suggestion with reason and sources | Role queue | 404 |
+| POST /v1/ai/suggestions/{id}/approve | Approve (optionally edited payload) | Role that owns the target action | 409 STALE_TARGET; 403 NOT_APPROVER; 409 EXPIRED |
+| POST /v1/ai/suggestions/{id}/reject | Reject with reason | Same | 409 |
+| POST /v1/ai/suggestions/batch-approve | Approve many with one confirmation | Same; max 500 per call | 207 per-item results |
+| POST /v1/ai/drafts | Create a draft (notice, reply, paper, plan, reminder) | Capability role | 400 MISSING_SLOT; 429; 503 |
+| PATCH /v1/ai/drafts/{id} | Edit or shorten or translate | Owner | 409 |
+| POST /v1/ai/drafts/{id}/send | Approve and send through the module's own API | Owner with send rights | 403; 409 |
+| POST /v1/ai/ocr/marks | Read a mark sheet photo into a draft entry | Teacher of the class | 413 IMAGE_TOO_LARGE; 422 UNREADABLE |
+| POST /v1/ai/ocr/{id}/confirm | Confirm read values | Same | 409 FLAGS_OPEN |
+| POST /v1/ai/homework/{id}/check | Run checking on a set | Teacher | 422 NO_KEY |
+| POST /v1/ai/voice/transcribe | Speech to text | Signed-in profile with ai.voice_input | 415; 422 UNINTELLIGIBLE |
+| POST /v1/ai/translate | Translate a draft | Signed-in profile with ai.translation | 422 UNSUPPORTED_LOCALE |
+| GET /v1/ai/usage | Usage and cost per capability | Tenant AI administrator, principal (read) | 403 |
+| GET /v1/ai/explain/{outputId} | "How is this worked out" | Anyone who can see the output | 404 |
+| GET /v1/ai/models | Model registry (read) | Platform operator | 403 |
+| POST /v1/ai/eval/runs | Run an evaluation | Platform quality | 400 |
+
+These AI functions are defined once, elsewhere (see 2.5):
+- AI consent, settings, tenant pause and resume, quota and top-up: Section 4 (`/v1/tenants/{id}/ai/...`). The platform-wide AI kill is a platform kill switch with `scope: ai` (`POST /v1/platform/kill-switches`).
+- Timetable generation and clash fixing: Section 6 (`/v1/timetables/...`). The generator runs when `ai.timetable_generator` is on.
+- AI audit log: `GET /v1/audit?category=ai` and `POST /v1/audit/exports` (Section 9).
 
 ### Events
 
@@ -725,13 +720,11 @@ The orb shall expose accessible names and state to screen readers ("Dhruva, thin
 | ai.suggestion.approved | Approved (single or batch) | suggestion_id, approver, batch_id, result_ref | Module services, audit, notifications |
 | ai.suggestion.rejected | Rejected | suggestion_id, reason | Feedback, audit |
 | ai.suggestion.expired | Expiry reached | suggestion_id | Focus card, audit |
-| ai.timetable.approved | Timetable published | classes, use_from, approver | Timetable, notifications |
 | ai.safety.incident | Content or student-safety trigger | type, severity, request_id | Counsellor, platform, audit |
-| ai.quota.threshold | 80% or 100% of quota | tenant_id, capability, percent | Notifications |
-| ai.settings.changed | Settings or consent changed | actor, diff | Audit, TFC |
-| ai.kill.activated / ai.kill.resumed | Kill switch used | scope, actor | All AI services, notifications |
 | ai.feedback.submitted | Thumb or correction | output_id, thumb, reason | Evaluation |
 | ai.eval.completed | Evaluation run ends | capability, metrics, passed | Release pipeline |
+
+Consumed from other sections: `ai.quota_threshold`, `ai.quota_exhausted`, `ai.settings_changed`, `ai.paused`, `ai.resumed` and `killswitch.set` (Section 4); `timetable.approved` (Section 6).
 
 ### State machines / workflows
 

@@ -1421,9 +1421,11 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 
 | Method and path | Purpose | Authz and role scope | Key errors |
 |---|---|---|---|
-| GET /v1/dashboard/today | Focus card and tiles for the active profile | Any staff role | 401, 423 (locked profile) |
-| POST /v1/approvals/{id}/decision | Approve, decline, send back, noted | Approver for the current step | 409 already decided; 403 above limit |
+| GET /v1/dashboard/today?role= | Focus card, prepared queue and tiles for the active profile (desktop and phone) | Any staff role | 401, 423 (locked profile), 403 flag off |
+| POST /v1/dashboard/today/{card}/act, /defer | Run or defer a card | Own role | 409 already done |
 | GET /v1/group/campuses?sort= | Scorecard | Owner | 403 |
+| GET /v1/group/insights/attendance?campus=&weeks= | Weekly attendance for all campuses or one, against the 92% target, with campuses lowest first (owner Insights) | Owner | 403 |
+| GET /v1/group/admissions?session= | New students counted on admission-fee receipt, by month and by campus | Owner | 403 |
 | GET /v1/group/campuses/{id}/drawer | Campus drawer data | Owner | 404 |
 | POST /v1/group/campuses/{id}/actions | Ask for plan, plan a visit, remind parents, mark reviewed | Owner | 422 |
 | POST /v1/onboarding/campuses | Create campus from wizard | Owner | 422 per field |
@@ -1433,15 +1435,15 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 | PUT /v1/setup/{campus}/steps/{n} | Save a setup step | Principal | 422, 423 locked field |
 | POST /v1/setup/{campus}/finish | Finish setup | Principal | 409 steps open |
 | POST /v1/notices | Create and send or submit for approval | Role send rights | 422 audience empty |
-| POST /v1/reports/{key}/run | Download | Role scope | 400 |
-| POST /v1/reports/{key}/schedules | Schedule email | Owner, Principal | 422 invalid email |
 | POST /v1/calendar/events | Add event | Principal (Owner per OQ-6a-03) | 422 |
-| GET/POST /v1/cover?date= and /cover/notify | Cover table, fill, notify | Coordinator, Admin | 409 periods open |
-| POST /v1/timetables/drafts | Generate draft | Coordinator | 422 no classes; 504 timeout |
+| GET/POST /v1/cover?date= ; POST /v1/cover/notify | Cover table, fill, notify | Coordinator, Admin | 409 periods open |
+| POST /v1/timetables/drafts | Generate a draft (classes, rules, use_from); Dhruva generates it when ai.timetable_generator is on | Coordinator | 422 no classes; 504 timeout |
+| GET /v1/timetables/drafts/{id} | Draft with clashes and suggested fixes | Coordinator, Admin | 404 |
+| POST /v1/timetables/drafts/{id}/apply-all | Apply every suggested fix | Coordinator, Admin | 207 remaining clashes |
 | POST /v1/timetables/drafts/{id}/clashes/{c}/apply | Apply or undo a fix | Coordinator | 409 |
 | POST /v1/timetables/{id}/approve | Approve and share a class set | Coordinator | 409 clash open |
 | POST /v1/timetables/{id}/withdraw | Withdraw | Coordinator | 409 |
-| POST /v1/leave and /leave/{id}/decision | Apply, route, decide | Per R-04 | 422 |
+| POST /v1/leave and /leave/{id}/decision | Apply for leave or out on duty (`type`), route, decide | Per R-04 | 422 |
 | PATCH /v1/papers/{id}/stage | Stage change with comments | Teacher, HoD, Exam cell | 409 order, 403 |
 | POST /v1/exams/{id}/seating, /datesheet, /duties | Generate plans | Exam cell | 422 |
 | POST /v1/marks/{assessment}/save | Save marks | Teacher | 422 flags open |
@@ -1451,6 +1453,21 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 | POST /v1/attendance/registers | Submit register | Class teacher | 409 locked |
 | POST /v1/homework/{id}/return | Return checked work | Teacher | 422 |
 | POST /v1/remedial/send | Send suggestions to coordinator | Teacher | 422 |
+| GET /v1/principal/attendance?date=&by= | Student and teacher attendance with grade, section and department drill-down | Principal | 403 |
+| GET /v1/principal/absence-watch | Students and teachers past the absence threshold, with actions | Principal | 403 |
+| GET /v1/fees/defaulters?class=&age= | Fee defaulters by class and age of dues | Principal, accounts | 403 |
+| GET /v1/admin/people, /v1/admin/money, /v1/admin/school | Standalone admin views: people, money, school | School admin | 403 |
+| GET /v1/outcomes?class=&subject= | Learning outcomes by class and subject | Coordinator, HoD | 403 |
+| GET /v1/parent-queries ; POST /v1/parent-queries/{id}/reply | Parent queries routed to the coordinator, and replies | Coordinator | 409 already answered |
+| GET /v1/hod/team | Department team: staff, syllabus pace, leave | HoD | 403 |
+| GET/POST /v1/lesson-plans ; POST /v1/lesson-plans/{id}/review | List and submit lesson plans; review (approve or comment) | Teacher (own), HoD | 409 already reviewed |
+| POST /v1/papers | Create or upload a question paper | Teacher, HoD | 422 |
+| POST /v1/notes | Share notes with students and parents | Teacher | 413 too large |
+| GET /v1/inbox | Teacher inbox: parent messages and queries | Teacher | |
+| GET /v1/counselling/cases ; POST /v1/counselling/referrals | Caseload; refer a student | Counsellor; any teacher may refer | 403 |
+| GET /v1/counselling/checkins, /v1/counselling/careers | Check-in suggestions; career guidance and entrance tracking | Counsellor | 403 |
+
+Approvals use the shared queue in Section 9 (`GET /v1/approvals`, `POST /v1/approvals/{id}/decision`). Reports are run and scheduled through Section 9 (`POST /v1/reports/{key}/runs`, `POST /v1/report-schedules`).
 
 ### Events
 
@@ -1561,50 +1578,49 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /dsk/today?role= | Prepared queue and tiles | Own role | 403 flag off |
-| POST /dsk/today/{card}/act, /defer | Run or defer a card | Own role | 409 already done |
-| GET /hr/employees?filter=&q= ; GET/PATCH /hr/employees/{id} | Directory, profile, edit (audited) | HR, principal | 422 invalid IFSC |
-| POST /hr/corrections/{id}/verify, /reject ; POST /hr/corrections/verify-all | Verify | HR | 409 not HoD-approved |
-| POST /hr/leave-issues/{id}/settle | Comp-off, unpaid, waive | HR | 409 no comp-off |
-| GET /payroll/runs ; POST /payroll/runs/{id}/lock, /review, /exceptions/{eid}/decide, /submit, /release | Run steps | HR; approve: principal | 409 gate failed, 422 funding short |
-| POST /payroll/runs/{id}/approve | Principal approval | Principal | 403 not approver |
-| GET/POST/PATCH /payroll/payrolls ; POST /payroll/payrolls/{id}/members | Setup | HR | 409 member in other payroll |
-| GET /hiring/openings ; POST /hiring/openings/{id}/invite | Openings and demo invites | HR | |
-| PATCH /hiring/onboarding/{id}/items/{item} | Tick item | HR or owner | |
-| GET/POST /exits ; POST /exits/{id}/settlement/submit | Exit | HR | 409 open items |
-| GET /fin/approvals ; POST /fin/approvals/{id}/approve, /send-back | Approvals | Accounts, principal, owner | 403 maker, 422 note needed |
-| POST /fin/concessions/{id}/submit | Concession chain | Accounts | |
-| GET /fin/fees/today ; POST /fin/fees/deposit-slip ; POST /fin/fees/reminders | Fees | Accounts | |
-| GET /fin/bank/{acct}/recon ; POST /fin/bank/lines/{id}/resolve ; POST /fin/bank/{acct}/close | Reconciliation | Accounts | 409 items left |
-| GET /fin/tally/status ; POST /fin/tally/sync ; POST /fin/tally/failures/{id}/fix | Tally | Accounts | 502 connector offline |
-| GET/POST /fin/vouchers ; POST /fin/vouchers/fill | Vouchers and fill-in | Accounts, makers | 422 unbalanced |
-| GET/POST /fin/ledgers, /fin/groups | Masters | Accounts; Account main: group finance head | 403 |
-| POST /fin/periods/{month}/lock ; POST /fin/years | Locks and years | Accounts | 409 steps open |
-| GET /fin/reports/{kind}?year=&format= | Reports and export | Accounts, principal | |
-| GET /fin/compliance ; POST /fin/filings/{id}/send-to-ca | Filings | Accounts | |
-| /fin/purchases, /vendors, /inventory (CRUD, match, pay) | P3 | Accounts | 409 mismatch |
-| GET /adm/families ; PATCH /adm/families/{id} ; POST /adm/families/{id}/calls, /next-step | CRM | Counsellor, front office | 422 outcome missing |
-| POST /adm/enquiries | New enquiry | Counsellor, front office | 409 duplicate |
-| GET/POST /adm/tours ; POST /adm/tours/{id}/feedback | Tours | Counsellor | 422 interest missing |
-| GET /adm/seats ; POST /adm/offers ; POST /adm/offers/{id}/fee-paid ; POST /adm/waitlist/offer | Seats | Counsellor | 409 no seat |
-| POST /adm/campaigns/{id}/send ; GET /adm/reports | Campaigns, reports | Counsellor | |
-| GET /sec/jobs ; POST /sec/jobs/{id}/assign, /status | Jobs | In-charge | 409 closed |
-| GET /sec/gate/visitors ; POST /sec/gate/visitors/{id}/approve, /checkout ; POST /sec/gate/walkins | Gate | Guard, in-charge | |
-| POST /sec/gate/pickups/{id}/allow, /call-parent | Pickups | Guard, in-charge | 403 unlisted without call |
-| GET /sec/systems ; GET/POST /sec/roster | Systems, roster | In-charge | |
-| GET /trn/board?trip= ; GET /trn/buses/{id} | Live board | In-charge | |
-| POST /trn/buses/{id}/spare ; POST /trn/trips/{id}/notify | Spare bus and parent update | In-charge | 409 spare busy |
-| GET /trn/safety ; POST /trn/safety/{id}/handle ; POST /trn/cover | Safety, cover | In-charge | |
-| GET/POST /trn/threads/{id}/reply, /forward | Messages | In-charge | |
-| GET /trn/route-planner ; POST /trn/route-changes/{id}/approve | Routes | In-charge | 409 bus full |
-| GET /trn/fleet ; POST /trn/fleet/{id}/renewal | Fleet | In-charge | |
-| GET /trn/fees ; POST /trn/fees/sync ; POST /trn/fees/{kind}/act | Fees | In-charge | |
-| POST /trn/events (from attendant app) | TripEvent ingest, idempotent by client id | Attendant | 409 duplicate, 403 other bus |
-| GET /stu/home, /plan, /readiness, /quests | Student views | Student (self) | |
-| POST /stu/quests/{id}/complete ; POST /stu/quiz/{id}/answer | Quests and quiz | Student | |
-| POST /stu/papers/{id}/start, /answer, /submit | Timed paper | Student | 409 expired |
-| POST /stu/doubts ; POST /stu/doubts/{id}/escalate | Hint-first questions | Student | |
-| POST /stu/leave | Leave request | Student | 422 dates |
+| GET /v1/hr/employees?filter=&q= ; GET/PATCH /v1/hr/employees/{id} | Directory, profile, edit (audited) | HR, principal | 422 invalid IFSC |
+| POST /v1/hr/corrections/{id}/verify, /reject ; POST /v1/hr/corrections/verify-all | Verify | HR | 409 not HoD-approved |
+| POST /v1/hr/leave-issues/{id}/settle | Comp-off, unpaid, waive | HR | 409 no comp-off |
+| GET /v1/payroll/runs ; POST /v1/payroll/runs/{id}/lock, /review, /exceptions/{eid}/decide, /submit, /release | Run steps | HR; approve: principal | 409 gate failed, 422 funding short |
+| POST /v1/payroll/runs/{id}/approve | Principal approval | Principal | 403 not approver |
+| GET/POST/PATCH /v1/payroll/payrolls ; POST /v1/payroll/payrolls/{id}/members | Setup | HR | 409 member in other payroll |
+| GET /v1/hiring/openings ; POST /v1/hiring/openings/{id}/invite | Openings and demo invites | HR | |
+| PATCH /v1/hiring/onboarding/{id}/items/{item} | Tick item | HR or owner | |
+| GET/POST /v1/exits ; POST /v1/exits/{id}/settlement/submit | Exit | HR | 409 open items |
+| POST /v1/fin/concessions/{id}/submit | Concession chain | Accounts | |
+| GET /v1/fin/fees/today ; POST /v1/fin/fees/deposit-slip ; POST /v1/fin/fees/reminders | Fees | Accounts | |
+| GET /v1/fin/bank/{acct}/recon ; POST /v1/fin/bank/lines/{id}/resolve ; POST /v1/fin/bank/{acct}/close | Reconciliation | Accounts | 409 items left |
+| GET /v1/fin/tally/status ; POST /v1/fin/tally/sync ; POST /v1/fin/tally/failures/{id}/fix | Tally | Accounts | 502 connector offline |
+| GET/POST /v1/fin/vouchers ; POST /v1/fin/vouchers/fill | Vouchers and fill-in | Accounts, makers | 422 unbalanced |
+| GET/POST /v1/fin/ledgers, /fin/groups | Masters | Accounts; Account main: group finance head | 403 |
+| POST /v1/fin/periods/{month}/lock ; POST /v1/fin/years | Locks and years | Accounts | 409 steps open |
+| GET /v1/fin/reports/{kind}?year=&format= | Reports and export | Accounts, principal | |
+| GET /v1/fin/compliance ; POST /v1/fin/filings/{id}/send-to-ca | Filings | Accounts | |
+| GET/POST /v1/fin/purchases, /fin/vendors, /fin/inventory ; GET/PATCH /v1/fin/purchases/{id}, /fin/vendors/{id}, /fin/inventory/{id} ; POST /v1/fin/purchases/{id}/match, /pay | Purchases, vendors and inventory (P3) | P3 | Accounts | 409 mismatch |
+| GET /v1/adm/families ; PATCH /v1/adm/families/{id} ; POST /v1/adm/families/{id}/calls, /next-step | CRM | Counsellor, front office | 422 outcome missing |
+| POST /v1/adm/enquiries | New enquiry | Counsellor, front office | 409 duplicate |
+| GET/POST /v1/adm/tours ; POST /v1/adm/tours/{id}/feedback | Tours | Counsellor | 422 interest missing |
+| GET /v1/adm/seats ; POST /v1/adm/offers ; POST /v1/adm/offers/{id}/fee-paid ; POST /v1/adm/waitlist/offer | Seats | Counsellor | 409 no seat |
+| POST /v1/adm/campaigns/{id}/send ; GET /v1/adm/reports | Campaigns, reports | Counsellor | |
+| GET /v1/sec/jobs ; POST /v1/sec/jobs/{id}/assign, /status | Jobs | In-charge | 409 closed |
+| GET /v1/sec/gate/visitors ; POST /v1/sec/gate/visitors/{id}/approve, /checkout ; POST /v1/sec/gate/walkins | Gate | Guard, in-charge | |
+| POST /v1/sec/gate/pickups/{id}/allow, /call-parent | Pickups | Guard, in-charge | 403 unlisted without call |
+| GET /v1/sec/systems ; GET/POST /v1/sec/roster | Systems, roster | In-charge | |
+| GET /v1/trn/board?trip= ; GET /v1/trn/buses/{id} | Live board | In-charge | |
+| POST /v1/trn/buses/{id}/spare ; POST /v1/trn/trips/{id}/notify | Spare bus and parent update | In-charge | 409 spare busy |
+| GET /v1/trn/safety ; POST /v1/trn/safety/{id}/handle ; POST /v1/trn/cover | Safety, cover | In-charge | |
+| GET /v1/trn/threads/{id} ; POST /v1/trn/threads/{id}/reply, /forward | Messages | In-charge | |
+| GET /v1/trn/route-planner ; POST /v1/trn/route-changes/{id}/approve | Routes | In-charge | 409 bus full |
+| GET /v1/trn/fleet ; POST /v1/trn/fleet/{id}/renewal | Fleet | In-charge | |
+| GET /v1/trn/fees ; POST /v1/trn/fees/sync ; POST /v1/trn/fees/{kind}/act | Fees | In-charge | |
+| POST /v1/trn/events (from attendant app) | TripEvent ingest, idempotent by client id | Attendant | 409 duplicate, 403 other bus |
+| GET /v1/stu/home, /plan, /readiness, /quests | Student views | Student (self) | |
+| POST /v1/stu/quests/{id}/complete ; POST /v1/stu/quiz/{id}/answer | Quests and quiz | Student | |
+| POST /v1/stu/papers/{id}/start, /answer, /submit | Timed paper | Student | 409 expired |
+| POST /v1/stu/doubts ; POST /v1/stu/doubts/{id}/escalate | Hint-first questions | Student | |
+| POST /v1/stu/leave | Leave request | Student | 422 dates |
+
+The role home for every role in this table is `GET /v1/dashboard/today` (part 1 of this annex). Finance approvals use the shared queue: `GET /v1/approvals?module=finance` and `POST /v1/approvals/{id}/decision` with `approve`, `send_back` or `decline` (Section 9).
 
 ### Events
 

@@ -1,0 +1,909 @@
+id,section,module,priority,phase,flag,source,heading
+IDM-OTP-001,3,IDM-OTP,Must,MVP,core,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-002,3,IDM-OTP,Must,MVP,core,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-003,3,IDM-OTP,Must,MVP,core,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-004,3,IDM-OTP,Must,MVP,core,Spec,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-005,3,IDM-OTP,Must,MVP,core,Spec,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-006,3,IDM-OTP,Should,MVP,core,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-007,3,IDM-OTP,Must,MVP,core,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-008,3,IDM-OTP,Must,MVP,idm.web_login,Design,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-009,3,IDM-OTP,Must,MVP,core,Spec,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-OTP-010,3,IDM-OTP,Must,MVP,core,Spec,"3.3.1 Mobile number and OTP sign-in (app, website, desktop web)"
+IDM-NF-001,3,IDM-NF,Must,MVP,core,Design,"3.3.2 Number not registered, and discovery of school and role"
+IDM-NF-002,3,IDM-NF,Must,MVP,core,Spec,"3.3.2 Number not registered, and discovery of school and role"
+IDM-NF-003,3,IDM-NF,Should,MVP,core,Spec,"3.3.2 Number not registered, and discovery of school and role"
+IDM-DSC-001,3,IDM-DSC,Must,MVP,idm.multi_profile,Design,"3.3.2 Number not registered, and discovery of school and role"
+IDM-DSC-002,3,IDM-DSC,Must,MVP,idm.multi_profile,Design,"3.3.2 Number not registered, and discovery of school and role"
+IDM-DSC-003,3,IDM-DSC,Must,MVP,core,Spec,"3.3.2 Number not registered, and discovery of school and role"
+IDM-PRF-001,3,IDM-PRF,Must,MVP,idm.multi_profile,Design,3.3.3 Multiple profiles and switching
+IDM-PRF-002,3,IDM-PRF,Must,MVP,mod.profile_switching,Design,3.3.3 Multiple profiles and switching
+IDM-PRF-003,3,IDM-PRF,Must,MVP,mod.profile_switching,Design,3.3.3 Multiple profiles and switching
+IDM-PRF-004,3,IDM-PRF,Should,MVP,idm.multi_profile,Design,3.3.3 Multiple profiles and switching
+IDM-PRF-005,3,IDM-PRF,Must,MVP,idm.multi_profile,Spec,3.3.3 Multiple profiles and switching
+IDM-PRF-006,3,IDM-PRF,Must,MVP,mod.profile_switching,Design,3.3.3 Multiple profiles and switching
+IDM-PRF-007,3,IDM-PRF,Must,MVP,idm.multi_profile,Design,3.3.3 Multiple profiles and switching
+IDM-SEP-001,3,IDM-SEP,Must,MVP,core,Design,3.3.4 Strict data separation between profiles and tenants
+IDM-SEP-002,3,IDM-SEP,Must,MVP,core,Design,3.3.4 Strict data separation between profiles and tenants
+IDM-SEP-003,3,IDM-SEP,Must,MVP,core,Spec,3.3.4 Strict data separation between profiles and tenants
+IDM-SEP-004,3,IDM-SEP,Must,MVP,core,Spec,3.3.4 Strict data separation between profiles and tenants
+IDM-LCK-001,3,IDM-LCK,Must,MVP,idm.app_pin,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-002,3,IDM-LCK,Must,MVP,idm.biometric,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-003,3,IDM-LCK,Must,MVP,idm.app_pin,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-004,3,IDM-LCK,Must,MVP,idm.app_pin,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-005,3,IDM-LCK,Must,MVP,idm.app_pin,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-006,3,IDM-LCK,Must,MVP,idm.app_pin,Spec,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-007,3,IDM-LCK,Should,MVP,idm.app_pin,Design,"3.3.5 PIN, biometric and app lock"
+IDM-LCK-008,3,IDM-LCK,Must,MVP,idm.biometric,Spec,"3.3.5 PIN, biometric and app lock"
+IDM-SES-001,3,IDM-SES,Must,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-SES-002,3,IDM-SES,Must,MVP,core,Design,3.3.6 Sessions and device management
+IDM-SES-003,3,IDM-SES,Must,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-SES-004,3,IDM-SES,Should,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-SES-005,3,IDM-SES,Must,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-SES-006,3,IDM-SES,Must,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-SES-007,3,IDM-SES,Should,MVP,core,Spec,3.3.6 Sessions and device management
+IDM-ROL-001,3,IDM-ROL,Must,MVP,core,Spec,3.3.7 Roles and permission scope model
+IDM-ROL-002,3,IDM-ROL,Must,MVP,core,Design,3.3.7 Roles and permission scope model
+IDM-ROL-003,3,IDM-ROL,Must,MVP,core,Design,3.3.7 Roles and permission scope model
+IDM-ROL-004,3,IDM-ROL,Must,MVP,core,Design,3.3.7 Roles and permission scope model
+IDM-ROL-005,3,IDM-ROL,Must,MVP,idm.multi_profile,Design,3.3.7 Roles and permission scope model
+IDM-ROL-006,3,IDM-ROL,Must,MVP,core,Spec,3.3.7 Roles and permission scope model
+IDM-ROL-007,3,IDM-ROL,Must,MVP,core,Spec,3.3.8 Role catalogue
+IDM-LIF-001,3,IDM-LIF,Must,MVP,core,Design,3.3.9 Role assignment and lifecycle
+IDM-LIF-002,3,IDM-LIF,Must,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-LIF-003,3,IDM-LIF,Must,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-LIF-004,3,IDM-LIF,Must,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-LIF-005,3,IDM-LIF,Should,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-LIF-006,3,IDM-LIF,Must,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-LIF-007,3,IDM-LIF,Should,MVP,core,Spec,3.3.9 Role assignment and lifecycle
+IDM-REC-001,3,IDM-REC,Must,MVP,core,Spec,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-REC-002,3,IDM-REC,Must,MVP,core,Design,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-REC-003,3,IDM-REC,Must,MVP,core,Spec,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-REC-004,3,IDM-REC,Must,MVP,core,Spec,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-STU-001,3,IDM-STU,Must,MVP,mod.student_learning,Design,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-STU-002,3,IDM-STU,Must,MVP,mod.student_learning,Spec,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-STF-001,3,IDM-STF,Must,MVP,core,Design,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-STF-002,3,IDM-STF,Should,MVP,core,Spec,"3.3.10 User and profile records, parent-child linking, student and staff accounts"
+IDM-WAB-001,3,IDM-WAB,Must,P2,ch.whatsapp,Design,3.3.11 Identity of WhatsApp users
+IDM-WAB-002,3,IDM-WAB,Must,P2,ch.whatsapp.parent_bot,Design,3.3.11 Identity of WhatsApp users
+IDM-WAB-003,3,IDM-WAB,Must,P2,ch.whatsapp.parent_bot,Spec,3.3.11 Identity of WhatsApp users
+IDM-WAB-004,3,IDM-WAB,Must,P2,ch.whatsapp.staff_bot,Design,3.3.11 Identity of WhatsApp users
+IDM-WAB-005,3,IDM-WAB,Must,P2,ch.whatsapp,Design,3.3.11 Identity of WhatsApp users
+IDM-WAB-006,3,IDM-WAB,Must,P2,ch.whatsapp,Spec,3.3.11 Identity of WhatsApp users
+IDM-WAB-007,3,IDM-WAB,Should,P2,ch.whatsapp,Spec,3.3.11 Identity of WhatsApp users
+IDM-PRV-001,3,IDM-PRV,Must,MVP,core,Design,"3.3.12 Privacy, consent and audit of sign-ins"
+IDM-PRV-002,3,IDM-PRV,Must,MVP,core,Design,"3.3.12 Privacy, consent and audit of sign-ins"
+IDM-PRV-003,3,IDM-PRV,Must,MVP,core,Spec,"3.3.12 Privacy, consent and audit of sign-ins"
+IDM-PRV-004,3,IDM-PRV,Should,MVP,core,Spec,"3.3.12 Privacy, consent and audit of sign-ins"
+IDM-PRV-005,3,IDM-PRV,Must,P2,core,Design,"3.3.12 Privacy, consent and audit of sign-ins"
+IDM-REC-005,3,IDM-REC,Must,MVP,core,Spec,3.3.13 Account recovery when the mobile number changes
+IDM-REC-006,3,IDM-REC,Must,MVP,core,Spec,3.3.13 Account recovery when the mobile number changes
+IDM-REC-007,3,IDM-REC,Should,MVP,core,Spec,3.3.13 Account recovery when the mobile number changes
+IDM-ADM-001,3,IDM-ADM,Must,MVP,core,Spec,3.3.14 Admin controls for identity
+IDM-ADM-002,3,IDM-ADM,Must,MVP,core,Spec,3.3.14 Admin controls for identity
+IDM-ADM-003,3,IDM-ADM,Must,MVP,idm.app_pin,Spec,3.3.14 Admin controls for identity
+IDM-ADM-004,3,IDM-ADM,Should,MVP,core,Spec,3.3.14 Admin controls for identity
+IDM-ADM-005,3,IDM-ADM,Could,P2,mod.student_learning,Spec,3.3.14 Admin controls for identity
+IDM-ADM-006,3,IDM-ADM,Should,P3,idm.sso,Design,3.3.14 Admin controls for identity
+IDM-ADM-007,3,IDM-ADM,Must,MVP,core,Spec,3.3.14 Admin controls for identity
+IDM-SEC-001,3,IDM-SEC,Must,MVP,core,Spec,3.3.15 Security requirements
+IDM-SEC-002,3,IDM-SEC,Must,MVP,core,Design,3.3.15 Security requirements
+IDM-SEC-003,3,IDM-SEC,Must,MVP,core,Spec,3.3.15 Security requirements
+IDM-SEC-004,3,IDM-SEC,Must,MVP,core,Spec,3.3.15 Security requirements
+TFC-ACT-001,4,TFC-ACT,Must,MVP,core,Spec,
+TFC-ACT-002,4,TFC-ACT,Must,MVP,core,Spec,
+TFC-ACT-003,4,TFC-ACT,Must,MVP,core,Spec,
+TFC-ACT-004,4,TFC-ACT,Should,MVP,core,Spec,
+TFC-ACT-005,4,TFC-ACT,Must,MVP,core,Spec,
+TFC-ACT-006,4,TFC-ACT,Must,MVP,core,Spec,
+TFC-FLAG-001,4,TFC-FLAG,Must,MVP,core,Spec,Feature catalogue (FLAG)
+TFC-FLAG-002,4,TFC-FLAG,Must,MVP,core,Spec,Feature catalogue (FLAG)
+TFC-FLAG-003,4,TFC-FLAG,Must,MVP,core,Spec,Feature catalogue (FLAG)
+TFC-FLAG-004,4,TFC-FLAG,Must,MVP,core,Spec,Feature catalogue (FLAG)
+TFC-CON-001,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-002,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-003,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-004,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-005,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-006,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-007,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-008,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-009,4,TFC-CON,Should,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-010,4,TFC-CON,Should,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-011,4,TFC-CON,Should,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-012,4,TFC-CON,Should,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-013,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-014,4,TFC-CON,Must,MVP,core,Spec,Admin console UX (CON)
+TFC-CON-015,4,TFC-CON,Should,P2,core,Spec,Admin console UX (CON)
+TFC-RES-001,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-002,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-003,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-004,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-005,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-006,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-007,4,TFC-RES,Should,MVP,core,Spec,Effective-state resolution (RES)
+TFC-RES-008,4,TFC-RES,Must,MVP,core,Spec,Effective-state resolution (RES)
+TFC-DIS-001,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-002,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-003,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-004,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-005,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-006,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-007,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-008,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-DIS-009,4,TFC-DIS,Must,MVP,ch.whatsapp,Design,Behaviour when a feature is off (DIS)
+TFC-DIS-010,4,TFC-DIS,Must,MVP,core,Spec,Behaviour when a feature is off (DIS)
+TFC-AIC-001,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-002,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-003,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-004,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-005,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-006,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-007,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-008,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-009,4,TFC-AIC,Should,MVP,core,Spec,AI controls (AIC)
+TFC-AIC-010,4,TFC-AIC,Must,MVP,core,Spec,AI controls (AIC)
+TFC-APR-001,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-APR-002,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-APR-003,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-APR-004,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-APR-005,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-APR-006,4,TFC-APR,Must,MVP,core,Spec,Approvals for risky changes (APR)
+TFC-AUD-001,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-AUD-002,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-AUD-003,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-AUD-004,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-AUD-005,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-AUD-006,4,TFC-AUD,Must,MVP,core,Spec,"Audit, history, snapshots and rollback (AUD)"
+TFC-RUN-001,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-002,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-003,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-004,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-005,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-006,4,TFC-RUN,Must,P2,core,Spec,Runtime (RUN)
+TFC-RUN-007,4,TFC-RUN,Should,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-008,4,TFC-RUN,Must,MVP,core,Spec,Runtime (RUN)
+TFC-RUN-009,4,TFC-RUN,Should,P2,core,Spec,Runtime (RUN)
+TFC-NOT-001,4,TFC-NOT,Must,MVP,core,Spec,Notifications to affected people (NOT)
+TFC-NOT-002,4,TFC-NOT,Should,MVP,core,Spec,Notifications to affected people (NOT)
+TFC-NOT-003,4,TFC-NOT,Must,MVP,core,Spec,Notifications to affected people (NOT)
+TFC-NOT-004,4,TFC-NOT,Could,P2,core,Spec,Notifications to affected people (NOT)
+TFC-PLN-001,4,TFC-PLN,Must,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-PLN-002,4,TFC-PLN,Must,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-PLN-003,4,TFC-PLN,Must,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-PLN-004,4,TFC-PLN,Must,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-PLN-005,4,TFC-PLN,Must,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-PLN-006,4,TFC-PLN,Should,MVP,core,Spec,Plans and entitlements (PLN)
+TFC-SET-001,4,TFC-SET,Must,MVP,core,Spec,Tenant-level settings (SET)
+TFC-SET-002,4,TFC-SET,Should,MVP,core,Design,Tenant-level settings (SET)
+TFC-SET-003,4,TFC-SET,Must,MVP,core,Spec,Tenant-level settings (SET)
+TFC-SET-004,4,TFC-SET,Should,MVP,core,Spec,Tenant-level settings (SET)
+TFC-SET-005,4,TFC-SET,Must,MVP,mod.approvals,Design,Tenant-level settings (SET)
+TFC-SET-006,4,TFC-SET,Must,MVP,core,Spec,Tenant-level settings (SET)
+TFC-SET-007,4,TFC-SET,Must,MVP,ch.whatsapp,Design,Tenant-level settings (SET)
+TFC-HIE-001,4,TFC-HIE,Must,MVP,core,Spec,"Group, campus and standalone hierarchy (HIE)"
+TFC-HIE-002,4,TFC-HIE,Must,MVP,core,Spec,"Group, campus and standalone hierarchy (HIE)"
+TFC-HIE-003,4,TFC-HIE,Must,MVP,mod.campus_onboarding,Spec,"Group, campus and standalone hierarchy (HIE)"
+TFC-HIE-004,4,TFC-HIE,Should,MVP,core,Spec,"Group, campus and standalone hierarchy (HIE)"
+TFC-HIE-005,4,TFC-HIE,Must,MVP,core,Spec,"Group, campus and standalone hierarchy (HIE)"
+TFC-PLT-001,4,TFC-PLT,Must,MVP,core,Spec,Platform Owner console (PLT)
+TFC-PLT-002,4,TFC-PLT,Must,MVP,core,Spec,Platform Owner console (PLT)
+TFC-PLT-003,4,TFC-PLT,Must,MVP,core,Spec,Platform Owner console (PLT)
+TFC-PLT-004,4,TFC-PLT,Should,MVP,core,Spec,Platform Owner console (PLT)
+TFC-PLT-005,4,TFC-PLT,Should,MVP,core,Spec,Platform Owner console (PLT)
+TFC-PLT-006,4,TFC-PLT,Must,MVP,core,Spec,Platform Owner console (PLT)
+AI-PRN-001,5,AI-PRN,Must,MVP,core,Design,5.3.1 AI principles (shared platform requirements)
+AI-PRN-002,5,AI-PRN,Must,MVP,core,Design,5.3.1 AI principles (shared platform requirements)
+AI-PRN-003,5,AI-PRN,Must,MVP,core,Design,5.3.1 AI principles (shared platform requirements)
+AI-PRN-004,5,AI-PRN,Must,MVP,core,Spec,5.3.1 AI principles (shared platform requirements)
+AI-PRN-005,5,AI-PRN,Must,MVP,core,Spec,5.3.1 AI principles (shared platform requirements)
+AI-PRN-006,5,AI-PRN,Must,MVP,core,Spec,5.3.1 AI principles (shared platform requirements)
+AI-CHT-001,5,AI-CHT,Must,MVP,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-002,5,AI-CHT,Must,MVP,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-003,5,AI-CHT,Must,MVP,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-004,5,AI-CHT,Must,MVP,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-005,5,AI-CHT,Must,MVP,ai.assistant_chat,Spec,5.3.2 Ask Dhruva chat
+AI-CHT-006,5,AI-CHT,Must,MVP,ai.assistant_chat,Spec,5.3.2 Ask Dhruva chat
+AI-CHT-007,5,AI-CHT,Should,P2,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-008,5,AI-CHT,Must,MVP,ai.assistant_chat,Design,5.3.2 Ask Dhruva chat
+AI-CHT-009,5,AI-CHT,Should,MVP,ai.assistant_chat,Spec,5.3.2 Ask Dhruva chat
+AI-FOC-001,5,AI-FOC,Must,MVP,ai.focus_card,Design,5.3.3 Daily focus card and queue ordering
+AI-FOC-002,5,AI-FOC,Must,MVP,ai.focus_card,Spec,5.3.3 Daily focus card and queue ordering
+AI-FOC-003,5,AI-FOC,Must,MVP,ai.focus_card,Design,5.3.3 Daily focus card and queue ordering
+AI-FOC-004,5,AI-FOC,Should,MVP,ai.focus_card,Design,5.3.3 Daily focus card and queue ordering
+AI-FOC-005,5,AI-FOC,Should,P2,ai.focus_card,Spec,5.3.3 Daily focus card and queue ordering
+AI-FOC-006,5,AI-FOC,Should,MVP,ai.focus_card,Design,5.3.3 Daily focus card and queue ordering
+AI-COV-001,5,AI-COV,Must,MVP,ai.cover_suggestions,Design,5.3.4 Generation and decision-support capabilities
+AI-TTG-001,5,AI-TTG,Must,MVP,ai.timetable_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-TTG-002,5,AI-TTG,Must,MVP,ai.timetable_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-TTG-003,5,AI-TTG,Must,MVP,ai.timetable_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-TTG-004,5,AI-TTG,Must,MVP,ai.timetable_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-RPL-001,5,AI-RPL,Must,MVP,ai.reply_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-RPL-002,5,AI-RPL,Should,MVP,ai.reply_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-RPL-003,5,AI-RPL,Should,MVP,ai.reply_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-NTC-001,5,AI-NTC,Must,MVP,ai.notice_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-NTC-002,5,AI-NTC,Should,MVP,ai.notice_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-NTC-003,5,AI-NTC,Should,MVP,ai.notice_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-MKS-001,5,AI-MKS,Must,MVP,ai.marks_from_photo,Design,5.3.4 Generation and decision-support capabilities
+AI-MKS-002,5,AI-MKS,Must,MVP,ai.marks_from_photo,Spec,5.3.4 Generation and decision-support capabilities
+AI-MKS-003,5,AI-MKS,Should,MVP,ai.marks_from_photo,Design,5.3.4 Generation and decision-support capabilities
+AI-MKS-004,5,AI-MKS,Should,MVP,ai.marks_from_photo,Design,5.3.4 Generation and decision-support capabilities
+AI-PPR-001,5,AI-PPR,Must,MVP,ai.paper_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-PPR-002,5,AI-PPR,Should,MVP,ai.paper_generator,Design,5.3.4 Generation and decision-support capabilities
+AI-PPR-003,5,AI-PPR,Should,P2,ai.exam_planning,Design,5.3.4 Generation and decision-support capabilities
+AI-LPL-001,5,AI-LPL,Must,MVP,ai.lesson_plan_drafts,Design,5.3.4 Generation and decision-support capabilities
+AI-HWK-001,5,AI-HWK,Must,MVP,ai.homework_marking,Design,5.3.4 Generation and decision-support capabilities
+AI-REM-001,5,AI-REM,Must,MVP,ai.remedial_grouping,Design,5.3.4 Generation and decision-support capabilities
+AI-REM-002,5,AI-REM,Must,MVP,ai.remedial_grouping,Design,5.3.4 Generation and decision-support capabilities
+AI-RSK-001,5,AI-RSK,Must,MVP,ai.at_risk_detection,Design,5.3.4 Generation and decision-support capabilities
+AI-RSK-002,5,AI-RSK,Should,MVP,ai.at_risk_detection,Design,5.3.4 Generation and decision-support capabilities
+AI-RSK-003,5,AI-RSK,Must,MVP,ai.at_risk_detection,Spec,5.3.4 Generation and decision-support capabilities
+AI-ADM-001,5,AI-ADM,Must,MVP,ai.admissions_scoring,Design,5.3.4 Generation and decision-support capabilities
+AI-ADM-002,5,AI-ADM,Should,MVP,ai.admissions_scoring,Design,5.3.4 Generation and decision-support capabilities
+AI-FEE-001,5,AI-FEE,Must,MVP,ai.fee_followup,Design,5.3.4 Generation and decision-support capabilities
+AI-PAY-001,5,AI-PAY,Must,MVP,ai.payroll_checks,Design,5.3.4 Generation and decision-support capabilities
+AI-PAY-002,5,AI-PAY,Should,MVP,ai.hr_assist,Design,5.3.4 Generation and decision-support capabilities
+AI-BNK-001,5,AI-BNK,Must,MVP,ai.bank_matching,Design,5.3.4 Generation and decision-support capabilities
+AI-SEC-001,5,AI-SEC,Must,MVP,ai.security_triage,Design,5.3.4 Generation and decision-support capabilities
+AI-TRN-001,5,AI-TRN,Must,MVP,ai.transport_alerts,Design,5.3.4 Generation and decision-support capabilities
+AI-TUT-001,5,AI-TUT,Must,MVP,ai.student_tutor,Design,5.3.4 Generation and decision-support capabilities
+AI-TUT-002,5,AI-TUT,Must,MVP,ai.student_tutor,Design,5.3.4 Generation and decision-support capabilities
+AI-VOI-001,5,AI-VOI,Should,P2,ai.voice_input,Design,5.3.4 Generation and decision-support capabilities
+AI-TRL-001,5,AI-TRL,Should,MVP,ai.translation,Design,5.3.4 Generation and decision-support capabilities
+AI-TRL-002,5,AI-TRL,Should,P2,ai.translation,Design,5.3.4 Generation and decision-support capabilities
+AI-WAB-001,5,AI-WAB,Should,P2,ai.whatsapp_bot,Design,5.3.4 Generation and decision-support capabilities
+AI-WAB-002,5,AI-WAB,Must,P2,ai.whatsapp_bot,Spec,5.3.4 Generation and decision-support capabilities
+AI-WAB-003,5,AI-WAB,Should,P2,ai.whatsapp_bot,Design,5.3.4 Generation and decision-support capabilities
+AI-IMP-001,5,AI-IMP,Should,MVP,ai.data_import_checks,Design,5.3.4 Generation and decision-support capabilities
+AI-CTL-001,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-002,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-003,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-004,5,AI-CTL,Should,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-005,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-006,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-007,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-008,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-009,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-010,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-011,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-012,5,AI-CTL,Must,MVP,core,Spec,5.3.5 AI control plane
+AI-CTL-013,5,AI-CTL,Should,MVP,core,Spec,5.3.5 AI control plane
+AI-QLT-001,5,AI-QLT,Must,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-002,5,AI-QLT,Must,MVP,core,Design,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-003,5,AI-QLT,Must,MVP,core,Design,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-004,5,AI-QLT,Must,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-005,5,AI-QLT,Must,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-006,5,AI-QLT,Must,MVP,ai.student_tutor,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-007,5,AI-QLT,Must,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-008,5,AI-QLT,Should,MVP,ai.assistant_chat,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-QLT-009,5,AI-QLT,Must,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-AUD-001,5,AI-AUD,Must,MVP,core,Design,"5.3.6 Quality, safety, fairness and audit"
+AI-AUD-002,5,AI-AUD,Should,MVP,core,Spec,"5.3.6 Quality, safety, fairness and audit"
+AI-HLO-001,5,AI-HLO,Must,MVP,ai.assistant_chat,Design,5.3.7 Halo orb (UI requirement)
+AI-HLO-002,5,AI-HLO,Should,MVP,ai.assistant_chat,Spec,5.3.7 Halo orb (UI requirement)
+DSK-SHL-001,6,DSK-SHL,Must,MVP,ch.desktop_web,Design,
+DSK-SHL-002,6,DSK-SHL,Must,MVP,ch.desktop_web,Design,
+DSK-SHL-003,6,DSK-SHL,Must,MVP,ai.assistant_chat,Design,
+DSK-SHL-004,6,DSK-SHL,Must,MVP,ai.focus_card,Design,
+DSK-SHL-005,6,DSK-SHL,Must,MVP,core,Design,
+DSK-SHL-006,6,DSK-SHL,Must,MVP,mod.profile_switching,Design,
+DSK-SHL-007,6,DSK-SHL,Must,MVP,core,Design,
+DSK-SHL-008,6,DSK-SHL,Should,MVP,ch.desktop_web,Spec,
+DSK-SHL-009,6,DSK-SHL,Must,MVP,ch.desktop_web,Spec,
+DSK-SHL-010,6,DSK-SHL,Must,MVP,ch.desktop_web,Spec,
+DSK-SHL-011,6,DSK-SHL,Must,MVP,idm.web_login,Design] + [Spec,
+DSK-SHL-012,6,DSK-SHL,Must,MVP,mod.reports,Design] + [Spec,
+DSK-SHL-013,6,DSK-SHL,Must,MVP,core,Spec,
+DSK-OWN-001,6,DSK-OWN,Must,MVP,mod.group_scorecard,Design,Group Owner (OWN)
+DSK-OWN-002,6,DSK-OWN,Must,MVP,mod.approvals,Design,Group Owner (OWN)
+DSK-OWN-003,6,DSK-OWN,Must,MVP,mod.group_scorecard,Design,Group Owner (OWN)
+DSK-OWN-004,6,DSK-OWN,Must,MVP,mod.group_scorecard,Design,Group Owner (OWN)
+DSK-OWN-005,6,DSK-OWN,Must,MVP,mod.group_scorecard,Design,Group Owner (OWN)
+DSK-OWN-006,6,DSK-OWN,Must,MVP,mod.campus_onboarding,Design,Group Owner (OWN)
+DSK-OWN-007,6,DSK-OWN,Must,MVP,mod.campus_onboarding,Design,Group Owner (OWN)
+DSK-OWN-008,6,DSK-OWN,Must,MVP,mod.campus_onboarding,Design] + [Spec,Group Owner (OWN)
+DSK-OWN-009,6,DSK-OWN,Must,MVP,mod.campus_onboarding,Design,Group Owner (OWN)
+DSK-OWN-010,6,DSK-OWN,Must,MVP,mod.notices,Design,Group Owner (OWN)
+DSK-OWN-011,6,DSK-OWN,Must,MVP,mod.calendar_ptm,Design,Group Owner (OWN)
+DSK-OWN-012,6,DSK-OWN,Must,MVP,mod.reports,Design,Group Owner (OWN)
+DSK-PRI-001,6,DSK-PRI,Must,MVP,ai.focus_card,Design,Principal (PRI)
+DSK-PRI-002,6,DSK-PRI,Must,MVP,mod.attendance,Design,Principal (PRI)
+DSK-PRI-003,6,DSK-PRI,Must,MVP,mod.attendance,Design,Principal (PRI)
+DSK-PRI-004,6,DSK-PRI,Must,MVP,mod.fees,Design,Principal (PRI)
+DSK-PRI-005,6,DSK-PRI,Must,MVP,mod.reports,Design,Principal (PRI)
+DSK-PRI-006,6,DSK-PRI,Must,MVP,mod.calendar_ptm,Design,Principal (PRI)
+DSK-PRI-007,6,DSK-PRI,Must,MVP,mod.approvals,Design,Principal (PRI)
+DSK-PRI-008,6,DSK-PRI,Must,MVP,mod.notices,Design,Principal (PRI)
+DSK-PRI-009,6,DSK-PRI,Must,MVP,mod.hr_leave,Design,Principal (PRI)
+DSK-PRI-010,6,DSK-PRI,Must,MVP,mod.campus_onboarding,Design,Principal (PRI)
+DSK-PRI-011,6,DSK-PRI,Must,MVP,mod.campus_onboarding,Design,Principal (PRI)
+DSK-PRI-012,6,DSK-PRI,Should,MVP,mod.campus_onboarding,Design,Principal (PRI)
+DSK-ADM-001,6,DSK-ADM,Must,MVP,ai.focus_card,Design,Standalone School Admin (ADM)
+DSK-ADM-002,6,DSK-ADM,Must,MVP,mod.attendance,Design,Standalone School Admin (ADM)
+DSK-ADM-003,6,DSK-ADM,Must,MVP,mod.hr_leave,Design,Standalone School Admin (ADM)
+DSK-ADM-004,6,DSK-ADM,Must,MVP,mod.fees,Design,Standalone School Admin (ADM)
+DSK-ADM-005,6,DSK-ADM,Must,MVP,mod.payroll,Design,Standalone School Admin (ADM)
+DSK-ADM-006,6,DSK-ADM,Must,MVP,mod.admissions_crm,Design,Standalone School Admin (ADM)
+DSK-ADM-007,6,DSK-ADM,Must,MVP,mod.approvals,Design] + [Spec,Standalone School Admin (ADM)
+DSK-ADM-008,6,DSK-ADM,Must,MVP,mod.notices,Design,Standalone School Admin (ADM)
+DSK-ACO-001,6,DSK-ACO,Must,MVP,ai.focus_card,Design,Academic Coordinator (ACO)
+DSK-ACO-002,6,DSK-ACO,Must,MVP,mod.cover,Design,Academic Coordinator (ACO)
+DSK-ACO-003,6,DSK-ACO,Must,MVP,mod.pace_tracking,Design,Academic Coordinator (ACO)
+DSK-ACO-004,6,DSK-ACO,Must,MVP,mod.marks_results,Design,Academic Coordinator (ACO)
+DSK-ACO-005,6,DSK-ACO,Must,MVP,ai.timetable_generator,Design,Academic Coordinator (ACO)
+DSK-ACO-006,6,DSK-ACO,Must,MVP,ai.timetable_generator,Design,Academic Coordinator (ACO)
+DSK-ACO-007,6,DSK-ACO,Must,MVP,mod.timetable,Design,Academic Coordinator (ACO)
+DSK-ACO-008,6,DSK-ACO,Must,MVP,ai.timetable_generator,Design,Academic Coordinator (ACO)
+DSK-ACO-009,6,DSK-ACO,Must,MVP,mod.timetable,Design,Academic Coordinator (ACO)
+DSK-ACO-010,6,DSK-ACO,Must,MVP,mod.timetable,Design,Academic Coordinator (ACO)
+DSK-ACO-011,6,DSK-ACO,Must,MVP,mod.parent_messaging,Design,Academic Coordinator (ACO)
+DSK-ACO-012,6,DSK-ACO,Must,MVP,mod.hr_leave,Design,Academic Coordinator (ACO)
+DSK-HOD-001,6,DSK-HOD,Must,MVP,ai.focus_card,Design,Head of Department (HOD)
+DSK-HOD-002,6,DSK-HOD,Must,MVP,mod.timetable,Design,Head of Department (HOD)
+DSK-HOD-003,6,DSK-HOD,Must,MVP,mod.lesson_plans,Design,Head of Department (HOD)
+DSK-HOD-004,6,DSK-HOD,Must,MVP,mod.exams,Design,Head of Department (HOD)
+DSK-HOD-005,6,DSK-HOD,Must,MVP,mod.hr_leave,Design,Head of Department (HOD)
+DSK-HOD-006,6,DSK-HOD,Must,MVP,mod.pace_tracking,Design,Head of Department (HOD)
+DSK-HOD-007,6,DSK-HOD,Should,MVP,mod.calendar_ptm,Design,Head of Department (HOD)
+DSK-HOD-008,6,DSK-HOD,Must,MVP,mod.pace_tracking,Design,Head of Department (HOD)
+DSK-HOD-009,6,DSK-HOD,Should,MVP,mod.calendar_ptm,Design,Head of Department (HOD)
+DSK-HOD-010,6,DSK-HOD,Must,MVP,mod.hr_leave,Design,Head of Department (HOD)
+DSK-EXM-001,6,DSK-EXM,Must,MVP,ai.focus_card,Design,Exam Cell (EXM)
+DSK-EXM-002,6,DSK-EXM,Must,MVP,mod.exams,Design,Exam Cell (EXM)
+DSK-EXM-003,6,DSK-EXM,Must,MVP,mod.exams,Design] + [Spec,Exam Cell (EXM)
+DSK-EXM-004,6,DSK-EXM,Must,MVP,ai.exam_planning,Design,Exam Cell (EXM)
+DSK-EXM-005,6,DSK-EXM,Must,MVP,mod.exams,Design,Exam Cell (EXM)
+DSK-EXM-006,6,DSK-EXM,Must,MVP,ai.exam_planning,Design,Exam Cell (EXM)
+DSK-EXM-007,6,DSK-EXM,Must,MVP,mod.marks_results,Design,Exam Cell (EXM)
+DSK-EXM-008,6,DSK-EXM,Must,MVP,mod.report_cards,Design,Exam Cell (EXM)
+DSK-EXM-009,6,DSK-EXM,Must,MVP,mod.cbse_registration,Design,Exam Cell (EXM)
+DSK-EXM-010,6,DSK-EXM,Must,MVP,mod.hr_leave,Design,Exam Cell (EXM)
+DSK-CNS-001,6,DSK-CNS,Must,MVP,mod.counselling,Design,Counsellor (CNS)
+DSK-CNS-002,6,DSK-CNS,Must,MVP,mod.counselling,Design,Counsellor (CNS)
+DSK-CNS-003,6,DSK-CNS,Must,MVP,ai.at_risk_detection,Design,Counsellor (CNS)
+DSK-CNS-004,6,DSK-CNS,Must,MVP,mod.counselling,Design,Counsellor (CNS)
+DSK-CNS-005,6,DSK-CNS,Should,MVP,mod.counselling,Design,Counsellor (CNS)
+DSK-CNS-006,6,DSK-CNS,Should,MVP,mod.counselling,Design,Counsellor (CNS)
+DSK-CNS-007,6,DSK-CNS,Must,MVP,mod.hr_leave,Design,Counsellor (CNS)
+DSK-TCH-001,6,DSK-TCH,Must,MVP,ai.focus_card,Design,Teacher (TCH)
+DSK-TCH-002,6,DSK-TCH,Must,MVP,mod.attendance,Design,Teacher (TCH)
+DSK-TCH-003,6,DSK-TCH,Must,MVP,mod.marks_results,Design,Teacher (TCH)
+DSK-TCH-004,6,DSK-TCH,Must,MVP,mod.homework,Design,Teacher (TCH)
+DSK-TCH-005,6,DSK-TCH,Must,MVP,mod.homework,Design,Teacher (TCH)
+DSK-TCH-006,6,DSK-TCH,Must,MVP,mod.parent_messaging,Design,Teacher (TCH)
+DSK-TCH-007,6,DSK-TCH,Must,MVP,mod.exams,Design,Teacher (TCH)
+DSK-TCH-008,6,DSK-TCH,Should,MVP,mod.student_learning,Design,Teacher (TCH)
+DSK-TCH-009,6,DSK-TCH,Must,MVP,mod.lesson_plans,Design,Teacher (TCH)
+DSK-TCH-010,6,DSK-TCH,Must,MVP,mod.remedial,Design,Teacher (TCH)
+DSK-TCH-011,6,DSK-TCH,Must,MVP,mod.attendance,Design,Teacher (TCH)
+DSK-TCH-012,6,DSK-TCH,Must,MVP,mod.pace_tracking,Design,Teacher (TCH)
+DSK-TCH-013,6,DSK-TCH,Should,MVP,mod.calendar_ptm,Design,Teacher (TCH)
+DSK-TCH-014,6,DSK-TCH,Must,MVP,mod.hr_leave,Design,Teacher (TCH)
+DSK-HRP-001,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-002,6,DSK-HRP,Should,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-003,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-004,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-005,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-006,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-007,6,DSK-HRP,Must,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-008,6,DSK-HRP,Should,MVP,mod.attendance,Design,HR and payroll (DSK-HRP)
+DSK-HRP-009,6,DSK-HRP,Must,MVP,mod.payroll,Design,HR and payroll (DSK-HRP)
+DSK-HRP-010,6,DSK-HRP,Must,MVP,mod.payroll,Design,HR and payroll (DSK-HRP)
+DSK-HRP-011,6,DSK-HRP,Must,MVP,mod.payroll,Design,HR and payroll (DSK-HRP)
+DSK-HRP-012,6,DSK-HRP,Must,MVP,ai.payroll_checks,Design,HR and payroll (DSK-HRP)
+DSK-HRP-013,6,DSK-HRP,Must,MVP,mod.payroll,Design,HR and payroll (DSK-HRP)
+DSK-HRP-014,6,DSK-HRP,Should,MVP,mod.payroll,Design,HR and payroll (DSK-HRP)
+DSK-HRP-015,6,DSK-HRP,Must,MVP,mod.hiring_onboarding,Design,HR and payroll (DSK-HRP)
+DSK-HRP-016,6,DSK-HRP,Should,MVP,mod.hiring_onboarding,Design,HR and payroll (DSK-HRP)
+DSK-HRP-017,6,DSK-HRP,Must,MVP,mod.hiring_onboarding,Design,HR and payroll (DSK-HRP)
+DSK-HRP-018,6,DSK-HRP,Should,MVP,mod.hr_leave,Design,HR and payroll (DSK-HRP)
+DSK-HRP-019,6,DSK-HRP,Could,MVP,ai.assistant_chat,Design,HR and payroll (DSK-HRP)
+DSK-FIN-001,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-002,6,DSK-FIN,Should,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-003,6,DSK-FIN,Must,MVP,mod.approvals,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-004,6,DSK-FIN,Must,MVP,mod.approvals,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-005,6,DSK-FIN,Must,MVP,mod.approvals,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-006,6,DSK-FIN,Must,MVP,mod.fees,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-007,6,DSK-FIN,Must,MVP,mod.fees,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-008,6,DSK-FIN,Must,P3,mod.procurement_inventory,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-009,6,DSK-FIN,Should,P3,mod.procurement_inventory,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-010,6,DSK-FIN,Should,P3,mod.procurement_inventory,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-011,6,DSK-FIN,Could,P3,mod.procurement_inventory,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-012,6,DSK-FIN,Must,MVP,mod.bank_recon,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-013,6,DSK-FIN,Must,P2,mod.tally_sync,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-014,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-015,6,DSK-FIN,Should,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-016,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-017,6,DSK-FIN,Must,MVP,mod.reports,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-018,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-019,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-020,6,DSK-FIN,Must,MVP,mod.finance_accounts,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-021,6,DSK-FIN,Should,MVP,mod.hr_leave,Design,Finance and accounts (DSK-FIN)
+DSK-FIN-022,6,DSK-FIN,Could,MVP,ai.assistant_chat,Design,Finance and accounts (DSK-FIN)
+DSK-ADS-001,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-002,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-003,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-004,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-005,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-006,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-007,6,DSK-ADS,Must,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-008,6,DSK-ADS,Should,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-009,6,DSK-ADS,Should,MVP,mod.admissions_crm,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-010,6,DSK-ADS,Should,MVP,mod.reports,Design,Admissions CRM (DSK-ADS)
+DSK-ADS-011,6,DSK-ADS,Should,MVP,mod.hr_leave,Design,Admissions CRM (DSK-ADS)
+DSK-SEC-001,6,DSK-SEC,Must,MVP,mod.it_helpdesk,Design,Security and IT (DSK-SEC)
+DSK-SEC-002,6,DSK-SEC,Must,MVP,mod.it_helpdesk,Design,Security and IT (DSK-SEC)
+DSK-SEC-003,6,DSK-SEC,Must,MVP,mod.it_helpdesk,Design,Security and IT (DSK-SEC)
+DSK-SEC-004,6,DSK-SEC,Must,MVP,mod.security_gate,Design,Security and IT (DSK-SEC)
+DSK-SEC-005,6,DSK-SEC,Must,MVP,mod.security_gate,Design,Security and IT (DSK-SEC)
+DSK-SEC-006,6,DSK-SEC,Must,MVP,mod.it_helpdesk,Design,Security and IT (DSK-SEC)
+DSK-SEC-007,6,DSK-SEC,Should,MVP,mod.security_gate,Design,Security and IT (DSK-SEC)
+DSK-SEC-008,6,DSK-SEC,Should,MVP,mod.hr_leave,Design,Security and IT (DSK-SEC)
+DSK-TRN-001,6,DSK-TRN,Must,MVP,mod.bus_live,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-002,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-003,6,DSK-TRN,Must,MVP,mod.bus_live,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-004,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-005,6,DSK-TRN,Must,MVP,mod.bus_live,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-006,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-007,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-008,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-009,6,DSK-TRN,Must,MVP,mod.transport,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-010,6,DSK-TRN,Must,MVP,mod.fees,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-011,6,DSK-TRN,Should,MVP,mod.reports,Design,Transport in-charge (DSK-TRN)
+DSK-TRN-012,6,DSK-TRN,Should,MVP,mod.hr_leave,Design,Transport in-charge (DSK-TRN)
+DSK-STM-001,6,DSK-STM,Must,MVP,mod.student_learning,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-002,6,DSK-STM,Should,MVP,mod.student_gamification,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-003,6,DSK-STM,Should,MVP,mod.student_gamification,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-004,6,DSK-STM,Should,MVP,ai.student_tutor,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-005,6,DSK-STM,Must,MVP,mod.timetable,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-006,6,DSK-STM,Must,MVP,mod.homework,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-007,6,DSK-STM,Should,MVP,mod.lesson_plans,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-008,6,DSK-STM,Must,MVP,ai.student_tutor,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-009,6,DSK-STM,Must,MVP,mod.marks_results,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-010,6,DSK-STM,Should,MVP,mod.report_cards,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-011,6,DSK-STM,Must,MVP,mod.attendance,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STM-012,6,DSK-STM,Could,MVP,ai.assistant_chat,Design,"Student desktop, Classes 6 to 8 (DSK-STM)"
+DSK-STS-001,6,DSK-STS,Must,MVP,mod.student_learning,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-002,6,DSK-STS,Must,MVP,ai.student_tutor,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-003,6,DSK-STS,Must,MVP,ai.student_tutor,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-004,6,DSK-STS,Should,MVP,ai.student_tutor,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-005,6,DSK-STS,Should,MVP,ai.student_tutor,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-006,6,DSK-STS,Should,MVP,mod.student_gamification,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-007,6,DSK-STS,Must,MVP,mod.timetable,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-008,6,DSK-STS,Must,MVP,mod.homework,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-009,6,DSK-STS,Should,MVP,mod.lesson_plans,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-010,6,DSK-STS,Must,MVP,ai.student_tutor,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-011,6,DSK-STS,Must,MVP,mod.marks_results,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-012,6,DSK-STS,Should,MVP,mod.report_cards,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-013,6,DSK-STS,Must,MVP,mod.attendance,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+DSK-STS-014,6,DSK-STS,Could,MVP,ai.assistant_chat,Design,"Student desktop, Classes 9 to 12 (DSK-STS)"
+MOB-STO-001,7,MOB-STO,Must,MVP,"ch.mobile_ios, ch.mobile_android",Design,"7.3.1 App icon, store presence and platform differences (MOB-STO)"
+MOB-STO-002,7,MOB-STO,Must,MVP,ch.mobile_ios,Design,"7.3.1 App icon, store presence and platform differences (MOB-STO)"
+MOB-STO-003,7,MOB-STO,Must,MVP,ch.mobile_android,Design,"7.3.1 App icon, store presence and platform differences (MOB-STO)"
+MOB-STO-004,7,MOB-STO,Should,MVP,"ch.mobile_ios, ch.mobile_android",Spec,"7.3.1 App icon, store presence and platform differences (MOB-STO)"
+MOB-STO-005,7,MOB-STO,Must,MVP,core,Design,"7.3.1 App icon, store presence and platform differences (MOB-STO)"
+MOB-SHL-001,7,MOB-SHL,Must,MVP,core,Design,7.3.2 First run (MOB-SHL)
+MOB-SHL-002,7,MOB-SHL,Must,MVP,core,Design,7.3.2 First run (MOB-SHL)
+MOB-SHL-003,7,MOB-SHL,Must,MVP,ai.translation,Design,7.3.2 First run (MOB-SHL)
+MOB-SHL-004,7,MOB-SHL,Must,MVP,ch.mobile_push,Design,7.3.2 First run (MOB-SHL)
+MOB-SHL-005,7,MOB-SHL,Should,MVP,idm.biometric,Design,7.3.2 First run (MOB-SHL)
+MOB-SHL-006,7,MOB-SHL,Must,MVP,core,Spec,7.3.2 First run (MOB-SHL)
+MOB-AUT-001,7,MOB-AUT,Must,MVP,core,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-002,7,MOB-AUT,Must,MVP,core,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-003,7,MOB-AUT,Must,MVP,core,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-004,7,MOB-AUT,Should,MVP,ch.whatsapp,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-005,7,MOB-AUT,Must,MVP,idm.multi_profile,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-006,7,MOB-AUT,Must,MVP,core,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-007,7,MOB-AUT,Should,MVP,core,Spec,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-008,7,MOB-AUT,Must,MVP,core,Design,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-009,7,MOB-AUT,Must,MVP,core,Spec,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-AUT-010,7,MOB-AUT,Must,MVP,core,Spec,7.3.3 Sign in with mobile number and code (MOB-AUT)
+MOB-PRF-001,7,MOB-PRF,Must,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-002,7,MOB-PRF,Must,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-003,7,MOB-PRF,Must,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-004,7,MOB-PRF,Must,MVP,idm.app_pin,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-005,7,MOB-PRF,Should,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-006,7,MOB-PRF,Should,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-007,7,MOB-PRF,Must,MVP,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-PRF-008,7,MOB-PRF,Could,P2,mod.profile_switching,Design,7.3.4 Profiles and school switching (MOB-PRF)
+MOB-SEC-001,7,MOB-SEC,Should,MVP,idm.biometric,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-002,7,MOB-SEC,Must,MVP,idm.app_pin,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-003,7,MOB-SEC,Must,MVP,idm.app_pin,Spec,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-004,7,MOB-SEC,Should,MVP,core,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-005,7,MOB-SEC,Must,MVP,core,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-006,7,MOB-SEC,Must,MVP,core,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-007,7,MOB-SEC,Must,MVP,core,Design,7.3.5 Security on the phone (MOB-SEC)
+MOB-SEC-008,7,MOB-SEC,Must,MVP,core,Spec,7.3.5 Security on the phone (MOB-SEC)
+MOB-NTF-001,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-002,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-003,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-004,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-005,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-006,7,MOB-NTF,Must,MVP,mod.fees,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-007,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-008,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-009,7,MOB-NTF,Must,MVP,ch.mobile_push,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-010,7,MOB-NTF,Must,MVP,ch.whatsapp,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-011,7,MOB-NTF,Must,MVP,core,Design,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-NTF-012,7,MOB-NTF,Should,MVP,ch.mobile_push,Spec,7.3.6 Notifications on the phone (MOB-NTF)
+MOB-DHR-001,7,MOB-DHR,Must,MVP,ai.assistant_chat,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-002,7,MOB-DHR,Must,MVP,ai.assistant_chat,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-003,7,MOB-DHR,Must,MVP,ai.assistant_chat,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-004,7,MOB-DHR,Must,MVP,ai.assistant_chat,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-005,7,MOB-DHR,Should,MVP,ai.voice_input,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-006,7,MOB-DHR,Must,MVP,ai.assistant_chat,Design,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-DHR-007,7,MOB-DHR,Must,MVP,ai.assistant_chat,Spec,7.3.7 Dhruva orb and Ask Dhruva sheet (MOB-DHR)
+MOB-ME-001,7,MOB-ME,Must,MVP,core,Design,7.3.8 Me tab (MOB-ME)
+MOB-ME-002,7,MOB-ME,Must,MVP,mod.hr_leave,Design,7.3.8 Me tab (MOB-ME)
+MOB-ME-003,7,MOB-ME,Must,MVP,ai.translation,Design,7.3.8 Me tab (MOB-ME)
+MOB-ME-004,7,MOB-ME,Should,MVP,core,Design,7.3.8 Me tab (MOB-ME)
+MOB-PARH-001,7,MOB-PARH,Must,MVP,core,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARH-002,7,MOB-PARH,Must,MVP,ai.focus_card,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARH-003,7,MOB-PARH,Must,MVP,mod.calendar_ptm,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARK-001,7,MOB-PARK,Must,MVP,mod.profile_switching,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARK-002,7,MOB-PARK,Should,MVP,mod.student_learning,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARK-003,7,MOB-PARK,Should,MVP,mod.profile_switching,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARK-004,7,MOB-PARK,Should,MVP,core,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARP-001,7,MOB-PARP,Must,MVP,mod.marks_results,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARP-002,7,MOB-PARP,Must,MVP,mod.marks_results,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARP-003,7,MOB-PARP,Must,MVP,mod.attendance,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARP-004,7,MOB-PARP,Must,MVP,mod.report_cards,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-001,7,MOB-PARF,Must,MVP,mod.fees,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-002,7,MOB-PARF,Must,MVP,mod.fees,Spec,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-003,7,MOB-PARF,Must,MVP,mod.fees,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-004,7,MOB-PARF,Must,MVP,mod.fees,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-005,7,MOB-PARF,Must,MVP,mod.fees,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARF-006,7,MOB-PARF,Should,MVP,mod.fees,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARM-001,7,MOB-PARM,Must,MVP,mod.parent_messaging,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARM-002,7,MOB-PARM,Must,MVP,mod.parent_messaging,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARL-001,7,MOB-PARL,Must,MVP,mod.attendance,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PART-001,7,MOB-PART,Must,MVP,mod.calendar_ptm,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARN-001,7,MOB-PARN,Must,MVP,mod.notices,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARN-002,7,MOB-PARN,Must,MVP,mod.notices,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARB-001,7,MOB-PARB,Must,MVP,mod.bus_live,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARB-002,7,MOB-PARB,Should,MVP,mod.bus_live,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARB-003,7,MOB-PARB,Must,MVP,mod.bus_live,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARB-004,7,MOB-PARB,Must,MVP,mod.security_gate,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARC-001,7,MOB-PARC,Should,MVP,mod.calendar_ptm,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARJ-001,7,MOB-PARJ,Should,MVP,mod.student_learning,Design,7.3.9 Parent app (MOB-PAR)
+MOB-PARO-001,7,MOB-PARO,Should,MVP,ch.mobile_offline,Spec,7.3.9 Parent app (MOB-PAR)
+MOB-BUS-001,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-002,7,MOB-BUS,Must,MVP,mod.transport,Spec,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-003,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-004,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-005,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-006,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-007,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-008,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-009,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-010,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-011,7,MOB-BUS,Must,MVP,core,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-012,7,MOB-BUS,Must,MVP,mod.transport,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-013,7,MOB-BUS,Should,MVP,ai.voice_input,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-014,7,MOB-BUS,Must,MVP,mod.hr_leave,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-BUS-015,7,MOB-BUS,Must,MVP,ch.mobile_offline,Design,7.3.10 Bus attendant app (MOB-BUS)
+MOB-STM-001,7,MOB-STM,Must,MVP,mod.student_learning,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-002,7,MOB-STM,Should,MVP,mod.student_learning,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-003,7,MOB-STM,Should,MVP,mod.student_learning,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-004,7,MOB-STM,Must,MVP,mod.timetable,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-005,7,MOB-STM,Must,MVP,mod.homework,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-006,7,MOB-STM,Should,MVP,mod.student_learning,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-007,7,MOB-STM,Must,MVP,mod.student_learning,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-008,7,MOB-STM,Must,MVP,mod.marks_results,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-009,7,MOB-STM,Must,MVP,mod.attendance,Design,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STM-010,7,MOB-STM,Must,MVP,core,Spec,"7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)"
+MOB-STS-001,7,MOB-STS,Must,MVP,mod.student_learning,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-002,7,MOB-STS,Must,MVP,ai.focus_card,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-003,7,MOB-STS,Should,MVP,mod.student_learning,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-004,7,MOB-STS,Could,P2,mod.student_learning,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-005,7,MOB-STS,Must,MVP,mod.homework,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-006,7,MOB-STS,Must,MVP,mod.marks_results,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-007,7,MOB-STS,Should,MVP,mod.student_learning,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-008,7,MOB-STS,Should,MVP,mod.student_learning,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-009,7,MOB-STS,Must,MVP,mod.attendance,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STS-010,7,MOB-STS,Must,MVP,mod.timetable,Design,"7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)"
+MOB-STF-001,7,MOB-STF,Must,MVP,core,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-002,7,MOB-STF,Must,MVP,core,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-003,7,MOB-STF,Must,MVP,mod.attendance,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-004,7,MOB-STF,Must,MVP,ai.marks_from_photo,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-005,7,MOB-STF,Must,MVP,mod.fees,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-006,7,MOB-STF,Must,MVP,mod.approvals,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-007,7,MOB-STF,Must,MVP,mod.transport,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-008,7,MOB-STF,Must,MVP,mod.security_gate,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-009,7,MOB-STF,Should,MVP,mod.cover,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-STF-010,7,MOB-STF,Must,MVP,mod.group_scorecard,Design,7.3.13 Phone apps of the other roles (MOB-STF)
+MOB-OFF-001,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-002,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-003,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-004,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-005,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-006,7,MOB-OFF,Should,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-007,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-008,7,MOB-OFF,Should,P2,ch.mobile_offline,Design,7.3.14 Offline and poor network (MOB-OFF)
+MOB-OFF-009,7,MOB-OFF,Must,MVP,ch.mobile_offline,Spec,7.3.14 Offline and poor network (MOB-OFF)
+MOB-DEV-001,7,MOB-DEV,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-DEV-002,7,MOB-DEV,Must,MVP,ai.marks_from_photo,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-DEV-003,7,MOB-DEV,Should,MVP,ai.voice_input,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-DEV-004,7,MOB-DEV,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-DEV-005,7,MOB-DEV,Should,MVP,mod.calendar_ptm,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-001,7,MOB-NFR,Must,MVP,core,Design,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-002,7,MOB-NFR,Must,MVP,ch.mobile_push,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-003,7,MOB-NFR,Must,MVP,ch.mobile_push,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-004,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-005,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-006,7,MOB-NFR,Must,MVP,ch.whatsapp,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-007,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-008,7,MOB-NFR,Must,MVP,core,Design,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-009,7,MOB-NFR,Must,MVP,ai.translation,Design,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-010,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-011,7,MOB-NFR,Should,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-012,7,MOB-NFR,Should,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-013,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+MOB-NFR-014,7,MOB-NFR,Must,MVP,core,Spec,"7.3.15 Camera, photos, microphone and location (MOB-DEV)"
+WAB-ACC-001,8,WAB-ACC,Must,MVP,ch.whatsapp,Spec,"8.3.1 Official school account (number, profile, templates)"
+WAB-ACC-002,8,WAB-ACC,Must,MVP,ch.whatsapp,Design,"8.3.1 Official school account (number, profile, templates)"
+WAB-ACC-003,8,WAB-ACC,Must,MVP,ch.whatsapp,Design,"8.3.1 Official school account (number, profile, templates)"
+WAB-ACC-004,8,WAB-ACC,Should,MVP,ch.whatsapp,Spec,"8.3.1 Official school account (number, profile, templates)"
+WAB-ACC-005,8,WAB-ACC,Should,P2,ch.whatsapp,Design,"8.3.1 Official school account (number, profile, templates)"
+WAB-ACC-006,8,WAB-ACC,Must,MVP,ch.whatsapp,Spec,"8.3.1 Official school account (number, profile, templates)"
+WAB-PLT-001,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-002,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-003,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-004,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-005,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-006,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-007,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-PLT-008,8,WAB-PLT,Must,MVP,ch.whatsapp,Spec,8.3.2 WhatsApp Business Platform rules
+WAB-OPT-001,8,WAB-OPT,Must,MVP,ch.whatsapp,Design,"8.3.3 Opt-in, opt-out and STOP"
+WAB-OPT-002,8,WAB-OPT,Must,MVP,ch.whatsapp,Design,"8.3.3 Opt-in, opt-out and STOP"
+WAB-OPT-003,8,WAB-OPT,Must,MVP,ch.whatsapp,Spec,"8.3.3 Opt-in, opt-out and STOP"
+WAB-OPT-004,8,WAB-OPT,Must,MVP,ch.whatsapp,Spec,"8.3.3 Opt-in, opt-out and STOP"
+WAB-OPT-005,8,WAB-OPT,Should,P2,ch.whatsapp,Spec,"8.3.3 Opt-in, opt-out and STOP"
+WAB-IDN-001,8,WAB-IDN,Must,MVP,ch.whatsapp,Design,8.3.4 Identity matching
+WAB-IDN-002,8,WAB-IDN,Must,P2,ch.whatsapp.parent_bot,Design,8.3.4 Identity matching
+WAB-IDN-003,8,WAB-IDN,Must,P2,ch.whatsapp.staff_bot,Design,8.3.4 Identity matching
+WAB-IDN-004,8,WAB-IDN,Must,P2,ch.whatsapp,Design,8.3.4 Identity matching
+WAB-IDN-005,8,WAB-IDN,Must,P2,ch.whatsapp.parent_bot,Spec,8.3.4 Identity matching
+WAB-IDN-006,8,WAB-IDN,Must,P2,ch.whatsapp,Design,8.3.4 Identity matching
+WAB-IDN-007,8,WAB-IDN,Must,P2,ch.whatsapp,Spec,8.3.4 Identity matching
+WAB-MNU-001,8,WAB-MNU,Must,MVP,ch.whatsapp,Spec,8.3.5 Conversation engine and menus
+WAB-MNU-002,8,WAB-MNU,Must,P2,ch.whatsapp.parent_bot,Design,8.3.5 Conversation engine and menus
+WAB-MNU-003,8,WAB-MNU,Must,P2,ch.whatsapp.teacher_bot,Design,8.3.5 Conversation engine and menus
+WAB-MNU-004,8,WAB-MNU,Must,P2,ch.whatsapp.staff_bot,Design,8.3.5 Conversation engine and menus
+WAB-MNU-005,8,WAB-MNU,Must,P2,ch.whatsapp,Design,8.3.5 Conversation engine and menus
+WAB-MNU-006,8,WAB-MNU,Must,P2,ch.whatsapp,Design,8.3.5 Conversation engine and menus
+WAB-MNU-007,8,WAB-MNU,Must,P2,ch.whatsapp,Spec,8.3.5 Conversation engine and menus
+WAB-PAR-001,8,WAB-PAR,Must,P2,ch.whatsapp.parent_bot,Design,8.3.6 Parent flows
+WAB-PAR-002,8,WAB-PAR,Must,P2,mod.fees,Design,8.3.6 Parent flows
+WAB-PAR-003,8,WAB-PAR,Must,P2,ch.whatsapp.upi_pay,Design,8.3.6 Parent flows
+WAB-PAR-004,8,WAB-PAR,Must,P2,mod.fees,Design,8.3.6 Parent flows
+WAB-PAR-005,8,WAB-PAR,Must,P2,mod.homework,Design,8.3.6 Parent flows
+WAB-PAR-006,8,WAB-PAR,Must,P2,mod.bus_live,Design,8.3.6 Parent flows
+WAB-PAR-007,8,WAB-PAR,Must,P2,mod.exams,Design,8.3.6 Parent flows
+WAB-PAR-008,8,WAB-PAR,Should,P2,mod.calendar_ptm,Design,8.3.6 Parent flows
+WAB-PAR-009,8,WAB-PAR,Must,P2,mod.attendance,Design,8.3.6 Parent flows
+WAB-PAR-010,8,WAB-PAR,Must,P2,ch.whatsapp.handover,Design,8.3.6 Parent flows
+WAB-PAR-011,8,WAB-PAR,Could,P3,ch.whatsapp.admissions,Design,8.3.6 Parent flows
+WAB-TCH-001,8,WAB-TCH,Must,P2,ch.whatsapp.teacher_bot,Design,8.3.7 Teacher flows
+WAB-TCH-002,8,WAB-TCH,Must,P2,ch.whatsapp.photo_upload,Design,8.3.7 Teacher flows
+WAB-TCH-003,8,WAB-TCH,Must,P2,ch.whatsapp.photo_upload,Design,8.3.7 Teacher flows
+WAB-TCH-004,8,WAB-TCH,Must,P2,ch.whatsapp.photo_upload,Design,8.3.7 Teacher flows
+WAB-TCH-005,8,WAB-TCH,Should,P2,ch.whatsapp.photo_upload,Design,8.3.7 Teacher flows
+WAB-TCH-006,8,WAB-TCH,Must,P2,mod.timetable,Design,8.3.7 Teacher flows
+WAB-TCH-007,8,WAB-TCH,Must,P2,mod.homework,Design,8.3.7 Teacher flows
+WAB-TCH-008,8,WAB-TCH,Should,P2,mod.homework,Design,8.3.7 Teacher flows
+WAB-TCH-009,8,WAB-TCH,Should,P2,ai.at_risk_detection,Design,8.3.7 Teacher flows
+WAB-TCH-010,8,WAB-TCH,Must,P2,mod.hr_leave,Design,8.3.7 Teacher flows
+WAB-TCH-011,8,WAB-TCH,Must,P2,ch.whatsapp.payslip,Design,8.3.7 Teacher flows
+WAB-TCH-012,8,WAB-TCH,Could,P3,mod.notices,Design,8.3.7 Teacher flows
+WAB-TCH-013,8,WAB-TCH,Must,P2,ch.whatsapp.handover,Design,8.3.7 Teacher flows
+WAB-STF-001,8,WAB-STF,Must,P2,ch.whatsapp.staff_bot,Design,8.3.8 Staff flows
+WAB-STF-002,8,WAB-STF,Must,P2,ch.whatsapp.staff_bot,Design,8.3.8 Staff flows
+WAB-STF-003,8,WAB-STF,Must,P2,ch.whatsapp.payslip,Design,8.3.8 Staff flows
+WAB-STF-004,8,WAB-STF,Must,P2,mod.hr_leave,Design,8.3.8 Staff flows
+WAB-STF-005,8,WAB-STF,Should,P2,mod.attendance,Design,8.3.8 Staff flows
+WAB-STF-006,8,WAB-STF,Must,P2,mod.transport,Design,8.3.8 Staff flows
+WAB-STF-007,8,WAB-STF,Must,P2,mod.transport,Design,8.3.8 Staff flows
+WAB-STF-008,8,WAB-STF,Should,P2,mod.hr_leave,Design,8.3.8 Staff flows
+WAB-STF-009,8,WAB-STF,Should,P2,mod.payroll,Design,8.3.8 Staff flows
+WAB-STF-010,8,WAB-STF,Must,P2,ch.whatsapp.handover,Design,8.3.8 Staff flows
+WAB-NLU-001,8,WAB-NLU,Must,P2,ch.whatsapp,Design,8.3.9 Free-text understanding and fallback
+WAB-NLU-002,8,WAB-NLU,Should,P2,ai.whatsapp_bot,Spec,8.3.9 Free-text understanding and fallback
+WAB-NLU-003,8,WAB-NLU,Must,P2,ch.whatsapp,Design,8.3.9 Free-text understanding and fallback
+WAB-NLU-004,8,WAB-NLU,Must,P2,ch.whatsapp,Spec,8.3.9 Free-text understanding and fallback
+WAB-NLU-005,8,WAB-NLU,Must,P2,ch.whatsapp,Spec,8.3.9 Free-text understanding and fallback
+WAB-NLU-006,8,WAB-NLU,Should,P2,ch.whatsapp,Spec,8.3.9 Free-text understanding and fallback
+WAB-VOI-001,8,WAB-VOI,Should,P2,ch.whatsapp.voice,Design,8.3.10 Voice and language
+WAB-VOI-002,8,WAB-VOI,Must,P2,ch.whatsapp.voice,Design,8.3.10 Voice and language
+WAB-VOI-003,8,WAB-VOI,Could,P3,ch.whatsapp.voice,Design,8.3.10 Voice and language
+WAB-VOI-004,8,WAB-VOI,Should,P2,ai.translation,Spec,8.3.10 Voice and language
+WAB-HND-001,8,WAB-HND,Must,P2,ch.whatsapp.handover,Design,8.3.11 Handover to people
+WAB-HND-002,8,WAB-HND,Must,P2,ch.whatsapp.handover,Design,8.3.11 Handover to people
+WAB-HND-003,8,WAB-HND,Must,P2,ch.whatsapp.handover,Spec,8.3.11 Handover to people
+WAB-HND-004,8,WAB-HND,Must,P2,ch.whatsapp.handover,Spec,8.3.11 Handover to people
+WAB-HND-005,8,WAB-HND,Must,P2,ch.whatsapp.handover,Design,8.3.11 Handover to people
+WAB-HND-006,8,WAB-HND,Must,P2,ch.whatsapp.handover,Spec,8.3.11 Handover to people
+WAB-HND-007,8,WAB-HND,Must,P2,ch.whatsapp.handover,Spec,8.3.11 Handover to people
+WAB-OUT-001,8,WAB-OUT,Must,MVP,ch.whatsapp,Design,8.3.12 Outbound notifications
+WAB-OUT-002,8,WAB-OUT,Must,MVP,ch.whatsapp,Spec,8.3.12 Outbound notifications
+WAB-OUT-003,8,WAB-OUT,Must,MVP,ch.whatsapp,Spec,8.3.12 Outbound notifications
+WAB-OUT-004,8,WAB-OUT,Must,MVP,ch.whatsapp,Spec,8.3.12 Outbound notifications
+WAB-OUT-005,8,WAB-OUT,Must,MVP,ch.whatsapp,Spec,8.3.12 Outbound notifications
+WAB-OUT-006,8,WAB-OUT,Should,P2,ai.translation,Design,8.3.12 Outbound notifications
+WAB-OUT-007,8,WAB-OUT,Must,MVP,mod.notices,Spec,8.3.12 Outbound notifications
+WAB-OUT-008,8,WAB-OUT,Must,MVP,mod.attendance,Design,8.3.12 Outbound notifications
+WAB-OUT-009,8,WAB-OUT,Must,MVP,mod.fees,Design,8.3.12 Outbound notifications
+WAB-OUT-010,8,WAB-OUT,Must,P2,ch.whatsapp,Design,8.3.12 Outbound notifications
+WAB-OUT-011,8,WAB-OUT,Must,MVP,ch.whatsapp,Spec,8.3.12 Outbound notifications
+WAB-SEC-001,8,WAB-SEC,Must,MVP,core,Spec,8.3.13 Security
+WAB-SEC-002,8,WAB-SEC,Must,P2,ch.whatsapp.payslip,Spec,8.3.13 Security
+WAB-SEC-003,8,WAB-SEC,Must,P2,ch.whatsapp.upi_pay,Spec,8.3.13 Security
+WAB-SEC-004,8,WAB-SEC,Must,MVP,core,Spec,8.3.13 Security
+WAB-SEC-005,8,WAB-SEC,Must,MVP,core,Spec,8.3.13 Security
+WAB-SEC-006,8,WAB-SEC,Must,MVP,core,Spec,8.3.13 Security
+WAB-SEC-007,8,WAB-SEC,Must,P2,ch.whatsapp,Spec,8.3.13 Security
+WAB-SEC-008,8,WAB-SEC,Must,MVP,core,Design,8.3.13 Security
+WAB-ADM-001,8,WAB-ADM,Must,MVP,ch.whatsapp,Design,8.3.14 Admin controls
+WAB-ADM-002,8,WAB-ADM,Must,MVP,ch.whatsapp,Design,8.3.14 Admin controls
+WAB-ADM-003,8,WAB-ADM,Must,MVP,ch.whatsapp,Design,8.3.14 Admin controls
+WAB-ADM-004,8,WAB-ADM,Must,MVP,ch.whatsapp,Spec,8.3.14 Admin controls
+WAB-ADM-005,8,WAB-ADM,Must,P2,ch.whatsapp.handover,Spec,8.3.14 Admin controls
+WAB-ADM-006,8,WAB-ADM,Should,MVP,ch.whatsapp,Spec,8.3.14 Admin controls
+WAB-ADM-007,8,WAB-ADM,Should,MVP,ch.whatsapp,Spec,8.3.14 Admin controls
+WAB-ANA-001,8,WAB-ANA,Must,MVP,ch.whatsapp,Design,8.3.15 Analytics and cost control
+WAB-ANA-002,8,WAB-ANA,Should,P2,ch.whatsapp,Spec,8.3.15 Analytics and cost control
+WAB-ANA-003,8,WAB-ANA,Must,MVP,ch.whatsapp,Spec,8.3.15 Analytics and cost control
+WAB-ANA-004,8,WAB-ANA,Must,MVP,ch.whatsapp,Spec,8.3.15 Analytics and cost control
+WAB-FAL-001,8,WAB-FAL,Must,MVP,ch.whatsapp,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-002,8,WAB-FAL,Must,MVP,ch.sms,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-003,8,WAB-FAL,Must,MVP,ch.whatsapp,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-004,8,WAB-FAL,Must,MVP,ch.whatsapp,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-005,8,WAB-FAL,Must,MVP,ch.whatsapp,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-006,8,WAB-FAL,Must,P2,ch.whatsapp,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-007,8,WAB-FAL,Must,MVP,core,Spec,8.3.16 Failure modes and fallback
+WAB-FAL-008,8,WAB-FAL,Must,P2,ch.whatsapp.upi_pay,Spec,8.3.16 Failure modes and fallback
+XCT-NTF-001,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-002,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-003,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-004,9,XCT-NTF,Must,MVP,"ch.mobile_ios, ch.mobile_android",Design,Notifications engine
+XCT-NTF-005,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-006,9,XCT-NTF,Must,MVP,ch.whatsapp,Design,Notifications engine
+XCT-NTF-007,9,XCT-NTF,Must,MVP,ch.sms,Design,Notifications engine
+XCT-NTF-008,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-009,9,XCT-NTF,Must,MVP,core,Spec,Notifications engine
+XCT-NTF-010,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-011,9,XCT-NTF,Must,MVP,core,Design,Notifications engine
+XCT-NTF-012,9,XCT-NTF,Must,MVP,core,Spec,Notifications engine
+XCT-NTF-013,9,XCT-NTF,Must,MVP,ch.whatsapp,Spec,Notifications engine
+XCT-NTF-014,9,XCT-NTF,Should,MVP,ch.email,Spec,Notifications engine
+XCT-NTF-015,9,XCT-NTF,Must,MVP,core,Spec,Notifications engine
+XCT-NTF-016,9,XCT-NTF,Must,MVP,core,Spec,Notifications engine
+XCT-NTF-017,9,XCT-NTF,Should,P2,ai.translation,Spec,Notifications engine
+XCT-APR-001,9,XCT-APR,Must,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-002,9,XCT-APR,Must,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-003,9,XCT-APR,Must,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-004,9,XCT-APR,Must,MVP,mod.approvals,Spec,Approvals engine
+XCT-APR-005,9,XCT-APR,Must,MVP,mod.approvals,Spec,Approvals engine
+XCT-APR-006,9,XCT-APR,Must,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-007,9,XCT-APR,Must,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-008,9,XCT-APR,Should,MVP,mod.approvals,Design,Approvals engine
+XCT-APR-009,9,XCT-APR,Must,MVP,mod.approvals,Spec,Approvals engine
+XCT-APR-010,9,XCT-APR,Should,P2,mod.approvals,Design,Approvals engine
+XCT-AUD-001,9,XCT-AUD,Must,MVP,core,Design,Audit trail
+XCT-AUD-002,9,XCT-AUD,Must,MVP,core,Spec,Audit trail
+XCT-AUD-003,9,XCT-AUD,Must,MVP,core,Spec,Audit trail
+XCT-AUD-004,9,XCT-AUD,Must,MVP,core,Spec,Audit trail
+XCT-AUD-005,9,XCT-AUD,Should,MVP,mod.audit_export,Design,Audit trail
+XCT-AUD-006,9,XCT-AUD,Must,MVP,core,Design,Audit trail
+XCT-RPT-001,9,XCT-RPT,Must,MVP,mod.reports,Design,Reports and exports
+XCT-RPT-002,9,XCT-RPT,Must,MVP,mod.reports,Design,Reports and exports
+XCT-RPT-003,9,XCT-RPT,Must,MVP,mod.reports,Design,Reports and exports
+XCT-RPT-004,9,XCT-RPT,Must,MVP,mod.reports,Spec,Reports and exports
+XCT-RPT-005,9,XCT-RPT,Must,MVP,mod.reports,Design,Reports and exports
+XCT-RPT-006,9,XCT-RPT,Should,MVP,mod.reports,Spec,Reports and exports
+XCT-CAL-001,9,XCT-CAL,Must,MVP,mod.calendar_ptm,Design,Calendar and notices service
+XCT-CAL-002,9,XCT-CAL,Must,MVP,mod.calendar_ptm,Design,Calendar and notices service
+XCT-CAL-003,9,XCT-CAL,Must,MVP,mod.notices,Design,Calendar and notices service
+XCT-CAL-004,9,XCT-CAL,Must,MVP,mod.notices,Spec,Calendar and notices service
+XCT-CAL-005,9,XCT-CAL,Should,MVP,ai.notice_drafts,Design,Calendar and notices service
+XCT-CAL-006,9,XCT-CAL,Should,MVP,mod.notices,Spec,Calendar and notices service
+XCT-SRC-001,9,XCT-SRC,Should,MVP,mod.global_search,Spec,Search
+XCT-SRC-002,9,XCT-SRC,Must,MVP,core,Spec,Search
+XCT-SRC-003,9,XCT-SRC,Could,P2,ai.assistant_chat,Design,Search
+XCT-FIL-001,9,XCT-FIL,Must,MVP,core,Spec,File and document handling
+XCT-FIL-002,9,XCT-FIL,Must,MVP,core,Spec,File and document handling
+XCT-FIL-003,9,XCT-FIL,Must,MVP,mod.marks_results,Design,File and document handling
+XCT-FIL-004,9,XCT-FIL,Must,MVP,mod.fees,Design,File and document handling
+XCT-FIL-005,9,XCT-FIL,Must,MVP,mod.exams,Design,File and document handling
+XCT-FIL-006,9,XCT-FIL,Must,MVP,core,Spec,File and document handling
+XCT-INT-001,9,XCT-INT,Must,MVP,mod.fees,Design,Integrations
+XCT-INT-002,9,XCT-INT,Must,MVP,ch.whatsapp,Design,Integrations
+XCT-INT-003,9,XCT-INT,Must,MVP,core,Design,Integrations
+XCT-INT-004,9,XCT-INT,Should,MVP,mod.tally_sync,Design,Integrations
+XCT-INT-005,9,XCT-INT,Should,MVP,mod.bank_recon,Design,Integrations
+XCT-INT-006,9,XCT-INT,Should,MVP,ch.desktop_web,Design,Integrations
+XCT-INT-007,9,XCT-INT,Could,P2,mod.open_api,Design,Integrations
+XCT-TEN-001,9,XCT-TEN,Must,MVP,core,Design,Tenancy and data isolation
+XCT-TEN-002,9,XCT-TEN,Must,MVP,core,Spec,Tenancy and data isolation
+XCT-TEN-003,9,XCT-TEN,Must,MVP,core,Design,Tenancy and data isolation
+XCT-TEN-004,9,XCT-TEN,Must,MVP,mod.group_scorecard,Design,Tenancy and data isolation
+XCT-TEN-005,9,XCT-TEN,Must,MVP,core,Spec,Tenancy and data isolation
+XCT-TEN-006,9,XCT-TEN,Must,MVP,mod.profile_switching,Design,Tenancy and data isolation
+XCT-PRV-001,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-002,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-003,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-004,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-005,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-006,9,XCT-PRV,Must,MVP,mod.counselling,Design,Data protection and privacy
+XCT-PRV-007,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-PRV-008,9,XCT-PRV,Should,MVP,core,Spec,Data protection and privacy
+XCT-PRV-009,9,XCT-PRV,Must,MVP,core,Spec,Data protection and privacy
+XCT-SEC-001,9,XCT-SEC,Must,MVP,core,Design,Security
+XCT-SEC-002,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-003,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-004,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-005,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-006,9,XCT-SEC,Must,MVP,core,Design,Security
+XCT-SEC-007,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-008,9,XCT-SEC,Must,MVP,core,Spec,Security
+XCT-SEC-009,9,XCT-SEC,Should,MVP,core,Spec,Security
+XCT-NFR-001,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-002,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-003,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-004,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-005,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-006,9,XCT-NFR,Must,MVP,ai.translation,Design,Non-functional requirements
+XCT-NFR-007,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-NFR-008,9,XCT-NFR,Must,MVP,core,Spec,Non-functional requirements
+XCT-ENV-001,9,XCT-ENV,Must,MVP,core,Spec,Environments and release management
+XCT-ENV-002,9,XCT-ENV,Must,MVP,core,Spec,Environments and release management
+XCT-ENV-003,9,XCT-ENV,Must,MVP,mod.campus_onboarding,Design,Environments and release management
+XCT-ENV-004,9,XCT-ENV,Should,MVP,core,Spec,Environments and release management
+XCT-ANA-001,9,XCT-ANA,Should,MVP,mod.telemetry,Spec,Analytics and product telemetry
+XCT-ANA-002,9,XCT-ANA,Must,MVP,core,Spec,Analytics and product telemetry
+XCT-ANA-003,9,XCT-ANA,Should,MVP,mod.group_scorecard,Design,Analytics and product telemetry
+XCT-SUP-001,9,XCT-SUP,Must,MVP,core,Design,Support and operations
+XCT-SUP-002,9,XCT-SUP,Must,MVP,core,Spec,Support and operations
+XCT-SUP-003,9,XCT-SUP,Should,MVP,core,Spec,Support and operations
+XCT-SUP-004,9,XCT-SUP,Must,MVP,core,Spec,Support and operations
+XCT-IMP-001,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Design,Data import and campus onboarding
+XCT-IMP-002,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Design,Data import and campus onboarding
+XCT-IMP-003,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Spec,Data import and campus onboarding
+XCT-IMP-004,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Spec,Data import and campus onboarding
+XCT-IMP-005,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Spec,Data import and campus onboarding
+XCT-IMP-006,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Design,Data import and campus onboarding
+XCT-IMP-007,9,XCT-IMP,Must,MVP,mod.campus_onboarding,Design,Data import and campus onboarding
+XCT-IMP-008,9,XCT-IMP,Should,MVP,mod.campus_onboarding,Spec,Data import and campus onboarding
+WEB-SHL-001,11,WEB-SHL,Must,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-SHL-002,11,WEB-SHL,Must,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-SHL-003,11,WEB-SHL,Must,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-SHL-004,11,WEB-SHL,Should,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-SHL-005,11,WEB-SHL,Must,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-SHL-006,11,WEB-SHL,Must,MVP,core,Design,11.3.1 Site shell (WEB-SHL)
+WEB-PAG-001,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-002,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-003,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-004,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-005,11,WEB-PAG,Should,MVP,core,Spec,11.3.2 Pages (WEB-PAG)
+WEB-PAG-006,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-007,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-008,11,WEB-PAG,Must,MVP,core,Design,11.3.2 Pages (WEB-PAG)
+WEB-PAG-009,11,WEB-PAG,Must,MVP,core,Spec,11.3.2 Pages (WEB-PAG)
+WEB-PAG-010,11,WEB-PAG,Must,MVP,core,Spec,11.3.2 Pages (WEB-PAG)
+WEB-DEM-001,11,WEB-DEM,Must,MVP,core,Design,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-DEM-002,11,WEB-DEM,Must,MVP,core,Design,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-DEM-003,11,WEB-DEM,Must,MVP,core,Design,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-DEM-004,11,WEB-DEM,Must,MVP,core,Design,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-DEM-005,11,WEB-DEM,Must,MVP,core,Spec,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-DEM-006,11,WEB-DEM,Must,MVP,core,Spec,"11.3.3 Demo, pricing and pilot requests (WEB-DEM)"
+WEB-SGN-001,11,WEB-SGN,Must,MVP,idm.web_login,Design,11.3.4 Sign in (WEB-SGN)
+WEB-SGN-002,11,WEB-SGN,Must,MVP,idm.web_login,Design,11.3.4 Sign in (WEB-SGN)
+WEB-SGN-003,11,WEB-SGN,Must,MVP,idm.web_login,Design,11.3.4 Sign in (WEB-SGN)
+WEB-SGN-004,11,WEB-SGN,Must,MVP,idm.web_login,Design,11.3.4 Sign in (WEB-SGN)
+WEB-SGN-005,11,WEB-SGN,Must,MVP,idm.web_login,Spec,11.3.4 Sign in (WEB-SGN)
+WEB-SGN-006,11,WEB-SGN,Must,MVP,core,Design,11.3.4 Sign in (WEB-SGN)
+WEB-NFR-001,11,WEB-NFR,Must,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"
+WEB-NFR-002,11,WEB-NFR,Must,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"
+WEB-NFR-003,11,WEB-NFR,Must,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"
+WEB-NFR-004,11,WEB-NFR,Should,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"
+WEB-NFR-005,11,WEB-NFR,Should,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"
+WEB-NFR-006,11,WEB-NFR,Must,MVP,core,Spec,"11.3.5 Content, search engines and site quality (WEB-NFR)"

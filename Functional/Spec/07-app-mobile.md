@@ -46,14 +46,14 @@ Everyone else has the same data and the same approvals on phone and desktop. Sec
 |---|---|---|---|---|
 | Parent / guardian | "Parent of Navya (10-C) and Arjun (2-B)" | Yes | Home, Progress, Fees, Messages | none (no parent desktop) |
 | Bus attendant | "Bus attendant, Bus 7" | Yes | Trip, Children, SOS, Me | none |
-| Student 6-8 | "Student, Class 7-B" | No | Home, Schedule, Learn, Progress | DSK-STU (Student 6-8) |
-| Student 9-12 | "Student, Class 10-C" | No | Home, Schedule, Learn, Progress | DSK-STU (Student 9-12) |
+| Student 6-8 | "Student, Class 7-B" | No | Home, Schedule, Learn, Progress | DSK-STM (Student 6-8) |
+| Student 9-12 | "Student, Class 10-C" | No | Home, Schedule, Learn, Progress | DSK-STS (Student 9-12) |
 | Teacher | "Teacher, Maths" | No | Today, Inbox, Students, Prep, Calendar | DSK-TCH |
 | Head of department | "Head of Maths" | No | Today, Reviews, Team, Progress | DSK-HOD |
-| Academic coordinator | "Academic coordinator" | No | Today, Cover, Progress, Timetable | DSK-ACD |
+| Academic coordinator | "Academic coordinator" | No | Today, Cover, Progress, Timetable | DSK-ACO |
 | Exam cell | "Exam cell in-charge" | No | Today, Papers, Exam days, Marks, CBSE | DSK-EXM |
 | Counsellor | "School counsellor" | No | Today, Students, Sessions, Guidance | DSK-CNS |
-| Principal | "Principal" | No | Today, Calendar, Fees, Reports, Me (bell opens Approvals) | DSK-PRN |
+| Principal | "Principal" | No | Today, Calendar, Fees, Reports, Me (bell opens Approvals) | DSK-PRI |
 | Group owner | "Group owner" | No | Home, Campuses, Insights, Calendar (Approvals from the Home card, Notices from "Send a notice") | DSK-OWN |
 | Standalone school admin | "School admin" | No | Today, People, Money, Intake, School | DSK-ADM |
 | Finance and accounts | "Accounts in-charge" | No | Home, Alerts, Reports, Bank (Approvals, Fees, Bills, Compliance as pushed screens) | DSK-FIN |
@@ -625,7 +625,7 @@ The attendant app shall keep working without network and show its state.
 
 ### 7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)
 
-Same as the desktop student module (DSK-STU, Student 6-8) for data and rules: homework, notes, ask a teacher, marks, attendance, holistic progress, leave. This section adds what is different on the phone. Tab bar: Home, Schedule, Learn, Progress; the header shows a house chip ("HOUSE Raman") and the avatar (initials) that opens the profile and leave. Marks and attendance are visible only to the student and parents.
+Same as the desktop student module (DSK-STM, Student 6-8) for data and rules: homework, notes, ask a teacher, marks, attendance, holistic progress, leave. This section adds what is different on the phone. Tab bar: Home, Schedule, Learn, Progress; the header shows a house chip ("HOUSE Raman") and the avatar (initials) that opens the profile and leave. Marks and attendance are visible only to the student and parents.
 
 **MOB-STM-001 · Must · MVP · flag: mod.student_learning · [Design]**
 The student can open a Home that shows a level, three daily quests and a warm-up quiz.
@@ -676,7 +676,7 @@ The student app shall never expose messaging to anyone outside the school and sh
 
 ### 7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)
 
-Same as DSK-STU (Student 9-12). Tab bar: Home, Schedule, Learn, Progress; header house chip ("HOUSE Tagore") and avatar that opens the profile and leave. No XP or levels; "study points" and a readiness score replace them.
+Same as DSK-STS (Student 9-12). Tab bar: Home, Schedule, Learn, Progress; header house chip ("HOUSE Tagore") and avatar that opens the profile and leave. No XP or levels; "study points" and a readiness score replace them.
 
 **MOB-STS-001 · Must · MVP · flag: mod.student_learning · [Design]**
 The student can open an Exam Mode Home with countdown, first-paper line, readiness ring and streak.
@@ -733,10 +733,10 @@ Each staff role has a phone app that reads and writes the same data as its deskt
 |---|---|---|---|---|
 | Teacher (DSK-TCH) | Today, Inbox, Students, Prep, Calendar; Me from avatar | Attendance, marks (type or photo), homework check, paper, notes, lesson plan, remedial, leave, payslips | Large tables (paper step 2, plan details, roster) are easier on desktop; Timetable page is "Week ›" link | "Switch profile" sheet from the header; "Prep" tile grid with a "Recently" list |
 | HoD (DSK-HOD) | Today, Reviews, Team, Progress | Leave, plan and paper review, team, results, homework | Progress shows Results and Homework only; "My classes" is a toggle on Today and says "The full teacher screens are on the desktop" | Calendar as a link from "Coming up" |
-| Academic coordinator (DSK-ACD) | Today, Cover, Progress, Timetable | Cover, plan reminders, outcomes, timetable | "+ Notice to teachers" and Ask Dhruva header button are not on phone | Parent queries from the Today card |
+| Academic coordinator (DSK-ACO) | Today, Cover, Progress, Timetable | Cover, plan reminders, outcomes, timetable | "+ Notice to teachers" and Ask Dhruva header button are not on phone | Parent queries from the Today card |
 | Exam cell (DSK-EXM) | Today, Papers, Exam days, Marks, CBSE | Papers, seating and duties, date sheets, marks checks, CBSE | "+ Notice about exams" and "Term 1 at a glance" are desktop | none |
 | Counsellor (DSK-CNS) | Today, Students, Sessions, Guidance | Referrals, sessions, private notes, guidance | Header "+ Book a session" is desktop | Notes stay private and need PIN |
-| Principal (DSK-PRN) | Today, Calendar, Fees, Reports, Me; bell = Approvals | Attendance by class and department, absence watch, fee defaulters, approvals, notices | Desktop has separate Attendance, Absence watch, Approvals, Notices items; setup journey is desktop | Pushed pages from Today cards |
+| Principal (DSK-PRI) | Today, Calendar, Fees, Reports, Me; bell = Approvals | Attendance by class and department, absence watch, fee defaulters, approvals, notices | Desktop has separate Attendance, Absence watch, Approvals, Notices items; setup journey is desktop | Pushed pages from Today cards |
 | Group owner (DSK-OWN) | Home, Campuses, Insights, Calendar | Approvals, campus scorecard, attendance, admissions, reports, notices, calendar | Onboarding and Add a campus are desktop only | Insights tab with chips Attendance, Admissions, Reports; "+ Event" on calendar |
 | Standalone admin (DSK-ADM) | Today, People, Money, Intake, School; Me from avatar | Attendance and cover, leave, fees, salary, admissions, notices, timetable and exams | "Coming up" panel not on phone | "Intake" label for admissions |
 | Finance (DSK-FIN) | Home, Alerts, Reports, Bank | Approvals, bank matching, bill approval, fees, compliance, month-end steps | Voucher entry, ledger setup, month lock, Tally mapping, vendors, inventory, requisition quotes: desktop only ("That section is on the desktop") | Alerts tab with drill-down sheets |
@@ -767,7 +767,7 @@ The teacher can enter marks by photographing the mark sheet or by typing.
 
 **MOB-STF-005 · Must · MVP · flag: mod.fees · [Design]**
 Finance and principal payment-type actions shall ask for PIN or biometric on each confirmation.
-- Acceptance: Given an approval or payment in DSK-FIN or DSK-PRN (for example "Schedule transfer", bill or concession approval) When confirmed Then the PIN or biometric prompt shows regardless of the unlock state and the action is logged with the person, time and device.
+- Acceptance: Given an approval or payment in DSK-FIN or DSK-PRI (for example "Schedule transfer", bill or concession approval) When confirmed Then the PIN or biometric prompt shows regardless of the unlock state and the action is logged with the person, time and device.
 
 **MOB-STF-006 · Must · MVP · flag: mod.approvals · [Design]**
 The principal and owner can approve or decline from the phone and be told it was recorded.
@@ -786,6 +786,11 @@ The security in-charge shall receive Urgent notifications for gate incidents and
 **MOB-STF-009 · Should · MVP · flag: mod.cover · [Design]**
 The teacher can accept or swap a cover assignment from the notification.
 - Acceptance: Given "Cover: 8-B, period 4 / Room 12 · Ms. Rekha Yadav is absent" When the notification is shown on Android Then action buttons "Accept" and "Swap" are present; on iOS a tap opens the Timetable with the same two actions.
+
+**MOB-STF-010 · Must · MVP · flag: mod.group_scorecard · [Design]**
+The group owner can see attendance, admissions and reports in an Insights tab on the phone.
+- Acceptance: Given the owner opens Insights When the Attendance chip is selected Then it shows "Weekly attendance · All 14 campuses · last 8 weeks" with the average (for example 94.3%), a campus picker (All campuses or any one campus), eight weekly bars starting at 80% with a dashed 92% target line, a one-sentence Dhruva reading (for example "The group has stayed above the 92% target all term. The small dip since 28 Sep comes almost entirely from Gurugram Sec 45.") and "By campus today" bars lowest first with a "Scorecard" link to Campuses; the Admissions chip shows the same content as the desktop Admissions page; the Reports chip shows "Ready-made reports · Download now or email them, once or on a schedule".
+- Rules: choosing a campus redraws the weekly chart for that campus. The desktop has no separate attendance trend page; the same trend is inside each campus drawer (Section 6, DSK-OWN). Without ai.focus_card the Dhruva sentence is hidden. Data: `GET /v1/group/insights/attendance`, `GET /v1/group/admissions` and the reports library (Section 9).
 
 ### 7.3.14 Offline and poor network (MOB-OFF)
 
@@ -1078,48 +1083,33 @@ The system shall use portrait layout on phones and show the phone layout centred
 
 | Method and path | Purpose | Authz and role scope | Key errors |
 |---|---|---|---|
-| POST /v1/auth/otp/send | Send a code (SMS or WhatsApp) | none (rate limited) | 429 TOO_MANY_REQUESTS; 400 INVALID_NUMBER |
-| POST /v1/auth/otp/verify | Verify the code and return session and profile list | none | 400 CODE_WRONG; 410 CODE_EXPIRED; 423 LOCKED |
-| POST /v1/auth/refresh | Refresh the access token | refresh token | 401 SESSION_REVOKED |
-| POST /v1/auth/logout | Sign out this device | session | none |
-| POST /v1/auth/logout-all | Sign out other devices | session | none |
-| GET /v1/me/profiles | List profiles for the number with counts of new items | session | 401 |
-| POST /v1/me/profiles/{id}/switch | Make a profile active; returns a profile-scoped token | session | 403 PROFILE_NOT_LINKED; 423 PROFILE_LOCKED |
-| POST /v1/me/pin | Set or change the App PIN (hash and salt wrapped by device key) | session | 400 WEAK_PIN |
-| POST /v1/me/pin/verify | Server check after 5 local failures (rate limit) | session | 429 |
-| GET /v1/devices | List signed-in devices | session | none |
-| POST /v1/devices | Register or update a device | session | 409 TOO_MANY_DEVICES |
-| DELETE /v1/devices/{id} | Revoke a device | session | 404 |
-| PUT /v1/devices/{id}/push-token | Register or replace the push token | session, same device | 400 BAD_TOKEN |
-| DELETE /v1/devices/{id}/push-token | Remove the token | session | none |
-| GET /v1/notifications?profile=&filter=&cursor= | Inbox list with unread count | session, profile scope | 403 |
-| POST /v1/notifications/{id}/read | Mark read | session | none |
-| POST /v1/notifications/read-all | Mark all read | session | none |
-| GET /v1/notification-preferences | Read settings for the profile | session | none |
-| PUT /v1/notification-preferences | Save settings | session | 422 LOCKED_TOPIC |
-| POST /v1/push/send (internal) | Notification Service fan-out to APNs/FCM | service | 202 ACCEPTED |
 | POST /v1/sync/batch | Send up to 50 queued items | session, role must match item types | 207 MULTI_STATUS with per-item result (applied, duplicate, conflict, rejected) |
 | GET /v1/sync/state?since= | Pull changes since a cursor for cached screens | session | none |
 | POST /v1/sos | Raise an SOS with optional location | attendant, session | 503 retry; client falls back to SMS |
 | GET /v1/app/version-policy?platform=&build= | Version policy | none | none |
 | GET /v1/links/resolve?t=<token> | Resolve a deep-link token | none (token is the credential) | 410 LINK_EXPIRED; 404 |
 | POST /v1/uploads/photo | Upload a captured photo (multipart) | session | 413 TOO_LARGE; 415 BAD_TYPE |
-| POST /v1/add-me | Create an add-me request | none (rate limited) | 429 |
+| GET /v1/parent/children | Children linked to the parent profile (child chip) | parent | none |
+| GET /v1/parent/children/{sid}/home, /progress, /notices | Child home (today and three headline numbers); Progress (Attendance, Marks, Report card with the Dhruva line); notices for the child and family | parent of the child | 403 NOT_GUARDIAN |
+| GET /v1/parent/children/{sid}/fees | Dues to tick and pay, and receipts | parent of the child | 403 NOT_GUARDIAN |
 | POST /v1/payments/intent | Create a payment intent for ticked lines (idempotency key) | parent | 409 ALREADY_PAID; 422 NOTHING_TICKED |
 | GET /v1/payments/{id} | Poll payment status | parent | 404 |
+| GET /v1/parent/children/{sid}/bus | Bus status for the child | parent of the child | 404 NOT_ON_BUS |
+| POST /v1/parent/children/{sid}/leave | Leave request for a child | parent of the child | 409 OVERLAPS |
+| GET/POST /v1/parent/conversations ; POST /v1/parent/conversations/{id}/messages | Conversations by topic for the selected child; send a message | parent | 403 |
+| GET /v1/ptm/slots ; POST /v1/ptm/bookings | PTM slots with the class teacher; book one | parent | 409 SLOT_TAKEN |
+| GET /v1/parent/children/{sid}/junior-pod | Parent-led Junior pod | parent of the child | 403 |
+| GET /v1/trn/attendant/trips/today ; GET /v1/trn/trips/{id}/children | Attendant's trips today; children on a trip in stop order | attendant | 403 |
+
+The phone app also uses APIs defined once elsewhere (see 2.5):
+- Sign-in, profiles, PIN, devices and push tokens: Section 3 (`/v1/auth/otp/request`, `/v1/auth/otp/verify`, `/v1/auth/refresh`, `/v1/auth/logout`, `/v1/auth/logout-all`, `/v1/me/profiles`, `/v1/me/pin`, `/v1/devices`, `/v1/devices/{id}/push-token`, `/v1/auth/number-add-requests`).
+- Notifications inbox, notification preferences and push fan-out: Section 9 (`/v1/notifications`, `/v1/notification-preferences`, `/internal/v1/push/send`).
+- Role homes: `GET /v1/dashboard/today` (Section 6). Ask Dhruva: Section 5.
 
 ### Events
 
 | Event name | Emitted when | Payload highlights | Consumers |
 |---|---|---|---|
-| device.registered | Device first registered | device_id, platform, app_version | Audit, Notification Service |
-| device.revoked | Sign-out everywhere, revoke, lost phone | device_id, reason, unsynced_items | Audit, Notification Service, IDM |
-| push.token.registered / push.token.invalidated | Token set or provider returns invalid | token_id, provider | Notification Service |
-| notification.sent | Push accepted by APNs/FCM | notification_id, tier, device_id | Analytics |
-| notification.opened | App opens from a push | notification_id, time_to_open | Fallback timer (WhatsApp after 30 minutes), analytics |
-| notification.fallback.whatsapp | 30 minutes without open for fee or pickup | notification_id, template | WhatsApp channel |
-| auth.otp.verified / auth.profile.switched | Verified; profile changed | person_id, profile_id | Audit, IDM |
-| auth.pin.locked | 10 wrong PIN tries | profile_id | Audit |
 | sync.batch.received | Batch posted | count, device_id | Sync service |
 | sync.item.applied / sync.item.conflict | Per item result | client_event_id, type, conflict_ref | Teacher and transport views, supervisors |
 | attendance.submitted | Attendance applied (live or synced) | class_period, device_time, source (live, queue) | Parent alerts, coordinator, principal |
@@ -1128,6 +1118,8 @@ The system shall use portrait layout on phones and show the phone layout centred
 | app.version.blocked | Blocked version attempts to start | build | Release team |
 | link.opened | Deep link resolved | purpose, result | Analytics |
 | photo.uploaded | Photo stored | purpose (marks, homework, notes), count | AI (marks from photo), homework |
+
+Consumed from other sections: device, push-token, sign-in, profile and PIN events (Section 3); `notification.delivered`, `notification.opened` and `notification.fallback_due` (Section 9).
 
 ### State machines and workflows
 

@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Product** | DhruvaOne school ERP with the Dhruva AI assistant |
-| **Document** | Functional specification v1.0 (draft for client review) |
-| **Date** | 30 October 2026 |
+| **Document** | Functional specification v1.1 (draft for client review) |
+| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 24) |
 | **Status** | Draft: product body for sign-off, engineering annexes for build |
 | **Sample data** | All names, numbers and amounts are sample data (group "DPS Group", hero campus DPS Gurugram Sec 45, sample day Fri 9 Oct 2026; standalone school "Saraswati Vidya Niketan", Karnal) |
 | **Derived from** | The DhruvaOne design prototypes (desktop, phone, WhatsApp, website), the MVP scope and roadmap, and the functional overview (214 pages) |
@@ -21,6 +21,7 @@
 - [8. WhatsApp](#8-whatsapp)
 - [9. Cross-cutting Platform Requirements](#9-cross-cutting-platform-requirements)
 - [10. Release phasing and decisions](#10-release-phasing-and-decisions)
+- [11. Website](#11-website)
 - [Appendix A: Feature flag registry](#appendix-a-feature-flag-registry)
 - [Appendix B: Glossary](#appendix-b-glossary)
 - [Appendix C: Design gaps](#appendix-c-design-gaps)
@@ -30,7 +31,7 @@
 # 1. Introduction and conventions
 
 ## 1.1 Purpose
-This specification defines what DhruvaOne must do, end to end, so that the client can sign it off and engineering can build and test from it. It covers five areas requested by the client: **AI**, **App - Desktop**, **App - Mobile**, **Identity Management** and **WhatsApp**. It adds the capability the client asked for on top of those: **a tenant administrator can enable or disable AI features and other features for a tenant** (Section 4), and the shared platform services every area depends on (Section 9).
+This specification defines what DhruvaOne must do, end to end, so that the client can sign it off and engineering can build and test from it. It covers five areas requested by the client: **AI**, **App - Desktop**, **App - Mobile**, **Identity Management** and **WhatsApp**, plus the **B2B website** (Section 11). It adds the capability the client asked for on top of those: **a tenant administrator can enable or disable AI features and other features for a tenant** (Section 4), and the shared platform services every area depends on (Section 9).
 
 ## 1.2 Audience and how to read it
 Each section has a **product body** in plain language (purpose, requirements with acceptance criteria, business rules, notifications, feature switches) and an **engineering annex** (data entities, APIs, events, state machines, permission matrix). Owners and principals can read the bodies; engineering and QA use the annexes and the acceptance criteria.
@@ -53,11 +54,11 @@ The system shall ...
 
 | Field | Meaning |
 |---|---|
-| ID | `AREA-MODULE-nnn`, unique across the whole document. Areas: IDM identity, TFC tenant feature control, AI, DSK desktop, MOB mobile, WAB WhatsApp, XCT cross-cutting. |
+| ID | `AREA-MODULE-nnn`, unique across the whole document. Areas: IDM identity, TFC tenant feature control, AI, DSK desktop, MOB mobile, WAB WhatsApp, XCT cross-cutting, WEB website. |
 | Priority | **Must** (needed for the release), **Should** (expected, can slip with agreement), **Could** (nice to have). |
 | Phase | **MVP** (build Oct to Dec 2026, go-live Jan to Mar 2027), **P2** (Phase 1 of the roadmap, Apr to Sep 2027), **P3** (Phase 2 of the roadmap, Oct 2027 to Mar 2028). |
 | flag | The feature switch (Section 4) that turns the requirement off for a tenant, campus or role. `core` means it can never be switched off (sign-in, audit, consent, safety). Appendix A lists every flag. |
-| Source tag | `[Design]` or `[Spec]`, as above. |
+| Source tag | `[Design]` or `[Spec]`, as above. `[Design] + [Spec]` marks a designed behaviour that this document extends. |
 | Acceptance | Testable conditions in Given / When / Then form, using exact labels where designed. |
 
 ## 1.5 Principles that every requirement follows
@@ -70,18 +71,19 @@ The system shall ...
 
 ## 1.6 Requirement counts
 
-| Section | Area | Requirements | MVP | P2 | P3 | Design | Spec |
-|---|---|---|---|---|---|---|---|
-| 3 | Identity Management (IDM) | 90 | 80 | 9 | 1 | 41 | 49 |
-| 4 | Tenant Administration and Feature Control (TFC) | 102 | 98 | 4 | 0 | 4 | 98 |
-| 5 | AI: the Dhruva assistant (AI) | 89 | 81 | 8 | 0 | 56 | 33 |
-| 6 | App - Desktop (DSK) | 191 | 186 | 1 | 4 | 187 | 4 |
-| 7 | App - Mobile (MOB) | 162 | 159 | 3 | 0 | 125 | 37 |
-| 8 | WhatsApp (WAB) | 122 | 48 | 71 | 3 | 67 | 55 |
-| 9 | Cross-cutting platform (XCT) | 112 | 108 | 4 | 0 | 54 | 58 |
-| | **Total** | **868** | **760** | **100** | **8** | **534** | **334** |
+| Section | Area | Requirements | MVP | P2 | P3 | Design | Spec | Design + Spec |
+|---|---|---|---|---|---|---|---|---|
+| 3 | Identity Management (IDM) | 90 | 80 | 9 | 1 | 41 | 49 | 0 |
+| 4 | Tenant Administration and Feature Control (TFC) | 102 | 98 | 4 | 0 | 4 | 98 | 0 |
+| 5 | AI: the Dhruva assistant (AI) | 89 | 81 | 8 | 0 | 56 | 33 | 0 |
+| 6 | App - Desktop (DSK) | 196 | 191 | 1 | 4 | 187 | 4 | 5 |
+| 7 | App - Mobile (MOB) | 163 | 160 | 3 | 0 | 126 | 37 | 0 |
+| 8 | WhatsApp (WAB) | 122 | 48 | 71 | 3 | 67 | 55 | 0 |
+| 9 | Cross-cutting platform (XCT) | 112 | 108 | 4 | 0 | 54 | 58 | 0 |
+| 11 | Website (WEB) | 34 | 34 | 0 | 0 | 22 | 12 | 0 |
+| | **Total** | **908** | **800** | **100** | **8** | **557** | **346** | **5** |
 
-Priorities across all areas: 690 Must, 164 Should, 14 Could.
+Priorities across all areas: 726 Must, 168 Should, 14 Could.
 
 ## 1.7 Document map
 
@@ -97,6 +99,7 @@ Priorities across all areas: 690 Must, 164 Should, 14 Could.
 | 8 | WhatsApp | Business account, parent, teacher and staff flows, handover, compliance |
 | 9 | Cross-cutting platform | Notifications, approvals, audit, integrations, data, security, non-functional |
 | 10 | Release phasing and decisions | Roadmap mapping, decisions taken, open decisions |
+| 11 | Website | B2B website pages, demo and pricing requests, website sign-in |
 | Appendix A | Feature flag registry | |
 | Appendix B | Glossary | |
 | Appendix C | Design gaps | Screens and decisions still to be designed |
@@ -111,7 +114,7 @@ Priorities across all areas: 690 Must, 164 Should, 14 Could.
 | Desktop web app | Office roles: group owner, principal, school admin, academic coordinator, head of department, exam cell, counsellor, teacher, HR and payroll, finance and accounts, admissions, security and IT, transport in-charge; student desktop views | Sidebar with role modules, Ask Dhruva, profile switcher |
 | Phone app (iOS and Android) | All of the above on the phone, plus parents, students (Classes 6 to 8 and 9 to 12) and bus attendants | English and Hindi; push notifications; offline queue for attendance and bus taps |
 | WhatsApp | Parents, teachers and support staff who do not use the app | Official school account; menus, forms, photo of register or marks, voice notes (Hindi and English), handover to a person |
-| B2B website | Prospective schools; anyone who needs the app link or a computer sign-in | Product, trust and pricing pages, demo and pilot requests, mobile-number sign-in |
+| B2B website | Prospective schools; anyone who needs the app link or a computer sign-in | Product, trust and pricing pages, demo and pilot requests, mobile-number sign-in (Section 11) |
 
 ## 2.2 Tenancy model
 - A **group** (sample: DPS Group, 14 campuses, 43,240 students, 2,976 staff) has an owner who sees every campus on one scorecard and approves only what exceeds a campus limit. Each **campus** has its own principal, staff, students and approvals.
@@ -152,10 +155,30 @@ flowchart LR
 
 Reading the diagram: every request passes the gateway, which asks Identity who the caller is and the Feature control service whether the capability is on for that tenant, campus and role. The AI service and the notification engine ask the same Feature control service, so a switch has the same effect on every channel.
 
+## 2.5 API and event conventions
+These rules apply to every engineering annex. They were added in v1.1 to remove duplicate and conflicting APIs (Section 10.2, decisions 11 to 22).
+
+- **Paths.** Public platform APIs are under `/v1`, and every annex table writes the full path. Service-to-service APIs are under `/internal/v1` and are never exposed through the public gateway. WhatsApp gateway APIs (`/wa/...`, Section 8) are served by the WhatsApp gateway, not the platform API.
+- **One function, one API.** Each API is defined once, in the annex of the section that owns the capability. Other sections refer to it instead of defining their own.
+
+| Owner | APIs it defines |
+|---|---|
+| Section 3 Identity | Sign-in and OTP, sessions, profiles and switching, PIN and step-up, devices and push tokens, number-add requests, people, profiles, memberships, roles, guardianships, identity policy |
+| Section 4 Feature control | Feature switches, change requests, snapshots, tenant settings, AI consent, AI settings, AI pause, AI quota, plans, entitlements, platform kill switches, platform console, tenant administrators and hierarchy |
+| Section 5 AI | Ask Dhruva, focus list, suggestions, drafts, mark-sheet reading, homework checking, voice, translation, AI usage, explanations, models and evaluations |
+| Section 6 Desktop | Business modules: dashboards, group, onboarding, academics, timetables, exams, counselling, HR and payroll, finance, admissions, security, transport, students |
+| Section 7 Mobile | Phone-only services: offline sync, SOS, version policy, deep links, photo upload, parent and bus-attendant views, payment intents |
+| Section 8 WhatsApp | The WhatsApp gateway (`/wa/...`) |
+| Section 9 Cross-cutting | Notifications and notification preferences, push fan-out, notices, approvals, audit, reports, calendar, search, files, imports, campuses, consent and data requests, provider webhooks, integrations, telemetry, support, status |
+| Section 11 Website | Website requests (leads) |
+
+- **Errors.** Every API uses the envelope `{"error":{"code","message","feature?","reason?","request_id"}}` (Section 4).
+- **Events.** Names are lower case: `domain.entity.action`, or `domain.action` where the domain is the entity, with underscores inside a multi-word part (for example `ai.quota_threshold`, `change_request.approved`). Each event is defined once, in the owner's annex; other sections list it as consumed.
+
 ---
 # 3. Identity Management
 
-Area code: IDM. Related sections: Section 4 (Tenant feature control and administration, TFC) defines the Tenant Administrator role and the flag mechanism; Section 5 (Desktop), Section 6 (Mobile) and Section 7 (WhatsApp) consume the identity services defined here; cross-cutting audit and notification rules live in XCT.
+Area code: IDM. Related sections: Section 4 (Tenant feature control and administration, TFC) defines the Tenant Administrator role and the flag mechanism; Section 6 (Desktop), Section 7 (Mobile), Section 8 (WhatsApp) and Section 11 (Website) consume the identity services defined here; cross-cutting audit and notification rules live in XCT.
 
 ## 3.1 Purpose, scope and out-of-scope
 
@@ -832,28 +855,34 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 ### APIs
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| POST /auth/lookup | Optional registered-number check (throttled) | Public, attestation | 400 invalid_number, 429 rate_limited |
-| POST /auth/otp/request | Send OTP (sms or whatsapp) | Public, attestation | 400 invalid_number, 404 not_registered (if lookup enabled), 429 rate_limited, 423 locked |
-| POST /auth/otp/verify | Verify code, create session, return profile list | Public with challenge id | 400 invalid_code, 410 expired, 429 too_many_attempts |
-| GET /auth/profiles | Profile list for the session's Person | Authenticated | 401 |
-| POST /auth/switch | Switch active profile; re-issue token | Authenticated | 403 profile_not_available, 423 locked_needs_pin |
-| POST /auth/refresh | Rotate refresh token | Refresh token | 401 reused_token (revokes family) |
-| POST /auth/logout | End session on this device (all profiles) | Authenticated | |
-| GET /auth/sessions | List devices and sessions | Authenticated (own) | |
-| DELETE /auth/sessions/{id} and POST /auth/sessions/revoke-all | Revoke one / all | Own; Tenant Administrator for staff | 403 |
-| POST /auth/pin/set, /auth/pin/verify, /auth/pin/reset | Set, verify, reset PIN (reset needs fresh OTP) | Authenticated | 423 pin_locked, 400 weak_pin |
-| POST /auth/stepup | Challenge and verify PIN or biometric assertion | Authenticated | 401 stepup_required |
-| POST /auth/devices/register | Register device key, attestation | Authenticated | 403 attestation_failed |
-| POST /auth/number-add-requests | Create add request | Public, throttled | 429 |
-| GET/POST /idm/people, /idm/profiles, /idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
-| POST /idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
-| POST /idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
-| POST /idm/guardianships and PATCH /idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
-| POST /idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
-| GET /idm/audit | Query and export audit events | Tenant Administrator, Owner | 403 |
-| GET/PUT /idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
-| POST /wa/identify (internal) | Resolve WhatsApp number to profiles | Internal service | 404 unknown_number |
-| POST /wa/pin/verify (internal) | Verify PIN from WhatsApp Flow | Internal service | 423 pin_locked |
+| POST /v1/auth/lookup | Optional registered-number check (throttled) | Public, attestation | 400 invalid_number, 429 rate_limited |
+| POST /v1/auth/otp/request | Send OTP (sms or whatsapp). Used by the phone app, the desktop web app and the website | Public, attestation | 400 invalid_number, 404 not_registered (if lookup enabled), 429 rate_limited, 423 locked |
+| POST /v1/auth/otp/verify | Verify code, create session, return profile list | Public with challenge id | 400 invalid_code, 410 expired, 429 too_many_attempts |
+| POST /v1/auth/refresh | Rotate refresh token | Refresh token | 401 reused_token (revokes family) |
+| POST /v1/auth/logout | End session on this device (all profiles) | Authenticated | |
+| POST /v1/auth/logout-all | Sign out every other device | Authenticated (own) | |
+| POST /v1/auth/stepup | Challenge and verify PIN or biometric assertion | Authenticated | 401 stepup_required |
+| POST /v1/auth/number-add-requests | Ask the school to add this number (sign-in "not registered", phone app "Ask to be added") | Public, throttled | 429 |
+| GET /v1/me/profiles | Profiles for the session's Person, with counts of new items | Authenticated | 401 |
+| POST /v1/me/profiles/{id}/switch | Make a profile active; returns a profile-scoped token | Authenticated | 403 profile_not_available, 423 locked_needs_pin |
+| POST /v1/me/pin | Set or change the PIN (hash and salt wrapped by the device key) | Authenticated | 400 weak_pin |
+| POST /v1/me/pin/verify | Verify the PIN on the server (after 5 local failures) | Authenticated | 423 pin_locked, 429 |
+| POST /v1/me/pin/reset | Reset the PIN; needs a fresh OTP | Authenticated with fresh OTP | 401 otp_required |
+| GET /v1/devices | List signed-in devices and their sessions | Authenticated (own); Tenant Administrator for staff | |
+| POST /v1/devices | Register or update a device (key, attestation, app version) | Authenticated | 403 attestation_failed, 409 too_many_devices |
+| DELETE /v1/devices/{id} | Revoke a device and its sessions | Own; Tenant Administrator for staff | 403, 404 |
+| PUT/DELETE /v1/devices/{id}/push-token | Register, replace or remove the push token | Authenticated, same device | 400 bad_token |
+| GET /v1/idm/roles | Role catalogue with scope levels | Staff | |
+| GET/POST /v1/idm/people, /v1/idm/profiles, /v1/idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
+| POST /v1/idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
+| POST /v1/idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
+| POST /v1/idm/guardianships and PATCH /v1/idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
+| POST /v1/idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
+| GET/PUT /v1/idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
+| POST /internal/v1/wa/identify | Resolve WhatsApp number to profiles | Internal service (WhatsApp gateway) | 404 unknown_number |
+| POST /internal/v1/wa/pin/verify | Verify PIN from WhatsApp Flow | Internal service (WhatsApp gateway) | 423 pin_locked |
+
+Identity audit events are read and exported through `GET /v1/audit?category=identity` and `POST /v1/audit/exports` (Section 9).
 
 ### Events
 | Event | Emitted when | Payload highlights | Consumers |
@@ -864,15 +893,17 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 | auth.profile.switched | Active profile changed | from, to, step_up | Audit |
 | auth.stepup.succeeded / failed | PIN or biometric step-up | action, method | Audit, finance, approvals |
 | auth.pin.set / reset / locked | PIN change | person_id | Audit, WhatsApp |
-| auth.session.revoked | Revocation | scope (one, all), reason | Push, API gateway |
+| device.registered | Device first registered | device_id, platform, app_version | Audit, notification service |
+| device.revoked | Device or session revoked (one, all others, lost phone) | device_id, scope, reason, unsynced_items | Push, API gateway, audit |
+| push.token.registered / invalidated | Push token set, or provider reports it invalid | token_id, provider | Notification service |
 | idm.profile.invited / activated / suspended / deactivated | Lifecycle change | profile_id, by | Audit, notifications, HR |
 | idm.membership.assigned / removed | Role change | role, scope, by | Audit, permission cache |
 | idm.guardianship.created / verified / archived | Child link change | student_id, relation | Audit, fees, transport, notices |
 | idm.number.changed | Number moved | old_masked, new_masked | Audit, WhatsApp, sessions |
 | idm.studentaccount.created / disabled | Student login change | student_id, guardian | Audit, student app |
-| idm.consent.given / withdrawn | Consent change | purpose | Audit, channels |
-| idm.flag.changed | idm.* flag edit | flag, scope, by | TFC, audit |
 | hr.employee.exit_started / exit_completed (consumed) | HR exit | last_day | Identity offboarding job |
+
+Consent events are `consent.recorded` and `consent.withdrawn` (Section 9). Changes to `idm.*` flags raise `feature.changed` (Section 4).
 
 ### State machines / workflows
 **OTP challenge:** Created -> Sent -> (Verified | Expired | Locked | Superseded by resend | Cancelled by "Use a different number"). Verified is terminal; Locked after 5 wrong codes.
@@ -1794,34 +1825,35 @@ Feature control is itself not switchable (`core`), but it governs these switches
 
 ### APIs
 
-All paths are under `/api/v1`. Errors use the envelope `{"error":{"code","message","feature?","reason?","request_id"}}`.
+All paths are under `/v1` (see 2.5). Errors use the envelope `{"error":{"code","message","feature?","reason?","request_id"}}`.
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /tenants/{id}/features | List features with plan state, base state, rules summary, chip, pending requests; query `category`, `q`, `status`, `campus` | TA, CP (own campus), PO | 403 `FORBIDDEN_ROLE`, 404 |
-| GET /tenants/{id}/features/{key} | Drawer data: rules, dependents, history, preview inputs | as above | 404 `UNKNOWN_FEATURE` |
-| PUT /tenants/{id}/features/{key} | Set base state, rules, lock, delegation, stage; requires `reason`, `If-Match: version`; returns a change request (applied or pending) | TA, CP within delegation | 409 `VERSION_CONFLICT`, 422 `PLAN_LOCKED`, `DEPENDENCY_OFF`, `LOCKED_BY_HIGHER_LEVEL`, `CONSENT_MISSING`, `ADMIN_LOCKOUT_PREVENTED`, `BLOCKING_CONDITION` |
-| POST /tenants/{id}/features/{key}/preview | Compute impact preview without saving | TA, CP | 422 |
-| POST /tenants/{id}/features/{key}/schedule | Add a schedule to a change (starts_at, ends_at) | TA, CP | 422 `SCHEDULE_INVALID`, `TOO_MANY_SCHEDULES` |
-| DELETE /tenants/{id}/features/{key}/schedule/{sid} | Cancel a scheduled change | requester, TA | 409 `ALREADY_APPLIED` |
-| POST /tenants/{id}/features:bulk | Apply an action to up to 100 features; supports `preset` | TA | 422 per item, 207 partial if `apply_others` |
-| GET /features/evaluate | Evaluate `key` or all for a context (`tenant`, `campus`, `role`, `profile`, `channel`, `app_version`); caller identity decides allowed contexts | Service tokens, signed-in client (own context only) | 400 `NO_CONTEXT` |
-| GET /tenants/{id}/features/{key}/explain | "Why on or off" for a person | TA, PO | 404 |
-| GET /tenants/{id}/change-requests, POST .../{rid}/approve, POST .../{rid}/decline, POST .../{rid}/withdraw | Approvals flow | approver, requester | 403 `SELF_APPROVAL_NOT_ALLOWED`, 409 `REQUEST_NOT_PENDING`, 410 `REQUEST_EXPIRED` |
-| GET /tenants/{id}/snapshots | List snapshots | TA | |
-| POST /tenants/{id}/snapshots | Create named snapshot | TA | |
-| GET /tenants/{id}/snapshots/{sid}/diff | Diff with current | TA | |
-| POST /tenants/{id}/snapshots/{sid}:rollback | Create rollback change request | TA | 422 per item |
-| GET /tenants/{id}/audit-events, POST .../audit-events:export | Query and export | TA, CP (campus), PO | 202 for large exports |
-| GET/POST /tenants/{id}/ai/consent | Read consent state; accept terms or capability acknowledgement | Group Owner or School Admin (trustee countersign if enabled) | 403 `CONSENT_NOT_AUTHORISED`, 409 `STALE_VERSION` |
-| GET/PUT /tenants/{id}/ai/settings | Data-use, human approval policy, pause | TA | 422 `LOCKED_POLICY` |
-| POST /tenants/{id}/ai:pause, POST /tenants/{id}/ai:resume | Tenant kill switch | TA | |
-| GET/PUT /tenants/{id}/ai/quota | Read, set soft cap, per-campus allotment | TA | 422 |
-| GET/PUT /tenants/{id}/settings | Tenant settings (6 groups) | TA | 422 |
-| GET /plans, GET /plans/{id}, POST /plans, POST /plans/{id}:publish | Plan management | PO (Platform Admin) | 409 `PLAN_PUBLISHED` |
-| PUT /tenants/{id}/plan, PUT /tenants/{id}/entitlements/{key}, POST /tenants/{id}/trial, POST /tenants/{id}/ai/topup | Assign plan, overrides, trials, AI top-up | PO | 422 |
-| POST /platform/kill-switches, DELETE /platform/kill-switches/{id} | Global or per-tenant kill, lift | PO (Platform Security, Platform Admin; lift needs second person) | 403 `SECOND_APPROVER_REQUIRED` |
-| GET /platform/tenants, GET /platform/tenants/{id}, GET /platform/usage | Platform console | PO | |
+| GET /v1/tenants/{id}/features | List features with plan state, base state, rules summary, chip, pending requests; query `category`, `q`, `status`, `campus` | TA, CP (own campus), PO | 403 `FORBIDDEN_ROLE`, 404 |
+| GET /v1/tenants/{id}/features/{key} | Drawer data: rules, dependents, history, preview inputs | as above | 404 `UNKNOWN_FEATURE` |
+| PUT /v1/tenants/{id}/features/{key} | Set base state, rules, lock, delegation, stage; requires `reason`, `If-Match: version`; returns a change request (applied or pending) | TA, CP within delegation | 409 `VERSION_CONFLICT`, 422 `PLAN_LOCKED`, `DEPENDENCY_OFF`, `LOCKED_BY_HIGHER_LEVEL`, `CONSENT_MISSING`, `ADMIN_LOCKOUT_PREVENTED`, `BLOCKING_CONDITION` |
+| POST /v1/tenants/{id}/features/{key}/preview | Compute impact preview without saving | TA, CP | 422 |
+| POST /v1/tenants/{id}/features/{key}/schedule | Add a schedule to a change (starts_at, ends_at) | TA, CP | 422 `SCHEDULE_INVALID`, `TOO_MANY_SCHEDULES` |
+| DELETE /v1/tenants/{id}/features/{key}/schedule/{sid} | Cancel a scheduled change | requester, TA | 409 `ALREADY_APPLIED` |
+| POST /v1/tenants/{id}/features:bulk | Apply an action to up to 100 features; supports `preset` | TA | 422 per item, 207 partial if `apply_others` |
+| GET /v1/features/evaluate | Evaluate `key` or all for a context (`tenant`, `campus`, `role`, `profile`, `channel`, `app_version`); caller identity decides allowed contexts | Service tokens, signed-in client (own context only) | 400 `NO_CONTEXT` |
+| GET /v1/tenants/{id}/features/{key}/explain | "Why on or off" for a person | TA, PO | 404 |
+| GET /v1/tenants/{id}/change-requests, POST .../{rid}/approve, POST .../{rid}/decline, POST .../{rid}/withdraw | Approvals flow | approver, requester | 403 `SELF_APPROVAL_NOT_ALLOWED`, 409 `REQUEST_NOT_PENDING`, 410 `REQUEST_EXPIRED` |
+| GET /v1/tenants/{id}/snapshots | List snapshots | TA | |
+| POST /v1/tenants/{id}/snapshots | Create named snapshot | TA | |
+| GET /v1/tenants/{id}/snapshots/{sid}/diff | Diff with current | TA | |
+| POST /v1/tenants/{id}/snapshots/{sid}:rollback | Create rollback change request | TA | 422 per item |
+| GET /v1/tenants/{id}/administrators ; POST /v1/tenants/{id}/administrators ; DELETE /v1/tenants/{id}/administrators/{profileId} | List, assign and remove Tenant Administrators and Group Admins | TA (cannot remove the last one), PO | 422 `ADMIN_LOCKOUT_PREVENTED` |
+| GET /v1/tenants/{id}/hierarchy | Group, campus and standalone hierarchy with campus status | TA, PO | 404 |
+| GET/POST /v1/tenants/{id}/ai/consent | Read consent state; accept terms or capability acknowledgement | Group Owner or School Admin (trustee countersign if enabled) | 403 `CONSENT_NOT_AUTHORISED`, 409 `STALE_VERSION` |
+| GET/PUT /v1/tenants/{id}/ai/settings | AI settings: data use, capability toggles, human approval modes, retention | TA; principal read | 422 `LOCKED_POLICY`, 422 `CONSENT_REQUIRED` |
+| POST /v1/tenants/{id}/ai:pause, POST /v1/tenants/{id}/ai:resume | Tenant kill switch | TA | |
+| GET/PUT /v1/tenants/{id}/ai/quota | Read, set soft cap, per-campus allotment | TA | 422 |
+| GET/PUT /v1/tenants/{id}/settings | Tenant settings (6 groups) | TA | 422 |
+| GET /v1/plans, GET /v1/plans/{id}, POST /v1/plans, POST /v1/plans/{id}:publish | Plan management | PO (Platform Admin) | 409 `PLAN_PUBLISHED` |
+| PUT /v1/tenants/{id}/plan, PUT /v1/tenants/{id}/entitlements/{key}, POST /v1/tenants/{id}/trial, POST /v1/tenants/{id}/ai/topup | Assign plan, overrides, trials, AI top-up | PO | 422 |
+| POST /v1/platform/kill-switches, DELETE /v1/platform/kill-switches/{id} | Global or per-tenant kill and lift, including the platform AI kill (`scope: ai`) | PO (Platform Security, Platform Admin; lift needs second person) | 403 `SECOND_APPROVER_REQUIRED` |
+| GET /v1/platform/tenants, GET /v1/platform/tenants/{id}, GET /v1/platform/usage | Platform console | PO | |
 | Any feature route | Gated by middleware | feature flag | 403 `FEATURE_DISABLED` with `reason`; 429 `AI_QUOTA_EXCEEDED` |
 
 Example denial body:
@@ -1829,6 +1861,8 @@ Example denial body:
 {"error":{"code":"FEATURE_DISABLED","message":"Marks from photo is switched off for your school.","feature":"ai.marks_from_photo","reason":"ROLE_OVERRIDE","request_id":"req_8f2c1"}}
 ```
 (`reason` is returned to admin tokens only.)
+
+Configuration audit (feature changes, change requests, snapshots, AI settings) is read and exported through `GET /v1/audit?category=configuration` and `POST /v1/audit/exports` (Section 9); entries link to their change request and snapshot.
 
 ### Events
 
@@ -1842,7 +1876,7 @@ Example denial body:
 | config.snapshot_created, config.rolled_back | Snapshot or restore | snapshot id, diff size | Audit, notifications |
 | plan.changed, plan.expiring, plan.expired, plan.grace_started, entitlement.changed, trial.started, trial.ending | Plan lifecycle | tenant, plan, dates | Evaluation service, notifications, platform console |
 | killswitch.set, killswitch.lifted | Platform kill switch | scope, key, reason, message | Evaluation service, notifications, audit |
-| ai.consent_accepted, ai.consent_required, ai.paused, ai.resumed | AI consent and pause | version, by, at | Evaluation service, audit |
+| ai.consent_accepted, ai.consent_required, ai.settings_changed, ai.paused, ai.resumed | AI consent, settings and tenant pause | version, by, at | Evaluation service, audit |
 | ai.quota_threshold, ai.quota_exhausted, ai.quota_reset | Quota | tenant, used, allowance, threshold | Notifications, AI gateway |
 | feature.blocked_attempt | A request was denied (sampled) | key, reason, role, campus, channel | Evaluation log, tenant "Blocked attempts" |
 | settings.changed | Tenant settings changed | group, before, after | Audit, notifications |
@@ -2671,39 +2705,34 @@ The orb shall expose accessible names and state to screen readers ("Dhruva, thin
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| POST /ai/ask | Ask Dhruva a question (conversation id optional) | Any signed-in profile with ai.assistant_chat | 403 AI_DISABLED; 429 RATE_LIMITED; 503 AI_UNAVAILABLE; 422 OUT_OF_SCOPE |
-| GET /ai/ask/suggestions | Suggested questions for role | Signed-in profile | 403 AI_DISABLED |
-| GET /ai/conversations/{id} | Conversation history | Owner of conversation | 404; 410 PURGED |
-| POST /ai/conversations/{id}/feedback | Thumbs and reason | Owner | 404 |
-| GET /ai/focus | Ranked task list with reasons | Signed-in profile | 200 with rule-based list if AI unavailable |
-| POST /ai/focus/{itemId}/later | Defer item | Owner | 404 |
-| GET /ai/suggestions | List suggestions for current role (filter by capability, state) | Role queue | 403 |
-| GET /ai/suggestions/{id} | Suggestion with reason and sources | Role queue | 404 |
-| POST /ai/suggestions/{id}/approve | Approve (optionally edited payload) | Role that owns the target action | 409 STALE_TARGET; 403 NOT_APPROVER; 409 EXPIRED |
-| POST /ai/suggestions/{id}/reject | Reject with reason | Same | 409 |
-| POST /ai/suggestions/batch-approve | Approve many with one confirmation | Same; max 500 per call | 207 per-item results |
-| POST /ai/drafts | Create a draft (notice, reply, paper, plan, reminder) | Capability role | 400 MISSING_SLOT; 429; 503 |
-| PATCH /ai/drafts/{id} | Edit or shorten or translate | Owner | 409 |
-| POST /ai/drafts/{id}/send | Approve and send through the module's own API | Owner with send rights | 403; 409 |
-| POST /ai/timetable/generate | Start generation (classes, rules, use_from) | Academic coordinator, admin | 409 GENERATION_RUNNING |
-| GET /ai/timetable/drafts/{id} | Draft with clashes and fixes | Same | 404 |
-| POST /ai/timetable/drafts/{id}/clashes/{cid}/apply | Apply fix (or option n) | Same | 409 NEW_CLASH |
-| POST /ai/timetable/drafts/{id}/apply-all | Fix all | Same | 207 remaining clashes |
-| POST /ai/timetable/drafts/{id}/approve | Approve classes with use_from | Same | 422 UNRESOLVED_CLASH |
-| POST /ai/ocr/marks | Read a mark sheet photo into a draft entry | Teacher of the class | 413 IMAGE_TOO_LARGE; 422 UNREADABLE |
-| POST /ai/ocr/{id}/confirm | Confirm read values | Same | 409 FLAGS_OPEN |
-| POST /ai/homework/{id}/check | Run checking on a set | Teacher | 422 NO_KEY |
-| POST /ai/voice/transcribe | Speech to text | Signed-in profile with ai.voice_input | 415; 422 UNINTELLIGIBLE |
-| POST /ai/translate | Translate a draft | Signed-in profile with ai.translation | 422 UNSUPPORTED_LOCALE |
-| GET /ai/usage | Usage and cost per capability | Tenant AI administrator, principal (read) | 403 |
-| GET /ai/settings | Read tenant AI settings | Tenant AI administrator | 403 |
-| PUT /ai/settings | Update consent, toggles, approval modes, retention | Tenant AI administrator | 409 LOCKED_SETTING; 422 CONSENT_REQUIRED |
-| POST /ai/settings/pause | Kill switch (tenant) | Tenant AI administrator | 200 idempotent |
-| POST /ai/admin/pause | Kill switch (platform) | Platform operator | 403 |
-| GET /ai/audit | Audit log search and export | Tenant AI administrator, principal | 403 |
-| GET /ai/explain/{outputId} | "How is this worked out" | Anyone who can see the output | 404 |
-| GET /ai/models | Model registry (read) | Platform operator | 403 |
-| POST /ai/eval/runs | Run an evaluation | Platform quality | 400 |
+| POST /v1/ai/ask | Ask Dhruva a question (conversation id optional) | Any signed-in profile with ai.assistant_chat | 403 AI_DISABLED; 429 RATE_LIMITED; 503 AI_UNAVAILABLE; 422 OUT_OF_SCOPE |
+| GET /v1/ai/ask/suggestions | Suggested questions for role | Signed-in profile | 403 AI_DISABLED |
+| GET /v1/ai/conversations/{id} | Conversation history | Owner of conversation | 404; 410 PURGED |
+| POST /v1/ai/conversations/{id}/feedback | Thumbs and reason | Owner | 404 |
+| GET /v1/ai/focus | Ranked task list with reasons | Signed-in profile | 200 with rule-based list if AI unavailable |
+| POST /v1/ai/focus/{itemId}/later | Defer item | Owner | 404 |
+| GET /v1/ai/suggestions | List suggestions for current role (filter by capability, state) | Role queue | 403 |
+| GET /v1/ai/suggestions/{id} | Suggestion with reason and sources | Role queue | 404 |
+| POST /v1/ai/suggestions/{id}/approve | Approve (optionally edited payload) | Role that owns the target action | 409 STALE_TARGET; 403 NOT_APPROVER; 409 EXPIRED |
+| POST /v1/ai/suggestions/{id}/reject | Reject with reason | Same | 409 |
+| POST /v1/ai/suggestions/batch-approve | Approve many with one confirmation | Same; max 500 per call | 207 per-item results |
+| POST /v1/ai/drafts | Create a draft (notice, reply, paper, plan, reminder) | Capability role | 400 MISSING_SLOT; 429; 503 |
+| PATCH /v1/ai/drafts/{id} | Edit or shorten or translate | Owner | 409 |
+| POST /v1/ai/drafts/{id}/send | Approve and send through the module's own API | Owner with send rights | 403; 409 |
+| POST /v1/ai/ocr/marks | Read a mark sheet photo into a draft entry | Teacher of the class | 413 IMAGE_TOO_LARGE; 422 UNREADABLE |
+| POST /v1/ai/ocr/{id}/confirm | Confirm read values | Same | 409 FLAGS_OPEN |
+| POST /v1/ai/homework/{id}/check | Run checking on a set | Teacher | 422 NO_KEY |
+| POST /v1/ai/voice/transcribe | Speech to text | Signed-in profile with ai.voice_input | 415; 422 UNINTELLIGIBLE |
+| POST /v1/ai/translate | Translate a draft | Signed-in profile with ai.translation | 422 UNSUPPORTED_LOCALE |
+| GET /v1/ai/usage | Usage and cost per capability | Tenant AI administrator, principal (read) | 403 |
+| GET /v1/ai/explain/{outputId} | "How is this worked out" | Anyone who can see the output | 404 |
+| GET /v1/ai/models | Model registry (read) | Platform operator | 403 |
+| POST /v1/ai/eval/runs | Run an evaluation | Platform quality | 400 |
+
+These AI functions are defined once, elsewhere (see 2.5):
+- AI consent, settings, tenant pause and resume, quota and top-up: Section 4 (`/v1/tenants/{id}/ai/...`). The platform-wide AI kill is a platform kill switch with `scope: ai` (`POST /v1/platform/kill-switches`).
+- Timetable generation and clash fixing: Section 6 (`/v1/timetables/...`). The generator runs when `ai.timetable_generator` is on.
+- AI audit log: `GET /v1/audit?category=ai` and `POST /v1/audit/exports` (Section 9).
 
 ### Events
 
@@ -2716,13 +2745,11 @@ The orb shall expose accessible names and state to screen readers ("Dhruva, thin
 | ai.suggestion.approved | Approved (single or batch) | suggestion_id, approver, batch_id, result_ref | Module services, audit, notifications |
 | ai.suggestion.rejected | Rejected | suggestion_id, reason | Feedback, audit |
 | ai.suggestion.expired | Expiry reached | suggestion_id | Focus card, audit |
-| ai.timetable.approved | Timetable published | classes, use_from, approver | Timetable, notifications |
 | ai.safety.incident | Content or student-safety trigger | type, severity, request_id | Counsellor, platform, audit |
-| ai.quota.threshold | 80% or 100% of quota | tenant_id, capability, percent | Notifications |
-| ai.settings.changed | Settings or consent changed | actor, diff | Audit, TFC |
-| ai.kill.activated / ai.kill.resumed | Kill switch used | scope, actor | All AI services, notifications |
 | ai.feedback.submitted | Thumb or correction | output_id, thumb, reason | Evaluation |
 | ai.eval.completed | Evaluation run ends | capability, metrics, passed | Release pipeline |
+
+Consumed from other sections: `ai.quota_threshold`, `ai.quota_exhausted`, `ai.settings_changed`, `ai.paused`, `ai.resumed` and `killswitch.set` (Section 4); `timetable.approved` (Section 6).
 
 ### State machines / workflows
 
@@ -4242,9 +4269,11 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 
 | Method and path | Purpose | Authz and role scope | Key errors |
 |---|---|---|---|
-| GET /v1/dashboard/today | Focus card and tiles for the active profile | Any staff role | 401, 423 (locked profile) |
-| POST /v1/approvals/{id}/decision | Approve, decline, send back, noted | Approver for the current step | 409 already decided; 403 above limit |
+| GET /v1/dashboard/today?role= | Focus card, prepared queue and tiles for the active profile (desktop and phone) | Any staff role | 401, 423 (locked profile), 403 flag off |
+| POST /v1/dashboard/today/{card}/act, /defer | Run or defer a card | Own role | 409 already done |
 | GET /v1/group/campuses?sort= | Scorecard | Owner | 403 |
+| GET /v1/group/insights/attendance?campus=&weeks= | Weekly attendance for all campuses or one, against the 92% target, with campuses lowest first (owner Insights) | Owner | 403 |
+| GET /v1/group/admissions?session= | New students counted on admission-fee receipt, by month and by campus | Owner | 403 |
 | GET /v1/group/campuses/{id}/drawer | Campus drawer data | Owner | 404 |
 | POST /v1/group/campuses/{id}/actions | Ask for plan, plan a visit, remind parents, mark reviewed | Owner | 422 |
 | POST /v1/onboarding/campuses | Create campus from wizard | Owner | 422 per field |
@@ -4254,15 +4283,15 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 | PUT /v1/setup/{campus}/steps/{n} | Save a setup step | Principal | 422, 423 locked field |
 | POST /v1/setup/{campus}/finish | Finish setup | Principal | 409 steps open |
 | POST /v1/notices | Create and send or submit for approval | Role send rights | 422 audience empty |
-| POST /v1/reports/{key}/run | Download | Role scope | 400 |
-| POST /v1/reports/{key}/schedules | Schedule email | Owner, Principal | 422 invalid email |
 | POST /v1/calendar/events | Add event | Principal (Owner per OQ-6a-03) | 422 |
-| GET/POST /v1/cover?date= and /cover/notify | Cover table, fill, notify | Coordinator, Admin | 409 periods open |
-| POST /v1/timetables/drafts | Generate draft | Coordinator | 422 no classes; 504 timeout |
+| GET/POST /v1/cover?date= ; POST /v1/cover/notify | Cover table, fill, notify | Coordinator, Admin | 409 periods open |
+| POST /v1/timetables/drafts | Generate a draft (classes, rules, use_from); Dhruva generates it when ai.timetable_generator is on | Coordinator | 422 no classes; 504 timeout |
+| GET /v1/timetables/drafts/{id} | Draft with clashes and suggested fixes | Coordinator, Admin | 404 |
+| POST /v1/timetables/drafts/{id}/apply-all | Apply every suggested fix | Coordinator, Admin | 207 remaining clashes |
 | POST /v1/timetables/drafts/{id}/clashes/{c}/apply | Apply or undo a fix | Coordinator | 409 |
 | POST /v1/timetables/{id}/approve | Approve and share a class set | Coordinator | 409 clash open |
 | POST /v1/timetables/{id}/withdraw | Withdraw | Coordinator | 409 |
-| POST /v1/leave and /leave/{id}/decision | Apply, route, decide | Per R-04 | 422 |
+| POST /v1/leave and /leave/{id}/decision | Apply for leave or out on duty (`type`), route, decide | Per R-04 | 422 |
 | PATCH /v1/papers/{id}/stage | Stage change with comments | Teacher, HoD, Exam cell | 409 order, 403 |
 | POST /v1/exams/{id}/seating, /datesheet, /duties | Generate plans | Exam cell | 422 |
 | POST /v1/marks/{assessment}/save | Save marks | Teacher | 422 flags open |
@@ -4272,6 +4301,21 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 | POST /v1/attendance/registers | Submit register | Class teacher | 409 locked |
 | POST /v1/homework/{id}/return | Return checked work | Teacher | 422 |
 | POST /v1/remedial/send | Send suggestions to coordinator | Teacher | 422 |
+| GET /v1/principal/attendance?date=&by= | Student and teacher attendance with grade, section and department drill-down | Principal | 403 |
+| GET /v1/principal/absence-watch | Students and teachers past the absence threshold, with actions | Principal | 403 |
+| GET /v1/fees/defaulters?class=&age= | Fee defaulters by class and age of dues | Principal, accounts | 403 |
+| GET /v1/admin/people, /v1/admin/money, /v1/admin/school | Standalone admin views: people, money, school | School admin | 403 |
+| GET /v1/outcomes?class=&subject= | Learning outcomes by class and subject | Coordinator, HoD | 403 |
+| GET /v1/parent-queries ; POST /v1/parent-queries/{id}/reply | Parent queries routed to the coordinator, and replies | Coordinator | 409 already answered |
+| GET /v1/hod/team | Department team: staff, syllabus pace, leave | HoD | 403 |
+| GET/POST /v1/lesson-plans ; POST /v1/lesson-plans/{id}/review | List and submit lesson plans; review (approve or comment) | Teacher (own), HoD | 409 already reviewed |
+| POST /v1/papers | Create or upload a question paper | Teacher, HoD | 422 |
+| POST /v1/notes | Share notes with students and parents | Teacher | 413 too large |
+| GET /v1/inbox | Teacher inbox: parent messages and queries | Teacher | |
+| GET /v1/counselling/cases ; POST /v1/counselling/referrals | Caseload; refer a student | Counsellor; any teacher may refer | 403 |
+| GET /v1/counselling/checkins, /v1/counselling/careers | Check-in suggestions; career guidance and entrance tracking | Counsellor | 403 |
+
+Approvals use the shared queue in Section 9 (`GET /v1/approvals`, `POST /v1/approvals/{id}/decision`). Reports are run and scheduled through Section 9 (`POST /v1/reports/{key}/runs`, `POST /v1/report-schedules`).
 
 ### Events
 
@@ -4382,50 +4426,49 @@ Quiet hours and tiers follow XCT (Urgent breaks quiet hours; High waits overnigh
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /dsk/today?role= | Prepared queue and tiles | Own role | 403 flag off |
-| POST /dsk/today/{card}/act, /defer | Run or defer a card | Own role | 409 already done |
-| GET /hr/employees?filter=&q= ; GET/PATCH /hr/employees/{id} | Directory, profile, edit (audited) | HR, principal | 422 invalid IFSC |
-| POST /hr/corrections/{id}/verify, /reject ; POST /hr/corrections/verify-all | Verify | HR | 409 not HoD-approved |
-| POST /hr/leave-issues/{id}/settle | Comp-off, unpaid, waive | HR | 409 no comp-off |
-| GET /payroll/runs ; POST /payroll/runs/{id}/lock, /review, /exceptions/{eid}/decide, /submit, /release | Run steps | HR; approve: principal | 409 gate failed, 422 funding short |
-| POST /payroll/runs/{id}/approve | Principal approval | Principal | 403 not approver |
-| GET/POST/PATCH /payroll/payrolls ; POST /payroll/payrolls/{id}/members | Setup | HR | 409 member in other payroll |
-| GET /hiring/openings ; POST /hiring/openings/{id}/invite | Openings and demo invites | HR | |
-| PATCH /hiring/onboarding/{id}/items/{item} | Tick item | HR or owner | |
-| GET/POST /exits ; POST /exits/{id}/settlement/submit | Exit | HR | 409 open items |
-| GET /fin/approvals ; POST /fin/approvals/{id}/approve, /send-back | Approvals | Accounts, principal, owner | 403 maker, 422 note needed |
-| POST /fin/concessions/{id}/submit | Concession chain | Accounts | |
-| GET /fin/fees/today ; POST /fin/fees/deposit-slip ; POST /fin/fees/reminders | Fees | Accounts | |
-| GET /fin/bank/{acct}/recon ; POST /fin/bank/lines/{id}/resolve ; POST /fin/bank/{acct}/close | Reconciliation | Accounts | 409 items left |
-| GET /fin/tally/status ; POST /fin/tally/sync ; POST /fin/tally/failures/{id}/fix | Tally | Accounts | 502 connector offline |
-| GET/POST /fin/vouchers ; POST /fin/vouchers/fill | Vouchers and fill-in | Accounts, makers | 422 unbalanced |
-| GET/POST /fin/ledgers, /fin/groups | Masters | Accounts; Account main: group finance head | 403 |
-| POST /fin/periods/{month}/lock ; POST /fin/years | Locks and years | Accounts | 409 steps open |
-| GET /fin/reports/{kind}?year=&format= | Reports and export | Accounts, principal | |
-| GET /fin/compliance ; POST /fin/filings/{id}/send-to-ca | Filings | Accounts | |
-| /fin/purchases, /vendors, /inventory (CRUD, match, pay) | P3 | Accounts | 409 mismatch |
-| GET /adm/families ; PATCH /adm/families/{id} ; POST /adm/families/{id}/calls, /next-step | CRM | Counsellor, front office | 422 outcome missing |
-| POST /adm/enquiries | New enquiry | Counsellor, front office | 409 duplicate |
-| GET/POST /adm/tours ; POST /adm/tours/{id}/feedback | Tours | Counsellor | 422 interest missing |
-| GET /adm/seats ; POST /adm/offers ; POST /adm/offers/{id}/fee-paid ; POST /adm/waitlist/offer | Seats | Counsellor | 409 no seat |
-| POST /adm/campaigns/{id}/send ; GET /adm/reports | Campaigns, reports | Counsellor | |
-| GET /sec/jobs ; POST /sec/jobs/{id}/assign, /status | Jobs | In-charge | 409 closed |
-| GET /sec/gate/visitors ; POST /sec/gate/visitors/{id}/approve, /checkout ; POST /sec/gate/walkins | Gate | Guard, in-charge | |
-| POST /sec/gate/pickups/{id}/allow, /call-parent | Pickups | Guard, in-charge | 403 unlisted without call |
-| GET /sec/systems ; GET/POST /sec/roster | Systems, roster | In-charge | |
-| GET /trn/board?trip= ; GET /trn/buses/{id} | Live board | In-charge | |
-| POST /trn/buses/{id}/spare ; POST /trn/trips/{id}/notify | Spare bus and parent update | In-charge | 409 spare busy |
-| GET /trn/safety ; POST /trn/safety/{id}/handle ; POST /trn/cover | Safety, cover | In-charge | |
-| GET/POST /trn/threads/{id}/reply, /forward | Messages | In-charge | |
-| GET /trn/route-planner ; POST /trn/route-changes/{id}/approve | Routes | In-charge | 409 bus full |
-| GET /trn/fleet ; POST /trn/fleet/{id}/renewal | Fleet | In-charge | |
-| GET /trn/fees ; POST /trn/fees/sync ; POST /trn/fees/{kind}/act | Fees | In-charge | |
-| POST /trn/events (from attendant app) | TripEvent ingest, idempotent by client id | Attendant | 409 duplicate, 403 other bus |
-| GET /stu/home, /plan, /readiness, /quests | Student views | Student (self) | |
-| POST /stu/quests/{id}/complete ; POST /stu/quiz/{id}/answer | Quests and quiz | Student | |
-| POST /stu/papers/{id}/start, /answer, /submit | Timed paper | Student | 409 expired |
-| POST /stu/doubts ; POST /stu/doubts/{id}/escalate | Hint-first questions | Student | |
-| POST /stu/leave | Leave request | Student | 422 dates |
+| GET /v1/hr/employees?filter=&q= ; GET/PATCH /v1/hr/employees/{id} | Directory, profile, edit (audited) | HR, principal | 422 invalid IFSC |
+| POST /v1/hr/corrections/{id}/verify, /reject ; POST /v1/hr/corrections/verify-all | Verify | HR | 409 not HoD-approved |
+| POST /v1/hr/leave-issues/{id}/settle | Comp-off, unpaid, waive | HR | 409 no comp-off |
+| GET /v1/payroll/runs ; POST /v1/payroll/runs/{id}/lock, /review, /exceptions/{eid}/decide, /submit, /release | Run steps | HR; approve: principal | 409 gate failed, 422 funding short |
+| POST /v1/payroll/runs/{id}/approve | Principal approval | Principal | 403 not approver |
+| GET/POST/PATCH /v1/payroll/payrolls ; POST /v1/payroll/payrolls/{id}/members | Setup | HR | 409 member in other payroll |
+| GET /v1/hiring/openings ; POST /v1/hiring/openings/{id}/invite | Openings and demo invites | HR | |
+| PATCH /v1/hiring/onboarding/{id}/items/{item} | Tick item | HR or owner | |
+| GET/POST /v1/exits ; POST /v1/exits/{id}/settlement/submit | Exit | HR | 409 open items |
+| POST /v1/fin/concessions/{id}/submit | Concession chain | Accounts | |
+| GET /v1/fin/fees/today ; POST /v1/fin/fees/deposit-slip ; POST /v1/fin/fees/reminders | Fees | Accounts | |
+| GET /v1/fin/bank/{acct}/recon ; POST /v1/fin/bank/lines/{id}/resolve ; POST /v1/fin/bank/{acct}/close | Reconciliation | Accounts | 409 items left |
+| GET /v1/fin/tally/status ; POST /v1/fin/tally/sync ; POST /v1/fin/tally/failures/{id}/fix | Tally | Accounts | 502 connector offline |
+| GET/POST /v1/fin/vouchers ; POST /v1/fin/vouchers/fill | Vouchers and fill-in | Accounts, makers | 422 unbalanced |
+| GET/POST /v1/fin/ledgers, /fin/groups | Masters | Accounts; Account main: group finance head | 403 |
+| POST /v1/fin/periods/{month}/lock ; POST /v1/fin/years | Locks and years | Accounts | 409 steps open |
+| GET /v1/fin/reports/{kind}?year=&format= | Reports and export | Accounts, principal | |
+| GET /v1/fin/compliance ; POST /v1/fin/filings/{id}/send-to-ca | Filings | Accounts | |
+| GET/POST /v1/fin/purchases, /fin/vendors, /fin/inventory ; GET/PATCH /v1/fin/purchases/{id}, /fin/vendors/{id}, /fin/inventory/{id} ; POST /v1/fin/purchases/{id}/match, /pay | Purchases, vendors and inventory (P3) | P3 | Accounts | 409 mismatch |
+| GET /v1/adm/families ; PATCH /v1/adm/families/{id} ; POST /v1/adm/families/{id}/calls, /next-step | CRM | Counsellor, front office | 422 outcome missing |
+| POST /v1/adm/enquiries | New enquiry | Counsellor, front office | 409 duplicate |
+| GET/POST /v1/adm/tours ; POST /v1/adm/tours/{id}/feedback | Tours | Counsellor | 422 interest missing |
+| GET /v1/adm/seats ; POST /v1/adm/offers ; POST /v1/adm/offers/{id}/fee-paid ; POST /v1/adm/waitlist/offer | Seats | Counsellor | 409 no seat |
+| POST /v1/adm/campaigns/{id}/send ; GET /v1/adm/reports | Campaigns, reports | Counsellor | |
+| GET /v1/sec/jobs ; POST /v1/sec/jobs/{id}/assign, /status | Jobs | In-charge | 409 closed |
+| GET /v1/sec/gate/visitors ; POST /v1/sec/gate/visitors/{id}/approve, /checkout ; POST /v1/sec/gate/walkins | Gate | Guard, in-charge | |
+| POST /v1/sec/gate/pickups/{id}/allow, /call-parent | Pickups | Guard, in-charge | 403 unlisted without call |
+| GET /v1/sec/systems ; GET/POST /v1/sec/roster | Systems, roster | In-charge | |
+| GET /v1/trn/board?trip= ; GET /v1/trn/buses/{id} | Live board | In-charge | |
+| POST /v1/trn/buses/{id}/spare ; POST /v1/trn/trips/{id}/notify | Spare bus and parent update | In-charge | 409 spare busy |
+| GET /v1/trn/safety ; POST /v1/trn/safety/{id}/handle ; POST /v1/trn/cover | Safety, cover | In-charge | |
+| GET /v1/trn/threads/{id} ; POST /v1/trn/threads/{id}/reply, /forward | Messages | In-charge | |
+| GET /v1/trn/route-planner ; POST /v1/trn/route-changes/{id}/approve | Routes | In-charge | 409 bus full |
+| GET /v1/trn/fleet ; POST /v1/trn/fleet/{id}/renewal | Fleet | In-charge | |
+| GET /v1/trn/fees ; POST /v1/trn/fees/sync ; POST /v1/trn/fees/{kind}/act | Fees | In-charge | |
+| POST /v1/trn/events (from attendant app) | TripEvent ingest, idempotent by client id | Attendant | 409 duplicate, 403 other bus |
+| GET /v1/stu/home, /plan, /readiness, /quests | Student views | Student (self) | |
+| POST /v1/stu/quests/{id}/complete ; POST /v1/stu/quiz/{id}/answer | Quests and quiz | Student | |
+| POST /v1/stu/papers/{id}/start, /answer, /submit | Timed paper | Student | 409 expired |
+| POST /v1/stu/doubts ; POST /v1/stu/doubts/{id}/escalate | Hint-first questions | Student | |
+| POST /v1/stu/leave | Leave request | Student | 422 dates |
+
+The role home for every role in this table is `GET /v1/dashboard/today` (part 1 of this annex). Finance approvals use the shared queue: `GET /v1/approvals?module=finance` and `POST /v1/approvals/{id}/decision` with `approve`, `send_back` or `decline` (Section 9).
 
 ### Events
 
@@ -4550,14 +4593,14 @@ Everyone else has the same data and the same approvals on phone and desktop. Sec
 |---|---|---|---|---|
 | Parent / guardian | "Parent of Navya (10-C) and Arjun (2-B)" | Yes | Home, Progress, Fees, Messages | none (no parent desktop) |
 | Bus attendant | "Bus attendant, Bus 7" | Yes | Trip, Children, SOS, Me | none |
-| Student 6-8 | "Student, Class 7-B" | No | Home, Schedule, Learn, Progress | DSK-STU (Student 6-8) |
-| Student 9-12 | "Student, Class 10-C" | No | Home, Schedule, Learn, Progress | DSK-STU (Student 9-12) |
+| Student 6-8 | "Student, Class 7-B" | No | Home, Schedule, Learn, Progress | DSK-STM (Student 6-8) |
+| Student 9-12 | "Student, Class 10-C" | No | Home, Schedule, Learn, Progress | DSK-STS (Student 9-12) |
 | Teacher | "Teacher, Maths" | No | Today, Inbox, Students, Prep, Calendar | DSK-TCH |
 | Head of department | "Head of Maths" | No | Today, Reviews, Team, Progress | DSK-HOD |
-| Academic coordinator | "Academic coordinator" | No | Today, Cover, Progress, Timetable | DSK-ACD |
+| Academic coordinator | "Academic coordinator" | No | Today, Cover, Progress, Timetable | DSK-ACO |
 | Exam cell | "Exam cell in-charge" | No | Today, Papers, Exam days, Marks, CBSE | DSK-EXM |
 | Counsellor | "School counsellor" | No | Today, Students, Sessions, Guidance | DSK-CNS |
-| Principal | "Principal" | No | Today, Calendar, Fees, Reports, Me (bell opens Approvals) | DSK-PRN |
+| Principal | "Principal" | No | Today, Calendar, Fees, Reports, Me (bell opens Approvals) | DSK-PRI |
 | Group owner | "Group owner" | No | Home, Campuses, Insights, Calendar (Approvals from the Home card, Notices from "Send a notice") | DSK-OWN |
 | Standalone school admin | "School admin" | No | Today, People, Money, Intake, School | DSK-ADM |
 | Finance and accounts | "Accounts in-charge" | No | Home, Alerts, Reports, Bank (Approvals, Fees, Bills, Compliance as pushed screens) | DSK-FIN |
@@ -5129,7 +5172,7 @@ The attendant app shall keep working without network and show its state.
 
 ### 7.3.11 Student phone app, Classes 6 to 8 (MOB-STM)
 
-Same as the desktop student module (DSK-STU, Student 6-8) for data and rules: homework, notes, ask a teacher, marks, attendance, holistic progress, leave. This section adds what is different on the phone. Tab bar: Home, Schedule, Learn, Progress; the header shows a house chip ("HOUSE Raman") and the avatar (initials) that opens the profile and leave. Marks and attendance are visible only to the student and parents.
+Same as the desktop student module (DSK-STM, Student 6-8) for data and rules: homework, notes, ask a teacher, marks, attendance, holistic progress, leave. This section adds what is different on the phone. Tab bar: Home, Schedule, Learn, Progress; the header shows a house chip ("HOUSE Raman") and the avatar (initials) that opens the profile and leave. Marks and attendance are visible only to the student and parents.
 
 **MOB-STM-001 · Must · MVP · flag: mod.student_learning · [Design]**
 The student can open a Home that shows a level, three daily quests and a warm-up quiz.
@@ -5180,7 +5223,7 @@ The student app shall never expose messaging to anyone outside the school and sh
 
 ### 7.3.12 Student phone app, Classes 9 to 12 (MOB-STS)
 
-Same as DSK-STU (Student 9-12). Tab bar: Home, Schedule, Learn, Progress; header house chip ("HOUSE Tagore") and avatar that opens the profile and leave. No XP or levels; "study points" and a readiness score replace them.
+Same as DSK-STS (Student 9-12). Tab bar: Home, Schedule, Learn, Progress; header house chip ("HOUSE Tagore") and avatar that opens the profile and leave. No XP or levels; "study points" and a readiness score replace them.
 
 **MOB-STS-001 · Must · MVP · flag: mod.student_learning · [Design]**
 The student can open an Exam Mode Home with countdown, first-paper line, readiness ring and streak.
@@ -5237,10 +5280,10 @@ Each staff role has a phone app that reads and writes the same data as its deskt
 |---|---|---|---|---|
 | Teacher (DSK-TCH) | Today, Inbox, Students, Prep, Calendar; Me from avatar | Attendance, marks (type or photo), homework check, paper, notes, lesson plan, remedial, leave, payslips | Large tables (paper step 2, plan details, roster) are easier on desktop; Timetable page is "Week ›" link | "Switch profile" sheet from the header; "Prep" tile grid with a "Recently" list |
 | HoD (DSK-HOD) | Today, Reviews, Team, Progress | Leave, plan and paper review, team, results, homework | Progress shows Results and Homework only; "My classes" is a toggle on Today and says "The full teacher screens are on the desktop" | Calendar as a link from "Coming up" |
-| Academic coordinator (DSK-ACD) | Today, Cover, Progress, Timetable | Cover, plan reminders, outcomes, timetable | "+ Notice to teachers" and Ask Dhruva header button are not on phone | Parent queries from the Today card |
+| Academic coordinator (DSK-ACO) | Today, Cover, Progress, Timetable | Cover, plan reminders, outcomes, timetable | "+ Notice to teachers" and Ask Dhruva header button are not on phone | Parent queries from the Today card |
 | Exam cell (DSK-EXM) | Today, Papers, Exam days, Marks, CBSE | Papers, seating and duties, date sheets, marks checks, CBSE | "+ Notice about exams" and "Term 1 at a glance" are desktop | none |
 | Counsellor (DSK-CNS) | Today, Students, Sessions, Guidance | Referrals, sessions, private notes, guidance | Header "+ Book a session" is desktop | Notes stay private and need PIN |
-| Principal (DSK-PRN) | Today, Calendar, Fees, Reports, Me; bell = Approvals | Attendance by class and department, absence watch, fee defaulters, approvals, notices | Desktop has separate Attendance, Absence watch, Approvals, Notices items; setup journey is desktop | Pushed pages from Today cards |
+| Principal (DSK-PRI) | Today, Calendar, Fees, Reports, Me; bell = Approvals | Attendance by class and department, absence watch, fee defaulters, approvals, notices | Desktop has separate Attendance, Absence watch, Approvals, Notices items; setup journey is desktop | Pushed pages from Today cards |
 | Group owner (DSK-OWN) | Home, Campuses, Insights, Calendar | Approvals, campus scorecard, attendance, admissions, reports, notices, calendar | Onboarding and Add a campus are desktop only | Insights tab with chips Attendance, Admissions, Reports; "+ Event" on calendar |
 | Standalone admin (DSK-ADM) | Today, People, Money, Intake, School; Me from avatar | Attendance and cover, leave, fees, salary, admissions, notices, timetable and exams | "Coming up" panel not on phone | "Intake" label for admissions |
 | Finance (DSK-FIN) | Home, Alerts, Reports, Bank | Approvals, bank matching, bill approval, fees, compliance, month-end steps | Voucher entry, ledger setup, month lock, Tally mapping, vendors, inventory, requisition quotes: desktop only ("That section is on the desktop") | Alerts tab with drill-down sheets |
@@ -5271,7 +5314,7 @@ The teacher can enter marks by photographing the mark sheet or by typing.
 
 **MOB-STF-005 · Must · MVP · flag: mod.fees · [Design]**
 Finance and principal payment-type actions shall ask for PIN or biometric on each confirmation.
-- Acceptance: Given an approval or payment in DSK-FIN or DSK-PRN (for example "Schedule transfer", bill or concession approval) When confirmed Then the PIN or biometric prompt shows regardless of the unlock state and the action is logged with the person, time and device.
+- Acceptance: Given an approval or payment in DSK-FIN or DSK-PRI (for example "Schedule transfer", bill or concession approval) When confirmed Then the PIN or biometric prompt shows regardless of the unlock state and the action is logged with the person, time and device.
 
 **MOB-STF-006 · Must · MVP · flag: mod.approvals · [Design]**
 The principal and owner can approve or decline from the phone and be told it was recorded.
@@ -5290,6 +5333,11 @@ The security in-charge shall receive Urgent notifications for gate incidents and
 **MOB-STF-009 · Should · MVP · flag: mod.cover · [Design]**
 The teacher can accept or swap a cover assignment from the notification.
 - Acceptance: Given "Cover: 8-B, period 4 / Room 12 · Ms. Rekha Yadav is absent" When the notification is shown on Android Then action buttons "Accept" and "Swap" are present; on iOS a tap opens the Timetable with the same two actions.
+
+**MOB-STF-010 · Must · MVP · flag: mod.group_scorecard · [Design]**
+The group owner can see attendance, admissions and reports in an Insights tab on the phone.
+- Acceptance: Given the owner opens Insights When the Attendance chip is selected Then it shows "Weekly attendance · All 14 campuses · last 8 weeks" with the average (for example 94.3%), a campus picker (All campuses or any one campus), eight weekly bars starting at 80% with a dashed 92% target line, a one-sentence Dhruva reading (for example "The group has stayed above the 92% target all term. The small dip since 28 Sep comes almost entirely from Gurugram Sec 45.") and "By campus today" bars lowest first with a "Scorecard" link to Campuses; the Admissions chip shows the same content as the desktop Admissions page; the Reports chip shows "Ready-made reports · Download now or email them, once or on a schedule".
+- Rules: choosing a campus redraws the weekly chart for that campus. The desktop has no separate attendance trend page; the same trend is inside each campus drawer (Section 6, DSK-OWN). Without ai.focus_card the Dhruva sentence is hidden. Data: `GET /v1/group/insights/attendance`, `GET /v1/group/admissions` and the reports library (Section 9).
 
 ### 7.3.14 Offline and poor network (MOB-OFF)
 
@@ -5582,48 +5630,33 @@ The system shall use portrait layout on phones and show the phone layout centred
 
 | Method and path | Purpose | Authz and role scope | Key errors |
 |---|---|---|---|
-| POST /v1/auth/otp/send | Send a code (SMS or WhatsApp) | none (rate limited) | 429 TOO_MANY_REQUESTS; 400 INVALID_NUMBER |
-| POST /v1/auth/otp/verify | Verify the code and return session and profile list | none | 400 CODE_WRONG; 410 CODE_EXPIRED; 423 LOCKED |
-| POST /v1/auth/refresh | Refresh the access token | refresh token | 401 SESSION_REVOKED |
-| POST /v1/auth/logout | Sign out this device | session | none |
-| POST /v1/auth/logout-all | Sign out other devices | session | none |
-| GET /v1/me/profiles | List profiles for the number with counts of new items | session | 401 |
-| POST /v1/me/profiles/{id}/switch | Make a profile active; returns a profile-scoped token | session | 403 PROFILE_NOT_LINKED; 423 PROFILE_LOCKED |
-| POST /v1/me/pin | Set or change the App PIN (hash and salt wrapped by device key) | session | 400 WEAK_PIN |
-| POST /v1/me/pin/verify | Server check after 5 local failures (rate limit) | session | 429 |
-| GET /v1/devices | List signed-in devices | session | none |
-| POST /v1/devices | Register or update a device | session | 409 TOO_MANY_DEVICES |
-| DELETE /v1/devices/{id} | Revoke a device | session | 404 |
-| PUT /v1/devices/{id}/push-token | Register or replace the push token | session, same device | 400 BAD_TOKEN |
-| DELETE /v1/devices/{id}/push-token | Remove the token | session | none |
-| GET /v1/notifications?profile=&filter=&cursor= | Inbox list with unread count | session, profile scope | 403 |
-| POST /v1/notifications/{id}/read | Mark read | session | none |
-| POST /v1/notifications/read-all | Mark all read | session | none |
-| GET /v1/notification-preferences | Read settings for the profile | session | none |
-| PUT /v1/notification-preferences | Save settings | session | 422 LOCKED_TOPIC |
-| POST /v1/push/send (internal) | Notification Service fan-out to APNs/FCM | service | 202 ACCEPTED |
 | POST /v1/sync/batch | Send up to 50 queued items | session, role must match item types | 207 MULTI_STATUS with per-item result (applied, duplicate, conflict, rejected) |
 | GET /v1/sync/state?since= | Pull changes since a cursor for cached screens | session | none |
 | POST /v1/sos | Raise an SOS with optional location | attendant, session | 503 retry; client falls back to SMS |
 | GET /v1/app/version-policy?platform=&build= | Version policy | none | none |
 | GET /v1/links/resolve?t=<token> | Resolve a deep-link token | none (token is the credential) | 410 LINK_EXPIRED; 404 |
 | POST /v1/uploads/photo | Upload a captured photo (multipart) | session | 413 TOO_LARGE; 415 BAD_TYPE |
-| POST /v1/add-me | Create an add-me request | none (rate limited) | 429 |
+| GET /v1/parent/children | Children linked to the parent profile (child chip) | parent | none |
+| GET /v1/parent/children/{sid}/home, /progress, /notices | Child home (today and three headline numbers); Progress (Attendance, Marks, Report card with the Dhruva line); notices for the child and family | parent of the child | 403 NOT_GUARDIAN |
+| GET /v1/parent/children/{sid}/fees | Dues to tick and pay, and receipts | parent of the child | 403 NOT_GUARDIAN |
 | POST /v1/payments/intent | Create a payment intent for ticked lines (idempotency key) | parent | 409 ALREADY_PAID; 422 NOTHING_TICKED |
 | GET /v1/payments/{id} | Poll payment status | parent | 404 |
+| GET /v1/parent/children/{sid}/bus | Bus status for the child | parent of the child | 404 NOT_ON_BUS |
+| POST /v1/parent/children/{sid}/leave | Leave request for a child | parent of the child | 409 OVERLAPS |
+| GET/POST /v1/parent/conversations ; POST /v1/parent/conversations/{id}/messages | Conversations by topic for the selected child; send a message | parent | 403 |
+| GET /v1/ptm/slots ; POST /v1/ptm/bookings | PTM slots with the class teacher; book one | parent | 409 SLOT_TAKEN |
+| GET /v1/parent/children/{sid}/junior-pod | Parent-led Junior pod | parent of the child | 403 |
+| GET /v1/trn/attendant/trips/today ; GET /v1/trn/trips/{id}/children | Attendant's trips today; children on a trip in stop order | attendant | 403 |
+
+The phone app also uses APIs defined once elsewhere (see 2.5):
+- Sign-in, profiles, PIN, devices and push tokens: Section 3 (`/v1/auth/otp/request`, `/v1/auth/otp/verify`, `/v1/auth/refresh`, `/v1/auth/logout`, `/v1/auth/logout-all`, `/v1/me/profiles`, `/v1/me/pin`, `/v1/devices`, `/v1/devices/{id}/push-token`, `/v1/auth/number-add-requests`).
+- Notifications inbox, notification preferences and push fan-out: Section 9 (`/v1/notifications`, `/v1/notification-preferences`, `/internal/v1/push/send`).
+- Role homes: `GET /v1/dashboard/today` (Section 6). Ask Dhruva: Section 5.
 
 ### Events
 
 | Event name | Emitted when | Payload highlights | Consumers |
 |---|---|---|---|
-| device.registered | Device first registered | device_id, platform, app_version | Audit, Notification Service |
-| device.revoked | Sign-out everywhere, revoke, lost phone | device_id, reason, unsynced_items | Audit, Notification Service, IDM |
-| push.token.registered / push.token.invalidated | Token set or provider returns invalid | token_id, provider | Notification Service |
-| notification.sent | Push accepted by APNs/FCM | notification_id, tier, device_id | Analytics |
-| notification.opened | App opens from a push | notification_id, time_to_open | Fallback timer (WhatsApp after 30 minutes), analytics |
-| notification.fallback.whatsapp | 30 minutes without open for fee or pickup | notification_id, template | WhatsApp channel |
-| auth.otp.verified / auth.profile.switched | Verified; profile changed | person_id, profile_id | Audit, IDM |
-| auth.pin.locked | 10 wrong PIN tries | profile_id | Audit |
 | sync.batch.received | Batch posted | count, device_id | Sync service |
 | sync.item.applied / sync.item.conflict | Per item result | client_event_id, type, conflict_ref | Teacher and transport views, supervisors |
 | attendance.submitted | Attendance applied (live or synced) | class_period, device_time, source (live, queue) | Parent alerts, coordinator, principal |
@@ -5632,6 +5665,8 @@ The system shall use portrait layout on phones and show the phone layout centred
 | app.version.blocked | Blocked version attempts to start | build | Release team |
 | link.opened | Deep link resolved | purpose, result | Analytics |
 | photo.uploaded | Photo stored | purpose (marks, homework, notes), count | AI (marks from photo), homework |
+
+Consumed from other sections: device, push-token, sign-in, profile and PIN events (Section 3); `notification.delivered`, `notification.opened` and `notification.fallback_due` (Section 9).
 
 ### State machines and workflows
 
@@ -6573,7 +6608,7 @@ The system shall handle payment failures and delays.
 | Method and path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
 | GET /wa/webhook/{account_id} | Provider verification handshake | Verify token | 403 bad token |
-| POST /wa/webhook/{account_id} | Inbound messages and status callbacks (messages, statuses, template and quality updates) | HMAC signature header | 401 bad signature; 200 on duplicate (idempotent on wamid) |
+| POST /wa/webhook/{account_id} | Inbound messages and status callbacks (messages, statuses, template and quality updates); delivery statuses, opt-outs and in-chat payment notices are forwarded to the platform (`POST /internal/v1/wa/events`, Section 9) | HMAC signature header | 401 bad signature; 200 on duplicate (idempotent on wamid) |
 | POST /wa/send | Send one message (text, interactive, template, document) | Internal service; tenant-scoped | 409 window closed (template required); 422 template not approved; 429 rate limit; 451 contact opted out |
 | POST /wa/notify | Request an event notification (resolves channel, template, caps, quiet hours) | Internal modules | 422 unknown event; 202 deferred or dropped with reason |
 | GET /wa/accounts, PATCH /wa/accounts/{id} | View and edit account settings, profile, display name | Tenant admin; campus admin (own campus) | 409 name under review |
@@ -6585,8 +6620,9 @@ The system shall handle payment failures and delays.
 | GET/PUT /wa/settings | Audience flags, toggles, hours, caps, budget | Tenant admin; campus admin within group limits | 403 above group limit |
 | GET /wa/analytics, GET /wa/usage | Tiles, analytics, cost | Campus admin, tenant admin | none |
 | POST /wa/flows/endpoint | Encrypted data exchange for WhatsApp Flows (roster, dates, PIN check) | Provider-signed; per flow token | 400 bad token; 410 expired |
-| POST /wa/payments/callback | Gateway payment result for an order | Gateway signature | 409 duplicate; 422 amount mismatch |
 | GET /wa/media/{id} | Authenticated media fetch for agents | Agent roles | 404 expired and deleted |
+
+Payment results for in-chat fee payments come only from the payment gateway, at `POST /v1/webhooks/gateway` (Section 9). The fees module records the payment once, by gateway payment id, and asks the gateway to send the receipt.
 
 ### Events
 
@@ -6607,7 +6643,7 @@ The system shall handle payment failures and delays.
 | wa.account.quality_changed / limit_reached / restricted | Meta health change | old, new | Outbound control, admin |
 | wa.outbound.fallback_used | Channel switched | event_id, from, to, reason | Notification service, audit |
 | wa.cost.threshold_reached | Spend at 70, 90, 100 percent | tenant_id, pct | Admin notifications, outbound control |
-| wa.payment.completed / failed | Gateway callback | order_id, amount | Fees, bot |
+| wa.payment.completed / failed | The fees module confirms or fails an in-chat order (from the gateway callback, Section 9) | order_id, amount | Bot (receipt or retry message) |
 
 ### State machines / workflows
 
@@ -7507,25 +7543,25 @@ Canonical entities and relationships across areas.
 
 ### APIs
 
-Paths are indicative. All are tenant-scoped through the session; all return 401 unauthenticated, 403 forbidden, 404 for out-of-scope IDs, 429 when rate-limited.
+All are tenant-scoped through the session, except the provider webhooks and `/v1/status`; all return 401 unauthenticated, 403 forbidden, 404 for out-of-scope IDs, 429 when rate-limited.
 
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| GET /v1/notifications | List own notifications, filters | Own profile | 401 |
+| GET /v1/notifications?profile=&filter=&cursor= | List own notifications with unread count | Own profile | 401 |
 | POST /v1/notifications/{id}/read, /v1/notifications/read-all | Mark read | Own | 404 |
-| GET/PUT /v1/notification-settings | Read and update preferences | Own; locked toggles ignored | 422 locked setting |
-| POST /v1/devices | Register push token | Own | 422 |
+| GET/PUT /v1/notification-preferences | Read and update notification preferences for the profile | Own; locked topics ignored | 422 locked setting |
+| POST /internal/v1/push/send | Notification service fan-out to APNs and FCM | Internal service | 202 accepted |
 | POST /v1/notices | Create notice | Per sender audience rules | 403 audience, 422 missing title |
 | GET /v1/notices/{id}/receipts | Read counts and delivery | Sender, principal, owner | 403 |
-| GET /v1/approvals?status=pending | Queue | Approver | |
+| GET /v1/approvals?status=&module= | Approval queue for every module (finance, HR, fees, admissions and more) | Approver | |
 | POST /v1/approvals | Raise request | Requester role | 422 limit config missing |
-| POST /v1/approvals/{id}/decision | Approve or decline | Approver, not requester | 409 already decided, 403 self-approval, 422 reason required |
+| POST /v1/approvals/{id}/decision | Approve, decline, send back or mark noted | Approver for the current step, not the requester | 409 already decided, 403 self-approval or above limit, 422 reason required |
 | POST /v1/approvals/delegations | Create delegation | Approver | 422 exceeds authority |
-| GET /v1/audit | Search audit | Per XCT-AUD-004 | 403 |
-| POST /v1/audit/exports | Export audit | Owner, principal | 413 too large |
+| GET /v1/audit?category=&q= | Search the audit log: identity, configuration, AI and business records | Per XCT-AUD-004 | 403 |
+| POST /v1/audit/exports | Export audit | Owner, principal, Tenant Administrator | 413 too large |
 | GET /v1/reports | Library | Role | |
-| POST /v1/reports/{id}/runs | Generate | Role, campus scope | 202 background |
-| POST /v1/report-schedules, DELETE /v1/report-schedules/{id} | Schedule and stop | Owner, principal | 422 recipients |
+| POST /v1/reports/{key}/runs | Generate and download a report | Role, campus scope | 202 background, 400 |
+| POST /v1/report-schedules, DELETE /v1/report-schedules/{id} | Schedule a report email, and stop it | Owner, principal | 422 recipients |
 | GET/POST /v1/calendar/events | Calendar | Role | 403 scope |
 | GET /v1/search?q= | Search | Per record permissions | 422 short query |
 | POST /v1/files | Upload (signed URL) | Role | 415 type, 413 size, 422 scan failed |
@@ -7535,9 +7571,14 @@ Paths are indicative. All are tenant-scoped through the session; all return 401 
 | POST /v1/campuses, PATCH /v1/campuses/{id} | Add campus | Owner | 422 step invalid |
 | POST /v1/consents | Record consent | Guardian | 409 duplicate |
 | POST /v1/data-requests | Raise request | Guardian, staff | |
-| POST /v1/webhooks/gateway, /webhooks/whatsapp | Provider callbacks | Signature verified | 401 bad signature |
+| POST /v1/webhooks/gateway | Payment gateway callbacks for every channel (app, web and WhatsApp orders); the only source of truth for a fee payment | Signature verified | 401 bad signature, 409 duplicate, 422 amount mismatch |
+| POST /internal/v1/wa/events | WhatsApp gateway forwards delivery statuses, opt-outs and in-chat payment notices | Internal service (WhatsApp gateway) | 409 duplicate |
 | POST /v1/integrations/tally/sync | On-demand sync | Finance | 503 connector offline |
+| POST /v1/telemetry/events | Product telemetry from the apps (first-party, no advertising identifiers) | Session | 413 batch too large |
+| POST /v1/support/requests | Raise a help and support request | Any staff | 422 |
 | GET /v1/status | Health for status page | Public | |
+
+Devices and push tokens are registered through Section 3 (`POST /v1/devices`, `PUT /v1/devices/{id}/push-token`).
 
 ### Events
 
@@ -7557,7 +7598,8 @@ Paths are indicative. All are tenant-scoped through the session; all return 401 
 | consent.recorded / consent.withdrawn | Parent action | student, guardian | Access gates |
 | datarequest.opened / datarequest.fulfilled | Privacy | type, due date | Grievance Officer |
 | integration.sync_failed | Connector error | provider, reason | Finance, platform alerts |
-| flag.changed | Flag edit | key, scope | All clients |
+
+Flag changes raise `feature.changed` (Section 4); all clients consume it.
 
 ### State machines / workflows
 
@@ -7666,6 +7708,20 @@ These conflicts or gaps in the designs were resolved as follows so the sections 
 | 8 | Overdue fees in quiet hours | Follow the notification rules: not delivered in quiet hours | Section 9 |
 | 9 | Trustee | Trustee is an approver for a standalone admin's own pay, leave and refunds, with a minimal approval screen | Sections 4, 6 |
 | 10 | Plans | Essentials, Standard and Premium are placeholder plan names | Section 4 |
+| 11 | API conventions (v1.1) | All public paths are under `/v1`, service calls under `/internal/v1`; each API is defined once by its owner section (2.5) | All annexes |
+| 12 | Sign-in and profiles (v1.1) | One set of identity APIs: `POST /v1/auth/otp/request` (not `/otp/send`); profiles at `GET /v1/me/profiles` and `POST /v1/me/profiles/{id}/switch` (not `/auth/profiles`, `/auth/switch`); PIN at `/v1/me/pin`, `/v1/me/pin/verify`, `/v1/me/pin/reset` (not `/auth/pin/*`); devices at `/v1/devices` with `POST /v1/auth/logout-all` (not `/auth/sessions`, `revoke-all`, `/auth/devices/register`); `POST /v1/auth/number-add-requests` (not `/add-me`) | Sections 3, 7 |
+| 13 | Notification preferences (v1.1) | `GET/PUT /v1/notification-preferences` (not `/notification-settings`) | Sections 7, 9 |
+| 14 | Reports (v1.1) | The reports engine owns running and scheduling: `POST /v1/reports/{key}/runs`, `POST /v1/report-schedules` (not `/reports/{key}/run`, `/reports/{key}/schedules`) | Sections 6, 9 |
+| 15 | Role home (v1.1) | `GET /v1/dashboard/today` with `/act` and `/defer` for every role on desktop and phone (not `/dsk/today`) | Sections 6, 7 |
+| 16 | Approvals (v1.1) | One approval queue `/v1/approvals` for every module; finance uses `module=finance` and the shared decision call (not `/fin/approvals`) | Sections 6, 9 |
+| 17 | Audit (v1.1) | One audit API, `GET /v1/audit?category=` and `POST /v1/audit/exports` (not `/idm/audit`, `/tenants/{id}/audit-events`, `/ai/audit`) | Sections 3, 4, 5, 9 |
+| 18 | AI settings and kill switch (v1.1) | AI consent, settings, pause, quota and top-up are tenant routes in Section 4; the platform AI kill is a platform kill switch with `scope: ai`. Section 5 keeps usage, explanations, models and evaluations (not `/ai/settings`, `/ai/settings/pause`, `/ai/admin/pause`) | Sections 4, 5 |
+| 19 | Timetable (v1.1) | `/v1/timetables/...` in Section 6 is the only timetable API; Dhruva is the generator behind it (not `/ai/timetable/...`) | Sections 5, 6 |
+| 20 | Payments and WhatsApp callbacks (v1.1) | Payment results come only from the gateway at `POST /v1/webhooks/gateway`, for app, web and WhatsApp orders. WhatsApp webhooks land on the gateway, which forwards statuses to `POST /internal/v1/wa/events` (not `/wa/payments/callback`, `/v1/webhooks/whatsapp`) | Sections 8, 9 |
+| 21 | Events (v1.1) | Each event is defined once: `ai.quota_threshold` (not `ai.quota.threshold`); `ai.paused`, `ai.resumed` and `killswitch.set` (not `ai.kill.*`); `ai.settings_changed` (not `ai.settings.changed`); `timetable.approved` (not `ai.timetable.approved`); `feature.changed` (not `flag.changed`, `idm.flag.changed`); `consent.recorded` and `consent.withdrawn` (not `idm.consent.*`); `device.revoked` (not `auth.session.revoked`); notification events in Section 9 only | Sections 3, 4, 5, 7, 9 |
+| 22 | Missing APIs (v1.1) | APIs added for requirements that had none: roles; tenant administrators and hierarchy; owner Insights and admissions; principal attendance and absence watch; fee defaulters; standalone admin views; outcomes; parent queries; HoD team; lesson plans; paper creation; notes; teacher inbox; counselling caseload, referrals, check-ins and careers; parent app; bus attendant trips; telemetry; support. Out on duty uses `/v1/leave` with a type | Sections 3, 4, 6, 7, 9 |
+| 23 | Website (v1.1) | The website is specified in Section 11 from the functional overview. Website requests are DhruvaOne sales leads (`POST /v1/leads`), read in the Platform console, never in a school's admissions CRM | Section 11 |
+| 24 | Owner Insights (v1.1) | The owner phone Insights tab is specified as MOB-STF-010 | Sections 6, 7 |
 
 ## 10.3 Open decisions for the client
 Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8, 8.8, 9.8). The ones that most affect scope and cost:
@@ -7678,6 +7734,268 @@ Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8,
 6. Plan structure, pricing and which AI features sit in which plan (Section 4).
 7. Whether the trustee gets a full role or approval-only access.
 8. The administration console, audit-log screen and Platform Owner console need design (Appendix C).
+9. Where website requests go after the Platform console: a CRM tool or the console only (Section 11, Q1).
+
+---
+
+# 11. Website
+
+Area code: WEB. Source: the website boards in the functional overview (pages 179 to 194, desktop and mobile site). Related sections: Section 3 (sign-in by mobile number and OTP, which the website's Sign in page uses), Section 4 (the Platform Owner console, where website leads are read), Section 9 (privacy, consent and the status page).
+
+## 11.1 Purpose, scope and out-of-scope
+
+**Purpose.** The B2B website explains DhruvaOne to people who buy school software (owners, trustees, principals, admins, IT and procurement). It shows how approvals and data protection work and collects demo, pricing and pilot requests. It also gives parents, students and staff a way to get the app or sign in on a computer. The positioning line is "Learning, reimagined with AI."
+
+**In scope**
+- The site shell on desktop and phone: top strip, header, phone menu, footer, night and day modes, and the "Get the app" card.
+- Seven visible pages: Home, Product, Solutions (three tabs), Trust, About us, Pricing, and Book a demo.
+- The demo, pricing and pilot request form, and what happens to a request after it is sent.
+- Sign in by mobile number and one-time code, using the identity services in Section 3.
+- Content management, search-engine basics, performance, accessibility and privacy for a public site.
+
+**Out of scope (covered elsewhere or intentionally left out)**
+- The Resources and Customers pages, and the role-tab state. These exist in the prototype code but are hidden and are not specified.
+- Parent and student content. They are sent to the app (Section 7).
+- Prices. The site never shows a price; every plan is "Quoted for your school".
+- Live chat, site search and cookie banners. None are designed, and the site sets no non-essential cookies (WEB-NFR-003).
+
+## 11.2 Actors and roles
+
+| Actor | What they do on the website |
+|---|---|
+| Prospective buyer (owner, trustee, principal, admin, IT, procurement) | Reads the pages, downloads the procurement pack, sends a demo, pricing or pilot request |
+| Parent, student or staff member of a live school | Opens the "Get the app" card or signs in on a computer |
+| DhruvaOne sales (Platform Owner role, Section 4) | Reads and follows up website requests in the Platform console |
+| DhruvaOne marketing | Edits page copy in the content system and publishes the site |
+
+## 11.3 Functional requirements
+
+### 11.3.1 Site shell (WEB-SHL)
+
+**WEB-SHL-001 · Must · MVP · flag: core · [Design]**
+Every page shall show the same sticky header and footer.
+- Acceptance: Given any page on desktop When it loads Then the header shows the logo (opens Home), the links "Product", "Solutions", "Trust", "About us" and "Pricing" (the current page bold on a grey pill), the night and day toggle, "Sign in" (outlined) and "Book a demo" (dark); the footer shows the line "The calm, intelligent operating system for schools. Made in India.", the Product column, the Legal column, the contacts sales@dhruvaone.in and "Grievance Officer (DPDP Act): grievance@dhruvaone.in", the link "Parent or student? Get the app" and "© 2026 DhruvaOne. Gurugram, India."
+- Rules: footer Product items navigate to their pages. Legal items (Privacy notice, Terms, Data processing agreement, Security, Sub-processors, System status) are plain text in the design; see WEB-PAG-010 for publishing them.
+
+**WEB-SHL-002 · Must · MVP · flag: core · [Design]**
+The desktop site shall show a top strip with the hosting promise and the app link.
+- Acceptance: Given a desktop page When it loads Then the strip shows "Hosted in India · DPDP Act ready" on the left and "Parent or student? Get the app" on the right; on the phone only "Parent or student? Get the app" is shown.
+
+**WEB-SHL-003 · Must · MVP · flag: core · [Design]**
+On the phone the header shall collapse into a menu.
+- Acceptance: Given the phone site When "Menu" is tapped Then it lists Product, Solutions, Trust, About us, Pricing, Sign in, "Parent or student? Get the app" and a full-width "Book a demo"; choosing an item closes the menu and opens that page at the top.
+
+**WEB-SHL-004 · Should · MVP · flag: core · [Design]**
+A visitor can switch the whole site between day and night modes.
+- Acceptance: Given any page When the moon button is pressed Then every page switches to the dark navy theme with the star background and the button label becomes "Switch to day mode"; the choice holds while navigating.
+- Rules: the design does not remember the choice on reload. [Spec] The site follows the device's dark-mode setting on first visit.
+
+**WEB-SHL-005 · Must · MVP · flag: core · [Design]**
+Parents and students can open a "Get the app" card from the top strip, footer or phone menu.
+- Acceptance: Given the link "Parent or student? Get the app" When it is pressed Then a card opens with "Looking for your school's app?", the line "Parents and students use the Dhruva One app for fees, attendance, the bus and notices. Download it, or sign in from a computer.", App Store and Google Play badges and a "Scan to download" QR code; "Sign in on desktop" opens Sign in; "Close" or a click outside closes the card.
+- Rules: [Spec] the badges and QR code link to the live store listings (Section 7, MOB-STO) once the apps are published; until then they are hidden rather than shown as dead links.
+
+**WEB-SHL-006 · Must · MVP · flag: core · [Design]**
+Changing page shall always start the new page at the top and close the phone menu.
+- Acceptance: Given the visitor is halfway down a page When any link to another page is chosen Then the new page opens scrolled to the top and the phone menu is closed.
+
+### 11.3.2 Pages (WEB-PAG)
+
+**WEB-PAG-001 · Must · MVP · flag: core · [Design]**
+The Home page shall present the product in the designed order of sections.
+- Acceptance: Given Home When it loads Then it shows, in order: the hero (eyebrow "AI-POWERED SCHOOL ERP FOR INDIA", headline "Learning, reimagined with AI.", "Book a demo", "See pricing" and the chips "DPDP Act ready", "Data stays in India", "Audit trail on every change"); the numbers strip; "Everything a school runs on, in one place." with nine module cards; "Three kinds of customer. One product that fits each."; "School data chaos, replaced by one student record."; "An assistant in every screen, and a person in charge." with eight Dhruva cards; "You decide who approves what."; the trust panel; the questions; and the closing "See it with your own numbers."
+- Rules: each module card's "Explore this module" opens Product; each customer card's "See how it works" opens Solutions with that tab selected. The hero phone mock and the Dhruva orb card are images and are not clickable.
+
+**WEB-PAG-002 · Must · MVP · flag: core · [Design]**
+The Product page shall describe the nine modules on one student record.
+- Acceptance: Given Product When it loads Then the header reads "Nine modules. One student record." and nine cards show four features each and a "Used by:" line, followed by the Dhruva block and the closing calls to action.
+- Rules: module cards are not clickable. [Spec] Any capability that is not in the current release is labelled "Coming soon" with its phase from Section 10 (for example live bus location for parents is a P2 pilot, so it reads "Live bus location (coming soon)").
+
+**WEB-PAG-003 · Must · MVP · flag: core · [Design]**
+The Solutions page shall show three customer types as tabs.
+- Acceptance: Given Solutions When a tab "School groups", "Standalone schools" or "Education businesses" is chosen Then the content switches at once without moving the page, showing the headline, four feature cards, "Who approves what" and "The first two weeks" for that customer type.
+- Rules: arriving from a Home customer card selects the matching tab.
+
+**WEB-PAG-004 · Must · MVP · flag: core · [Design]**
+The Trust page shall state the data-protection, security and residency commitments and list sub-processors.
+- Acceptance: Given Trust When it loads Then it shows "Built for the data of children." with the four claim blocks (children's data, DPDP Act, security, data residency and exit), the table "Who handles data on our behalf" (cloud hosting, SMS and OTP, WhatsApp Business provider, email delivery, payment gateway, each with its region) and the procurement pack.
+- Rules: no certification (ISO, SOC) is claimed; "PCI DSS" is shown only against the payment gateway.
+
+**WEB-PAG-005 · Should · MVP · flag: core · [Spec]**
+The procurement pack shall download the real documents once legal has approved them.
+- Acceptance: Given approved files for "Security overview", "Data processing agreement" and "Vendor security questionnaire" When "Download" is pressed Then the file downloads; given a file is not yet approved Then its row shows "Available on request" with a link to the demo form instead of the sample toast in the design.
+
+**WEB-PAG-006 · Must · MVP · flag: core · [Design]**
+The About us page shall show why the company exists, its values and its team.
+- Acceptance: Given About us When it loads Then it shows "We build calm software for schools.", "Why we started", "What we believe" with the three values, "Dhruva One in numbers", "The people behind it" and "Come and meet the team." with "Book a demo" and "See solutions".
+- Rules: [Spec] names and photos of the team are published only with each person's written consent; the sample names in the design are not shipped.
+
+**WEB-PAG-007 · Must · MVP · flag: core · [Design]**
+The Pricing page shall compare plans without showing prices and end in the request form.
+- Acceptance: Given Pricing When it loads Then it shows four plan cards (Standalone, School, Group, Business) each "Quoted for your school", the "Compare plans" table with columns Standalone, School and Group, and the form with "I want to" set to "Get pricing".
+- Rules: plan names and contents follow Section 4 (TFC-PLN); when plan names are final (Section 10, decision 10) the website uses the same names.
+
+**WEB-PAG-008 · Must · MVP · flag: core · [Design]**
+The questions on Home shall open one at a time.
+- Acceptance: Given the seven questions When the page loads Then the first is open; when another is opened Then the open one closes; pressing the open one closes it; "Ask a question" opens the demo form.
+
+**WEB-PAG-009 · Must · MVP · flag: core · [Spec]**
+Every claim on the website shall be confirmed by legal and security before it is published.
+- Acceptance: Given a page with a claim about compliance, security, certification, residency or timelines When it is submitted for publishing Then it cannot go live until a named legal or security reviewer has approved that version in the content system.
+- Rules: the design's own note says "Sample claims for this design. Confirm each statement, certification and timeline with your legal and security teams before publishing."
+
+**WEB-PAG-010 · Must · MVP · flag: core · [Spec]**
+The Privacy notice, Terms, Data processing agreement, Security, Sub-processors and System status items shall be real pages before launch.
+- Acceptance: Given the footer Legal column When the site launches Then each item opens its page; "System status" shows the live state from `GET /v1/status` (Section 9, XCT-SUP); the Privacy notice names the Grievance Officer and how to raise a data request.
+
+### 11.3.3 Demo, pricing and pilot requests (WEB-DEM)
+
+**WEB-DEM-001 · Must · MVP · flag: core · [Design]**
+The request form shall adapt its title and button to the chosen reason.
+- Acceptance: Given the form When "I want to" is "Book a demo", "Get pricing" or "Start a pilot" Then the title reads the same words and the button reads "Book my demo", "Get my pricing" or "Ask for a pilot".
+- Rules: every "Book a demo" button opens the form with "Book a demo"; the Home and Product "Get pricing" opens it with "Get pricing"; "See pricing" and the Pricing link open the Pricing page with "Get pricing".
+
+**WEB-DEM-002 · Must · MVP · flag: core · [Design]**
+The form shall collect the designed fields with their defaults.
+- Acceptance: Given the form When it opens Then it shows, in order: "I want to"; "We are a" (Standalone school by default); "Students or learners" (500 to 1,500 by default); "Your role" (Owner or trustee by default); "Your name"; "Work email"; "School or organisation"; "Phone (optional)" with "+91"; and the unticked consent box.
+
+**WEB-DEM-003 · Must · MVP · flag: core · [Design]**
+The form shall check the entries in a fixed order and show only the first problem.
+- Acceptance: Given the submit button is pressed When an entry is wrong Then one message shows in red above the button, checked in this order: "Please add your name." (under 2 characters), "Please add your school or organisation." (under 2 characters), "Please add a valid work email." (not in the form x@y.z), "Please tick the consent box so we can contact you."; the message clears when all entries are valid.
+- Rules: the phone number is not validated in the design. [Spec] When a phone number is entered it must be 10 digits after +91.
+
+**WEB-DEM-004 · Must · MVP · flag: core · [Design]**
+The request shall be sent only with the visitor's consent.
+- Acceptance: Given the consent box reads "I agree that Dhruva One may contact me about this request. I have read the privacy notice. I can withdraw consent at any time." When it is not ticked Then nothing is sent; when the request is sent Then the consent text version and time are stored with it.
+- Rules: [Spec] "privacy notice" links to the Privacy notice page (WEB-PAG-010).
+
+**WEB-DEM-005 · Must · MVP · flag: core · [Spec]**
+A valid request shall be recorded and confirmed to the visitor.
+- Acceptance: Given a valid form When it is sent Then `POST /v1/leads` stores the request and the page replaces the form with "Thank you. We reply in one working day." and the three "What happens next" steps; given the service cannot be reached Then the form keeps the entries and shows "We could not send this. Please try again, or write to sales@dhruvaone.in."
+- Rules: the same person sending the same reason twice within 24 hours updates the first request instead of creating a second one. Requests are rate limited and protected against bots without a visible puzzle.
+
+**WEB-DEM-006 · Must · MVP · flag: core · [Spec]**
+DhruvaOne sales shall be told about every request and the visitor shall get an email acknowledgement.
+- Acceptance: Given a request is recorded When it is saved Then the sales inbox receives it within 5 minutes and the visitor receives an email from sales@dhruvaone.in repeating what they asked for; the request is visible to the Platform Owner in the console list (`GET /v1/platform/leads`).
+- Rules: website requests belong to DhruvaOne, not to any school tenant, so they never appear in a school's admissions CRM (Section 6, DSK-ADS). Where they go next (a CRM tool or the console only) is open question Q1.
+
+### 11.3.4 Sign in (WEB-SGN)
+
+**WEB-SGN-001 · Must · MVP · flag: idm.web_login · [Design]**
+A person can start sign-in on the website with the mobile number the school has on record.
+- Acceptance: Given "Sign in to Dhruva One" When a number is typed Then only digits are accepted, trimmed to 10, after a fixed "+91"; "Send code" with fewer than 10 digits shows "Enter your 10-digit mobile number"; a valid number requests a code through `POST /v1/auth/otp/request` (Section 3, IDM-OTP).
+- Rules: there is no password and no school search. The sample number chips in the design are not shipped.
+
+**WEB-SGN-002 · Must · MVP · flag: idm.web_login · [Design]**
+An unknown number shall be told how to get added.
+- Acceptance: Given a number that is not in any school's records When "Send code" is pressed Then the page shows "This number is not registered with any school. Ask your school office to add it, then try again."
+- Rules: the same message is used in the app (Section 3, IDM-NF), so the website does not reveal more than the app does.
+
+**WEB-SGN-003 · Must · MVP · flag: idm.web_login · [Design]**
+A person can enter the one-time code and go back to change the number.
+- Acceptance: Given "We sent a 6-digit code to +91 98••• ••210." When fewer than 6 digits are entered and "Verify" is pressed Then "Enter the 6-digit code" shows; when 6 digits are entered Then the code is checked with `POST /v1/auth/otp/verify`; "Use a different number" returns to the number with it kept.
+- Rules: the design accepts any code and shows a static "Resend in 0:28"; the build follows Section 3 (code expiry, attempts, live resend timer).
+
+**WEB-SGN-004 · Must · MVP · flag: idm.web_login · [Design]**
+After the code is verified the website shall show the school found for the number, or ask which school to open.
+- Acceptance: Given one school When verified Then "We found your school" shows the school, place and board, "Signing in as <name>", "Your role" and "Continue as <first name>"; given two or more schools Then "Choose your school" lists them, the button stays grey "Choose a school" until one is picked, pressing it unpicked shows "Choose a school to continue", and once picked it reads "Continue with <school>".
+- Rules: the list comes from `GET /v1/me/profiles` and the choice is made with `POST /v1/me/profiles/{id}/switch` (Section 3, IDM-DSC and IDM-PRF).
+
+**WEB-SGN-005 · Must · MVP · flag: idm.web_login · [Spec]**
+Continuing shall open the desktop web app signed in to the chosen profile.
+- Acceptance: Given a profile is chosen When "Continue" is pressed Then the desktop web app opens on that profile's home without asking for the number again; the website itself keeps no session.
+- Rules: the design shows a placeholder "You're in, Pooja" page; the build hands over to the desktop app. Switching school later is done in the app.
+
+**WEB-SGN-006 · Must · MVP · flag: core · [Design]**
+The Sign in page shall also offer the app.
+- Acceptance: Given Sign in When it loads Then a "Get the Dhruva One app" panel shows "Free on iPhone and Android. Sign in with the same mobile number." with the store badges and QR code (WEB-SHL-005 rules apply).
+
+### 11.3.5 Content, search engines and site quality (WEB-NFR)
+
+**WEB-NFR-001 · Must · MVP · flag: core · [Spec]**
+The website shall load fast on a mid-range phone.
+- Acceptance: Given a mid-range Android phone on a 4G network When any page is opened from a search result Then the largest content appears within 2.5 seconds at the 75th percentile and the layout does not jump (cumulative layout shift under 0.1).
+
+**WEB-NFR-002 · Must · MVP · flag: core · [Spec]**
+The website shall meet WCAG 2.1 AA in both day and night modes.
+- Acceptance: Given an accessibility audit When run on every page in both modes Then there are no AA failures; every control works by keyboard and the form errors are announced to screen readers.
+
+**WEB-NFR-003 · Must · MVP · flag: core · [Spec]**
+The website shall not track visitors with advertising or cross-site cookies.
+- Acceptance: Given a first visit When the page loads Then no third-party advertising or tracking script runs and no non-essential cookie is set, so no cookie banner is needed; any analytics is first-party, cookieless and aggregate.
+
+**WEB-NFR-004 · Should · MVP · flag: core · [Spec]**
+Each page shall be ready for search engines and link previews.
+- Acceptance: Given any page When fetched by a crawler Then it returns a unique title and description, a canonical address, Open Graph tags and a sitemap entry; Sign in is excluded from search results.
+
+**WEB-NFR-005 · Should · MVP · flag: core · [Spec]**
+Marketing can change page copy without a code release.
+- Acceptance: Given an edit to page copy in the content system When it is approved (WEB-PAG-009) Then the site rebuilds and the change is live within 15 minutes; a previous version can be restored.
+
+**WEB-NFR-006 · Must · MVP · flag: core · [Spec]**
+The website shall be served from India with the same edge protection as the product.
+- Acceptance: Given the live site When checked Then it is served over HTTPS behind the CDN and web application firewall, from storage in the India region, with no school data and no server-side session.
+
+## 11.4 Business rules and policies
+- The website never shows school data. Sign-in hands over to the desktop app; the sample dashboards on the pages are images.
+- The site is the same on desktop and phone in content, states and validation; only layout and the top strip differ.
+- Calls to action always lead to one of three outcomes: book a 30-minute demo, get pricing, or start a pilot in one campus at no cost.
+- Website requests are DhruvaOne's own sales leads. They are not school records and are not visible to tenants.
+- Leads are kept for 24 months after the last contact, then deleted, unless they become a customer contract (Section 9 retention rules apply).
+
+## 11.5 Notifications raised by this section
+
+| Event | Who is told | Channel | Notes |
+|---|---|---|---|
+| New website request | DhruvaOne sales inbox | Email | Within 5 minutes (WEB-DEM-006) |
+| Request received | The visitor | Email | Acknowledgement repeating the request |
+
+## 11.6 Feature switches in this section
+The website is not tenant-scoped, so its pages use `core`. Website sign-in uses `idm.web_login`; when a tenant switches it off, the person is told to use the app after the code is verified (Section 3).
+
+## 11.7 Non-functional requirements
+See 11.3.5. Availability target: 99.9% monthly, measured at the CDN.
+
+## 11.8 Open questions
+- Q1. Where do website requests go after the Platform console: a CRM tool (to be chosen) or the console only?
+- Q2. Which content system will marketing use? Until it is chosen the copy lives in the site repository.
+- Q3. Final legal text for the Privacy notice, Terms and Data processing agreement, and approval of every claim on the Trust page.
+
+## Annex 11-A (engineering)
+
+### Data entities
+
+| Entity | Key fields | Notes |
+|---|---|---|
+| Lead | id, reason (demo, pricing, pilot), org_type, size_band, role, name, work_email, organisation, phone, consent_text_version, consent_at, source_page, utm (optional), status (new, contacted, qualified, closed), owner, created_at, updated_at | Platform-level record, not tenant data; deduplicated on work_email and reason within 24 hours |
+
+### APIs
+
+| Method + path | Purpose | Authz / role scope | Key errors |
+|---|---|---|---|
+| POST /v1/leads | Record a demo, pricing or pilot request from the website form | Public, rate limited, bot check, CORS limited to the website origin | 422 validation (same order as WEB-DEM-003); 429 rate_limited |
+| GET /v1/platform/leads | List and filter website requests | Platform Owner (sales) | 403 |
+| PATCH /v1/platform/leads/{id} | Update status and owner of a request | Platform Owner (sales) | 404; 409 stale_version |
+
+Website sign-in uses the Section 3 APIs `POST /v1/auth/otp/request`, `POST /v1/auth/otp/verify`, `GET /v1/me/profiles` and `POST /v1/me/profiles/{id}/switch`, and the footer status page uses `GET /v1/status` (Section 9).
+
+### Events
+
+| Event name | Emitted when | Payload highlights | Consumers |
+|---|---|---|---|
+| lead.received | A website request is recorded or updated | lead_id, reason, org_type, size_band | Sales notification, Platform console |
+
+### Permission matrix
+
+| Capability | Visitor | Signed-in school user | Platform Owner (sales) | Marketing |
+|---|---|---|---|---|
+| Read pages, open "Get the app" | Yes | Yes | Yes | Yes |
+| Send a request | Yes | Yes | n/a | n/a |
+| Read and update requests | no | no | Yes | no |
+| Edit and publish page copy | no | no | no | Yes (after legal approval for claims) |
+
+### Proposed flags
+None. Website pages are `core`; sign-in uses `idm.web_login`.
 
 ---
 
@@ -7733,23 +8051,23 @@ Every requirement names the flag that switches it off. "Canonical" flags were de
 | `idm.biometric` | canonical |  | IDM (2), MOB (2) |
 | `idm.multi_profile` | canonical |  | IDM (7), MOB (1) |
 | `idm.sso` | canonical |  | IDM (1) |
-| `idm.web_login` | canonical |  | IDM (1) |
+| `idm.web_login` | canonical |  | IDM (1), DSK (1), WEB (5) |
 | `mod.admissions_crm` | canonical |  | DSK (10) |
-| `mod.approvals` | canonical |  | TFC (1), DSK (5), MOB (1), XCT (10) |
+| `mod.approvals` | canonical |  | TFC (1), DSK (6), MOB (1), XCT (10) |
 | `mod.attendance` | canonical |  | DSK (8), MOB (5), WAB (3) |
 | `mod.audit_export` | registered here | Download the audit log (viewing is always on) | XCT (1) |
 | `mod.bank_recon` | canonical |  | DSK (1), XCT (1) |
 | `mod.bus_live` | canonical |  | DSK (3), MOB (3), WAB (1) |
 | `mod.calendar_ptm` | canonical |  | DSK (5), MOB (4), WAB (1), XCT (2) |
-| `mod.campus_onboarding` | canonical |  | TFC (1), DSK (6), XCT (9) |
+| `mod.campus_onboarding` | canonical |  | TFC (1), DSK (7), XCT (9) |
 | `mod.cbse_registration` | registered here | CBSE board registration checks | DSK (1) |
 | `mod.counselling` | canonical |  | DSK (5), XCT (1) |
 | `mod.cover` | canonical |  | DSK (1), MOB (1) |
-| `mod.exams` | canonical |  | DSK (4), WAB (1), XCT (1) |
+| `mod.exams` | canonical |  | DSK (5), WAB (1), XCT (1) |
 | `mod.fees` | canonical |  | DSK (5), MOB (8), WAB (3), XCT (2) |
 | `mod.finance_accounts` | canonical |  | DSK (8) |
 | `mod.global_search` | registered here | Global search across records the user may see | XCT (1) |
-| `mod.group_scorecard` | canonical |  | DSK (4), XCT (2) |
+| `mod.group_scorecard` | canonical |  | DSK (4), MOB (1), XCT (2) |
 | `mod.hiring_onboarding` | canonical |  | DSK (3) |
 | `mod.homework` | canonical |  | DSK (4), MOB (2), WAB (3) |
 | `mod.hr_leave` | canonical |  | DSK (20), MOB (2), WAB (3) |
@@ -7765,7 +8083,7 @@ Every requirement names the flag that switches it off. "Canonical" flags were de
 | `mod.profile_switching` | canonical |  | IDM (3), DSK (1), MOB (9), XCT (1) |
 | `mod.remedial` | registered here | Remedial groups and Saturday sessions | DSK (1) |
 | `mod.report_cards` | canonical |  | DSK (3), MOB (1) |
-| `mod.reports` | canonical |  | DSK (5), XCT (6) |
+| `mod.reports` | canonical |  | DSK (6), XCT (6) |
 | `mod.security_gate` | canonical |  | DSK (3), MOB (2) |
 | `mod.student_gamification` | registered here | Quests, XP, house points and badges for students | DSK (3) |
 | `mod.student_learning` | canonical |  | IDM (3), DSK (3), MOB (12) |

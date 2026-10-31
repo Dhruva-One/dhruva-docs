@@ -1,6 +1,6 @@
 # 3. Identity Management
 
-Area code: IDM. Related sections: Section 4 (Tenant feature control and administration, TFC) defines the Tenant Administrator role and the flag mechanism; Section 5 (Desktop), Section 6 (Mobile) and Section 7 (WhatsApp) consume the identity services defined here; cross-cutting audit and notification rules live in XCT.
+Area code: IDM. Related sections: Section 4 (Tenant feature control and administration, TFC) defines the Tenant Administrator role and the flag mechanism; Section 6 (Desktop), Section 7 (Mobile), Section 8 (WhatsApp) and Section 11 (Website) consume the identity services defined here; cross-cutting audit and notification rules live in XCT.
 
 ## 3.1 Purpose, scope and out-of-scope
 
@@ -677,28 +677,34 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 ### APIs
 | Method + path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
-| POST /auth/lookup | Optional registered-number check (throttled) | Public, attestation | 400 invalid_number, 429 rate_limited |
-| POST /auth/otp/request | Send OTP (sms or whatsapp) | Public, attestation | 400 invalid_number, 404 not_registered (if lookup enabled), 429 rate_limited, 423 locked |
-| POST /auth/otp/verify | Verify code, create session, return profile list | Public with challenge id | 400 invalid_code, 410 expired, 429 too_many_attempts |
-| GET /auth/profiles | Profile list for the session's Person | Authenticated | 401 |
-| POST /auth/switch | Switch active profile; re-issue token | Authenticated | 403 profile_not_available, 423 locked_needs_pin |
-| POST /auth/refresh | Rotate refresh token | Refresh token | 401 reused_token (revokes family) |
-| POST /auth/logout | End session on this device (all profiles) | Authenticated | |
-| GET /auth/sessions | List devices and sessions | Authenticated (own) | |
-| DELETE /auth/sessions/{id} and POST /auth/sessions/revoke-all | Revoke one / all | Own; Tenant Administrator for staff | 403 |
-| POST /auth/pin/set, /auth/pin/verify, /auth/pin/reset | Set, verify, reset PIN (reset needs fresh OTP) | Authenticated | 423 pin_locked, 400 weak_pin |
-| POST /auth/stepup | Challenge and verify PIN or biometric assertion | Authenticated | 401 stepup_required |
-| POST /auth/devices/register | Register device key, attestation | Authenticated | 403 attestation_failed |
-| POST /auth/number-add-requests | Create add request | Public, throttled | 429 |
-| GET/POST /idm/people, /idm/profiles, /idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
-| POST /idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
-| POST /idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
-| POST /idm/guardianships and PATCH /idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
-| POST /idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
-| GET /idm/audit | Query and export audit events | Tenant Administrator, Owner | 403 |
-| GET/PUT /idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
-| POST /wa/identify (internal) | Resolve WhatsApp number to profiles | Internal service | 404 unknown_number |
-| POST /wa/pin/verify (internal) | Verify PIN from WhatsApp Flow | Internal service | 423 pin_locked |
+| POST /v1/auth/lookup | Optional registered-number check (throttled) | Public, attestation | 400 invalid_number, 429 rate_limited |
+| POST /v1/auth/otp/request | Send OTP (sms or whatsapp). Used by the phone app, the desktop web app and the website | Public, attestation | 400 invalid_number, 404 not_registered (if lookup enabled), 429 rate_limited, 423 locked |
+| POST /v1/auth/otp/verify | Verify code, create session, return profile list | Public with challenge id | 400 invalid_code, 410 expired, 429 too_many_attempts |
+| POST /v1/auth/refresh | Rotate refresh token | Refresh token | 401 reused_token (revokes family) |
+| POST /v1/auth/logout | End session on this device (all profiles) | Authenticated | |
+| POST /v1/auth/logout-all | Sign out every other device | Authenticated (own) | |
+| POST /v1/auth/stepup | Challenge and verify PIN or biometric assertion | Authenticated | 401 stepup_required |
+| POST /v1/auth/number-add-requests | Ask the school to add this number (sign-in "not registered", phone app "Ask to be added") | Public, throttled | 429 |
+| GET /v1/me/profiles | Profiles for the session's Person, with counts of new items | Authenticated | 401 |
+| POST /v1/me/profiles/{id}/switch | Make a profile active; returns a profile-scoped token | Authenticated | 403 profile_not_available, 423 locked_needs_pin |
+| POST /v1/me/pin | Set or change the PIN (hash and salt wrapped by the device key) | Authenticated | 400 weak_pin |
+| POST /v1/me/pin/verify | Verify the PIN on the server (after 5 local failures) | Authenticated | 423 pin_locked, 429 |
+| POST /v1/me/pin/reset | Reset the PIN; needs a fresh OTP | Authenticated with fresh OTP | 401 otp_required |
+| GET /v1/devices | List signed-in devices and their sessions | Authenticated (own); Tenant Administrator for staff | |
+| POST /v1/devices | Register or update a device (key, attestation, app version) | Authenticated | 403 attestation_failed, 409 too_many_devices |
+| DELETE /v1/devices/{id} | Revoke a device and its sessions | Own; Tenant Administrator for staff | 403, 404 |
+| PUT/DELETE /v1/devices/{id}/push-token | Register, replace or remove the push token | Authenticated, same device | 400 bad_token |
+| GET /v1/idm/roles | Role catalogue with scope levels | Staff | |
+| GET/POST /v1/idm/people, /v1/idm/profiles, /v1/idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
+| POST /v1/idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
+| POST /v1/idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
+| POST /v1/idm/guardianships and PATCH /v1/idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
+| POST /v1/idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
+| GET/PUT /v1/idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
+| POST /internal/v1/wa/identify | Resolve WhatsApp number to profiles | Internal service (WhatsApp gateway) | 404 unknown_number |
+| POST /internal/v1/wa/pin/verify | Verify PIN from WhatsApp Flow | Internal service (WhatsApp gateway) | 423 pin_locked |
+
+Identity audit events are read and exported through `GET /v1/audit?category=identity` and `POST /v1/audit/exports` (Section 9).
 
 ### Events
 | Event | Emitted when | Payload highlights | Consumers |
@@ -709,15 +715,17 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 | auth.profile.switched | Active profile changed | from, to, step_up | Audit |
 | auth.stepup.succeeded / failed | PIN or biometric step-up | action, method | Audit, finance, approvals |
 | auth.pin.set / reset / locked | PIN change | person_id | Audit, WhatsApp |
-| auth.session.revoked | Revocation | scope (one, all), reason | Push, API gateway |
+| device.registered | Device first registered | device_id, platform, app_version | Audit, notification service |
+| device.revoked | Device or session revoked (one, all others, lost phone) | device_id, scope, reason, unsynced_items | Push, API gateway, audit |
+| push.token.registered / invalidated | Push token set, or provider reports it invalid | token_id, provider | Notification service |
 | idm.profile.invited / activated / suspended / deactivated | Lifecycle change | profile_id, by | Audit, notifications, HR |
 | idm.membership.assigned / removed | Role change | role, scope, by | Audit, permission cache |
 | idm.guardianship.created / verified / archived | Child link change | student_id, relation | Audit, fees, transport, notices |
 | idm.number.changed | Number moved | old_masked, new_masked | Audit, WhatsApp, sessions |
 | idm.studentaccount.created / disabled | Student login change | student_id, guardian | Audit, student app |
-| idm.consent.given / withdrawn | Consent change | purpose | Audit, channels |
-| idm.flag.changed | idm.* flag edit | flag, scope, by | TFC, audit |
 | hr.employee.exit_started / exit_completed (consumed) | HR exit | last_day | Identity offboarding job |
+
+Consent events are `consent.recorded` and `consent.withdrawn` (Section 9). Changes to `idm.*` flags raise `feature.changed` (Section 4).
 
 ### State machines / workflows
 **OTP challenge:** Created -> Sent -> (Verified | Expired | Locked | Superseded by resend | Cancelled by "Use a different number"). Verified is terminal; Locked after 5 wrong codes.

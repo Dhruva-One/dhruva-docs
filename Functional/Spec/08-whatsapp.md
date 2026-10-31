@@ -858,7 +858,7 @@ The system shall handle payment failures and delays.
 | Method and path | Purpose | Authz / role scope | Key errors |
 |---|---|---|---|
 | GET /wa/webhook/{account_id} | Provider verification handshake | Verify token | 403 bad token |
-| POST /wa/webhook/{account_id} | Inbound messages and status callbacks (messages, statuses, template and quality updates) | HMAC signature header | 401 bad signature; 200 on duplicate (idempotent on wamid) |
+| POST /wa/webhook/{account_id} | Inbound messages and status callbacks (messages, statuses, template and quality updates); delivery statuses, opt-outs and in-chat payment notices are forwarded to the platform (`POST /internal/v1/wa/events`, Section 9) | HMAC signature header | 401 bad signature; 200 on duplicate (idempotent on wamid) |
 | POST /wa/send | Send one message (text, interactive, template, document) | Internal service; tenant-scoped | 409 window closed (template required); 422 template not approved; 429 rate limit; 451 contact opted out |
 | POST /wa/notify | Request an event notification (resolves channel, template, caps, quiet hours) | Internal modules | 422 unknown event; 202 deferred or dropped with reason |
 | GET /wa/accounts, PATCH /wa/accounts/{id} | View and edit account settings, profile, display name | Tenant admin; campus admin (own campus) | 409 name under review |
@@ -870,8 +870,9 @@ The system shall handle payment failures and delays.
 | GET/PUT /wa/settings | Audience flags, toggles, hours, caps, budget | Tenant admin; campus admin within group limits | 403 above group limit |
 | GET /wa/analytics, GET /wa/usage | Tiles, analytics, cost | Campus admin, tenant admin | none |
 | POST /wa/flows/endpoint | Encrypted data exchange for WhatsApp Flows (roster, dates, PIN check) | Provider-signed; per flow token | 400 bad token; 410 expired |
-| POST /wa/payments/callback | Gateway payment result for an order | Gateway signature | 409 duplicate; 422 amount mismatch |
 | GET /wa/media/{id} | Authenticated media fetch for agents | Agent roles | 404 expired and deleted |
+
+Payment results for in-chat fee payments come only from the payment gateway, at `POST /v1/webhooks/gateway` (Section 9). The fees module records the payment once, by gateway payment id, and asks the gateway to send the receipt.
 
 ### Events
 
@@ -892,7 +893,7 @@ The system shall handle payment failures and delays.
 | wa.account.quality_changed / limit_reached / restricted | Meta health change | old, new | Outbound control, admin |
 | wa.outbound.fallback_used | Channel switched | event_id, from, to, reason | Notification service, audit |
 | wa.cost.threshold_reached | Spend at 70, 90, 100 percent | tenant_id, pct | Admin notifications, outbound control |
-| wa.payment.completed / failed | Gateway callback | order_id, amount | Fees, bot |
+| wa.payment.completed / failed | The fees module confirms or fails an in-chat order (from the gateway callback, Section 9) | order_id, amount | Bot (receipt or retry message) |
 
 ### State machines / workflows
 

@@ -50,23 +50,23 @@ Every requirement names the flag that switches it off. "Canonical" flags were de
 | `idm.biometric` | canonical |  | IDM (2), MOB (2) |
 | `idm.multi_profile` | canonical |  | IDM (7), MOB (1) |
 | `idm.sso` | canonical |  | IDM (1) |
-| `idm.web_login` | canonical |  | IDM (1) |
+| `idm.web_login` | canonical |  | IDM (1), DSK (1), WEB (5) |
 | `mod.admissions_crm` | canonical |  | DSK (10) |
-| `mod.approvals` | canonical |  | TFC (1), DSK (5), MOB (1), XCT (10) |
+| `mod.approvals` | canonical |  | TFC (1), DSK (6), MOB (1), XCT (10) |
 | `mod.attendance` | canonical |  | DSK (8), MOB (5), WAB (3) |
 | `mod.audit_export` | registered here | Download the audit log (viewing is always on) | XCT (1) |
 | `mod.bank_recon` | canonical |  | DSK (1), XCT (1) |
 | `mod.bus_live` | canonical |  | DSK (3), MOB (3), WAB (1) |
 | `mod.calendar_ptm` | canonical |  | DSK (5), MOB (4), WAB (1), XCT (2) |
-| `mod.campus_onboarding` | canonical |  | TFC (1), DSK (6), XCT (9) |
+| `mod.campus_onboarding` | canonical |  | TFC (1), DSK (7), XCT (9) |
 | `mod.cbse_registration` | registered here | CBSE board registration checks | DSK (1) |
 | `mod.counselling` | canonical |  | DSK (5), XCT (1) |
 | `mod.cover` | canonical |  | DSK (1), MOB (1) |
-| `mod.exams` | canonical |  | DSK (4), WAB (1), XCT (1) |
+| `mod.exams` | canonical |  | DSK (5), WAB (1), XCT (1) |
 | `mod.fees` | canonical |  | DSK (5), MOB (8), WAB (3), XCT (2) |
 | `mod.finance_accounts` | canonical |  | DSK (8) |
 | `mod.global_search` | registered here | Global search across records the user may see | XCT (1) |
-| `mod.group_scorecard` | canonical |  | DSK (4), XCT (2) |
+| `mod.group_scorecard` | canonical |  | DSK (4), MOB (1), XCT (2) |
 | `mod.hiring_onboarding` | canonical |  | DSK (3) |
 | `mod.homework` | canonical |  | DSK (4), MOB (2), WAB (3) |
 | `mod.hr_leave` | canonical |  | DSK (20), MOB (2), WAB (3) |
@@ -82,7 +82,7 @@ Every requirement names the flag that switches it off. "Canonical" flags were de
 | `mod.profile_switching` | canonical |  | IDM (3), DSK (1), MOB (9), XCT (1) |
 | `mod.remedial` | registered here | Remedial groups and Saturday sessions | DSK (1) |
 | `mod.report_cards` | canonical |  | DSK (3), MOB (1) |
-| `mod.reports` | canonical |  | DSK (5), XCT (6) |
+| `mod.reports` | canonical |  | DSK (6), XCT (6) |
 | `mod.security_gate` | canonical |  | DSK (3), MOB (2) |
 | `mod.student_gamification` | registered here | Quests, XP, house points and badges for students | DSK (3) |
 | `mod.student_learning` | canonical |  | IDM (3), DSK (3), MOB (12) |
