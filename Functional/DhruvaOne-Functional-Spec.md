@@ -4,8 +4,8 @@
 |---|---|
 | **Product** | DhruvaOne school ERP with the Dhruva AI assistant |
 | **Document** | Functional specification v1.1 (draft for client review) |
-| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 24) |
-| **Status** | Draft: product body for sign-off, engineering annexes for build |
+| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25) |
+| **Status** | Draft: product body for sign-off, engineering annexes for build. All decisions in 10.2 (1 to 25) confirmed by the client on 31 October 2026 |
 | **Sample data** | All names, numbers and amounts are sample data (group "DPS Group", hero campus DPS Gurugram Sec 45, sample day Fri 9 Oct 2026; standalone school "Saraswati Vidya Niketan", Karnal) |
 | **Derived from** | The DhruvaOne design prototypes (desktop, phone, WhatsApp, website), the MVP scope and roadmap, and the functional overview (214 pages) |
 
@@ -80,8 +80,8 @@ The system shall ...
 | 7 | App - Mobile (MOB) | 163 | 160 | 3 | 0 | 126 | 37 | 0 |
 | 8 | WhatsApp (WAB) | 122 | 48 | 71 | 3 | 67 | 55 | 0 |
 | 9 | Cross-cutting platform (XCT) | 112 | 108 | 4 | 0 | 54 | 58 | 0 |
-| 11 | Website (WEB) | 34 | 34 | 0 | 0 | 22 | 12 | 0 |
-| | **Total** | **908** | **800** | **100** | **8** | **557** | **346** | **5** |
+| 11 | Website (WEB) | 34 | 33 | 1 | 0 | 22 | 12 | 0 |
+| | **Total** | **908** | **799** | **101** | **8** | **557** | **346** | **5** |
 
 Priorities across all areas: 726 Must, 168 Should, 14 Could.
 
@@ -7694,7 +7694,7 @@ Rows marked [Design] come from the AppNotifications catalogue and lock-screen sa
 | P3 | Phase 2: Oct 2027 to Mar 2028 | GPS and RFID on all buses, online tests and board analytics, purchase, inventory, health, library, visitor and CCTV, early warnings, open APIs |
 
 ## 10.2 Decisions taken in this specification
-These conflicts or gaps in the designs were resolved as follows so the sections agree. Each should be confirmed by the client.
+These conflicts or gaps in the designs were resolved as follows so the sections agree. All of them (1 to 25) were confirmed by the client on 31 October 2026.
 
 | # | Topic | Decision taken | Where |
 |---|---|---|---|
@@ -7722,6 +7722,7 @@ These conflicts or gaps in the designs were resolved as follows so the sections 
 | 22 | Missing APIs (v1.1) | APIs added for requirements that had none: roles; tenant administrators and hierarchy; owner Insights and admissions; principal attendance and absence watch; fee defaulters; standalone admin views; outcomes; parent queries; HoD team; lesson plans; paper creation; notes; teacher inbox; counselling caseload, referrals, check-ins and careers; parent app; bus attendant trips; telemetry; support. Out on duty uses `/v1/leave` with a type | Sections 3, 4, 6, 7, 9 |
 | 23 | Website (v1.1) | The website is specified in Section 11 from the functional overview. Website requests are DhruvaOne sales leads (`POST /v1/leads`), read in the Platform console, never in a school's admissions CRM | Section 11 |
 | 24 | Owner Insights (v1.1) | The owner phone Insights tab is specified as MOB-STF-010 | Sections 6, 7 |
+| 25 | Website content (v1.1) | The MVP website is a static site. Page copy lives in the dhruva-site repository and changes through a reviewed pull request. A content management system is chosen later, expected in 2027 (P2) | Section 11 |
 
 ## 10.3 Open decisions for the client
 Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8, 8.8, 9.8). The ones that most affect scope and cost:
@@ -7735,6 +7736,8 @@ Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8,
 7. Whether the trustee gets a full role or approval-only access.
 8. The administration console, audit-log screen and Platform Owner console need design (Appendix C).
 9. Where website requests go after the Platform console: a CRM tool or the console only (Section 11, Q1).
+
+Items 3 and 7 are settled by decisions 5 and 9 in 10.2, which the client confirmed on 31 October 2026.
 
 ---
 
@@ -7751,7 +7754,7 @@ Area code: WEB. Source: the website boards in the functional overview (pages 179
 - Seven visible pages: Home, Product, Solutions (three tabs), Trust, About us, Pricing, and Book a demo.
 - The demo, pricing and pilot request form, and what happens to a request after it is sent.
 - Sign in by mobile number and one-time code, using the identity services in Section 3.
-- Content management, search-engine basics, performance, accessibility and privacy for a public site.
+- Content updates, search-engine basics, performance, accessibility and privacy for a public site. The MVP site is static; a content management system follows in P2 (10.2, decision 25).
 
 **Out of scope (covered elsewhere or intentionally left out)**
 - The Resources and Customers pages, and the role-tab state. These exist in the prototype code but are hidden and are not specified.
@@ -7766,7 +7769,7 @@ Area code: WEB. Source: the website boards in the functional overview (pages 179
 | Prospective buyer (owner, trustee, principal, admin, IT, procurement) | Reads the pages, downloads the procurement pack, sends a demo, pricing or pilot request |
 | Parent, student or staff member of a live school | Opens the "Get the app" card or signs in on a computer |
 | DhruvaOne sales (Platform Owner role, Section 4) | Reads and follows up website requests in the Platform console |
-| DhruvaOne marketing | Edits page copy in the content system and publishes the site |
+| DhruvaOne marketing | Proposes page copy changes; in the MVP they are made in the site repository by pull request, and later in the content management system (P2) |
 
 ## 11.3 Functional requirements
 
@@ -7841,7 +7844,7 @@ The questions on Home shall open one at a time.
 
 **WEB-PAG-009 · Must · MVP · flag: core · [Spec]**
 Every claim on the website shall be confirmed by legal and security before it is published.
-- Acceptance: Given a page with a claim about compliance, security, certification, residency or timelines When it is submitted for publishing Then it cannot go live until a named legal or security reviewer has approved that version in the content system.
+- Acceptance: Given a page with a claim about compliance, security, certification, residency or timelines When it is submitted for publishing Then it cannot go live until a named legal or security reviewer has approved that version (in the MVP, as an approving review on the pull request).
 - Rules: the design's own note says "Sample claims for this design. Confirm each statement, certification and timeline with your legal and security teams before publishing."
 
 **WEB-PAG-010 · Must · MVP · flag: core · [Spec]**
@@ -7928,9 +7931,10 @@ The website shall not track visitors with advertising or cross-site cookies.
 Each page shall be ready for search engines and link previews.
 - Acceptance: Given any page When fetched by a crawler Then it returns a unique title and description, a canonical address, Open Graph tags and a sitemap entry; Sign in is excluded from search results.
 
-**WEB-NFR-005 · Should · MVP · flag: core · [Spec]**
+**WEB-NFR-005 · Should · P2 · flag: core · [Spec]**
 Marketing can change page copy without a code release.
-- Acceptance: Given an edit to page copy in the content system When it is approved (WEB-PAG-009) Then the site rebuilds and the change is live within 15 minutes; a previous version can be restored.
+- Acceptance: Given an edit to page copy in the content management system When it is approved (WEB-PAG-009) Then the site rebuilds and the change is live within 15 minutes; a previous version can be restored.
+- Rules: the MVP website is static (10.2, decision 25). Until the content management system is chosen (expected 2027), copy changes are pull requests to the dhruva-site repository, reviewed and published by the release pipeline.
 
 **WEB-NFR-006 · Must · MVP · flag: core · [Spec]**
 The website shall be served from India with the same edge protection as the product.
@@ -7958,7 +7962,7 @@ See 11.3.5. Availability target: 99.9% monthly, measured at the CDN.
 
 ## 11.8 Open questions
 - Q1. Where do website requests go after the Platform console: a CRM tool (to be chosen) or the console only?
-- Q2. Which content system will marketing use? Until it is chosen the copy lives in the site repository.
+- Q2. Which content management system will marketing use? Decided for now (10.2, decision 25): the MVP site is static with copy in the site repository; the system is chosen in 2027.
 - Q3. Final legal text for the Privacy notice, Terms and Data processing agreement, and approval of every claim on the Trust page.
 
 ## Annex 11-A (engineering)
