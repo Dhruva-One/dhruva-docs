@@ -29,7 +29,7 @@ One mismatch to resolve: the spec's own sample (all 14 campuses live by 31 Mar 2
 
 Two populations produce two peaks on a school day, and the morning one is larger, shorter and more important.
 
-![The morning staff and transport peak sets capacity; the evening peak is about 60% of it](static/workload-concurrency-by-hour.png)
+![The morning staff and transport peak sets capacity; the evening peak is about 60% of it](../static/workload-concurrency-by-hour.png)
 
 *Modelled planning profile from the stated traffic pattern: percent of daily peak, by hour.*
 
@@ -72,7 +72,7 @@ These are estimates from stated assumptions, not measurements. The load-test pla
 
 ## Target architecture
 
-![Two zones carry the traffic; the second India region holds recovery](static/target-deployment.png)
+![Two zones carry the traffic; the second India region holds recovery](../static/target-deployment.png)
 
 *Target deployment, shown with AWS-style layers. The same shape applies on Azure or Google Cloud.*
 
@@ -103,7 +103,7 @@ These rules keep the system scalable and resilient without adding services. Each
 
 ### Morning attendance
 
-![Attendance is saved first; alerts follow through the queue](static/attendance-flow.png)
+![Attendance is saved first; alerts follow through the queue](../static/attendance-flow.png)
 
 *Morning attendance flow: request path and asynchronous follow-up.*
 
