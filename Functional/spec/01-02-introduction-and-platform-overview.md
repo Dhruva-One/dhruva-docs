@@ -4,8 +4,8 @@
 |---|---|
 | **Product** | DhruvaOne school ERP with the Dhruva AI assistant |
 | **Document** | Functional specification v1.1 (draft for client review) |
-| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 24) |
-| **Status** | Draft: product body for sign-off, engineering annexes for build |
+| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25) |
+| **Status** | Draft: product body for sign-off, engineering annexes for build. All decisions in 10.2 (1 to 25) confirmed by the client on 31 October 2026 |
 | **Sample data** | All names, numbers and amounts are sample data (group "DPS Group", hero campus DPS Gurugram Sec 45, sample day Fri 9 Oct 2026; standalone school "Saraswati Vidya Niketan", Karnal) |
 | **Derived from** | The DhruvaOne design prototypes (desktop, phone, WhatsApp, website), the MVP scope and roadmap, and the functional overview (214 pages) |
 
@@ -67,8 +67,8 @@ The system shall ...
 | 7 | App - Mobile (MOB) | 163 | 160 | 3 | 0 | 126 | 37 | 0 |
 | 8 | WhatsApp (WAB) | 122 | 48 | 71 | 3 | 67 | 55 | 0 |
 | 9 | Cross-cutting platform (XCT) | 112 | 108 | 4 | 0 | 54 | 58 | 0 |
-| 11 | Website (WEB) | 34 | 34 | 0 | 0 | 22 | 12 | 0 |
-| | **Total** | **908** | **800** | **100** | **8** | **557** | **346** | **5** |
+| 11 | Website (WEB) | 34 | 33 | 1 | 0 | 22 | 12 | 0 |
+| | **Total** | **908** | **799** | **101** | **8** | **557** | **346** | **5** |
 
 Priorities across all areas: 726 Must, 168 Should, 14 Could.
 
@@ -161,5 +161,3 @@ These rules apply to every engineering annex. They were added in v1.1 to remove 
 
 - **Errors.** Every API uses the envelope `{"error":{"code","message","feature?","reason?","request_id"}}` (Section 4).
 - **Events.** Names are lower case: `domain.entity.action`, or `domain.action` where the domain is the entity, with underscores inside a multi-word part (for example `ai.quota_threshold`, `change_request.approved`). Each event is defined once, in the owner's annex; other sections list it as consumed.
-
----

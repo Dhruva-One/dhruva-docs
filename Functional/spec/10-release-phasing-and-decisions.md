@@ -8,7 +8,7 @@
 | P3 | Phase 2: Oct 2027 to Mar 2028 | GPS and RFID on all buses, online tests and board analytics, purchase, inventory, health, library, visitor and CCTV, early warnings, open APIs |
 
 ## 10.2 Decisions taken in this specification
-These conflicts or gaps in the designs were resolved as follows so the sections agree. Each should be confirmed by the client.
+These conflicts or gaps in the designs were resolved as follows so the sections agree. All of them (1 to 25) were confirmed by the client on 31 October 2026.
 
 | # | Topic | Decision taken | Where |
 |---|---|---|---|
@@ -36,6 +36,7 @@ These conflicts or gaps in the designs were resolved as follows so the sections 
 | 22 | Missing APIs (v1.1) | APIs added for requirements that had none: roles; tenant administrators and hierarchy; owner Insights and admissions; principal attendance and absence watch; fee defaulters; standalone admin views; outcomes; parent queries; HoD team; lesson plans; paper creation; notes; teacher inbox; counselling caseload, referrals, check-ins and careers; parent app; bus attendant trips; telemetry; support. Out on duty uses `/v1/leave` with a type | Sections 3, 4, 6, 7, 9 |
 | 23 | Website (v1.1) | The website is specified in Section 11 from the functional overview. Website requests are DhruvaOne sales leads (`POST /v1/leads`), read in the Platform console, never in a school's admissions CRM | Section 11 |
 | 24 | Owner Insights (v1.1) | The owner phone Insights tab is specified as MOB-STF-010 | Sections 6, 7 |
+| 25 | Website content (v1.1) | The MVP website is a static site. Page copy lives in the dhruva-site repository and changes through a reviewed pull request. A content management system is chosen later, expected in 2027 (P2) | Section 11 |
 
 ## 10.3 Open decisions for the client
 Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8, 8.8, 9.8). The ones that most affect scope and cost:
@@ -49,3 +50,5 @@ Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8,
 7. Whether the trustee gets a full role or approval-only access.
 8. The administration console, audit-log screen and Platform Owner console need design (Appendix C).
 9. Where website requests go after the Platform console: a CRM tool or the console only (Section 11, Q1).
+
+Items 3 and 7 are settled by decisions 5 and 9 in 10.2, which the client confirmed on 31 October 2026.

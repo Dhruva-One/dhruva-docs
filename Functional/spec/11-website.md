@@ -11,7 +11,7 @@ Area code: WEB. Source: the website boards in the functional overview (pages 179
 - Seven visible pages: Home, Product, Solutions (three tabs), Trust, About us, Pricing, and Book a demo.
 - The demo, pricing and pilot request form, and what happens to a request after it is sent.
 - Sign in by mobile number and one-time code, using the identity services in Section 3.
-- Content management, search-engine basics, performance, accessibility and privacy for a public site.
+- Content updates, search-engine basics, performance, accessibility and privacy for a public site. The MVP site is static; a content management system follows in P2 (10.2, decision 25).
 
 **Out of scope (covered elsewhere or intentionally left out)**
 - The Resources and Customers pages, and the role-tab state. These exist in the prototype code but are hidden and are not specified.
@@ -26,7 +26,7 @@ Area code: WEB. Source: the website boards in the functional overview (pages 179
 | Prospective buyer (owner, trustee, principal, admin, IT, procurement) | Reads the pages, downloads the procurement pack, sends a demo, pricing or pilot request |
 | Parent, student or staff member of a live school | Opens the "Get the app" card or signs in on a computer |
 | DhruvaOne sales (Platform Owner role, Section 4) | Reads and follows up website requests in the Platform console |
-| DhruvaOne marketing | Edits page copy in the content system and publishes the site |
+| DhruvaOne marketing | Proposes page copy changes; in the MVP they are made in the site repository by pull request, and later in the content management system (P2) |
 
 ## 11.3 Functional requirements
 
@@ -101,7 +101,7 @@ The questions on Home shall open one at a time.
 
 **WEB-PAG-009 · Must · MVP · flag: core · [Spec]**
 Every claim on the website shall be confirmed by legal and security before it is published.
-- Acceptance: Given a page with a claim about compliance, security, certification, residency or timelines When it is submitted for publishing Then it cannot go live until a named legal or security reviewer has approved that version in the content system.
+- Acceptance: Given a page with a claim about compliance, security, certification, residency or timelines When it is submitted for publishing Then it cannot go live until a named legal or security reviewer has approved that version (in the MVP, as an approving review on the pull request).
 - Rules: the design's own note says "Sample claims for this design. Confirm each statement, certification and timeline with your legal and security teams before publishing."
 
 **WEB-PAG-010 · Must · MVP · flag: core · [Spec]**
@@ -188,9 +188,10 @@ The website shall not track visitors with advertising or cross-site cookies.
 Each page shall be ready for search engines and link previews.
 - Acceptance: Given any page When fetched by a crawler Then it returns a unique title and description, a canonical address, Open Graph tags and a sitemap entry; Sign in is excluded from search results.
 
-**WEB-NFR-005 · Should · MVP · flag: core · [Spec]**
+**WEB-NFR-005 · Should · P2 · flag: core · [Spec]**
 Marketing can change page copy without a code release.
-- Acceptance: Given an edit to page copy in the content system When it is approved (WEB-PAG-009) Then the site rebuilds and the change is live within 15 minutes; a previous version can be restored.
+- Acceptance: Given an edit to page copy in the content management system When it is approved (WEB-PAG-009) Then the site rebuilds and the change is live within 15 minutes; a previous version can be restored.
+- Rules: the MVP website is static (10.2, decision 25). Until the content management system is chosen (expected 2027), copy changes are pull requests to the dhruva-site repository, reviewed and published by the release pipeline.
 
 **WEB-NFR-006 · Must · MVP · flag: core · [Spec]**
 The website shall be served from India with the same edge protection as the product.
@@ -218,7 +219,7 @@ See 11.3.5. Availability target: 99.9% monthly, measured at the CDN.
 
 ## 11.8 Open questions
 - Q1. Where do website requests go after the Platform console: a CRM tool (to be chosen) or the console only?
-- Q2. Which content system will marketing use? Until it is chosen the copy lives in the site repository.
+- Q2. Which content management system will marketing use? Decided for now (10.2, decision 25): the MVP site is static with copy in the site repository; the system is chosen in 2027.
 - Q3. Final legal text for the Privacy notice, Terms and Data processing agreement, and approval of every claim on the Trust page.
 
 ## Annex 11-A (engineering)

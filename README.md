@@ -1,4 +1,3 @@
-
 # dhruva-docs
 
 Product and technical documentation for **DhruvaOne**, a school ERP with the Dhruva AI assistant, built for Indian school groups and standalone schools. This repository is where decisions are written down. The code repositories link to it and build to it.
@@ -22,7 +21,7 @@ Product and technical documentation for **DhruvaOne**, a school ERP with the Dhr
 
 ## How the functional spec is organised
 
-The spec is one file, `Functional/DhruvaOne-Functional-Spec.md`.
+The master copy is one file, `Functional/DhruvaOne-Functional-Spec.md`. `Functional/spec/` holds the same text split by section for easier reading and review; when you change the combined file, update the matching split file in the same pull request. The code reads only the combined file.
 
 | Section | Area | Code |
 |---|---|---|
@@ -97,8 +96,7 @@ Keep writing plain: short sentences, exact labels from the designs, numbers with
 - Decide region-loss recovery: a disaster allowance, or an earlier warm standby.
 
 **Repository housekeeping:**
-- The `Import AI cards to project` workflow looks for `import_cards.py` and `cards.json`. Both were removed with `Functional/Spec/`, so the workflow fails until they are restored or it is deleted.
-- `.DS_Store` files are committed; remove them and add `.DS_Store` to `.gitignore`.
+- The `Import AI cards to project` workflow runs `import_cards.py` with `cards.json`. Neither file is in the repository, so the workflow fails until they are restored or the workflow is deleted.
 
 ## Licence
 
