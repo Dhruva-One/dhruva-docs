@@ -59,7 +59,7 @@ The morning peak sets the size: at Phase C, 10,000 concurrent users make about 1
 
 One region with two zones carries all three phases: growth adds containers, a larger database and replicas, and the Phase C warm standby, with no redesign.
 
-&#91;embedded content: target deployment on AWS · from the Technical Architecture and the capacity plan\]
+![AWS Target Deployment](../static/aws-deployment.png)
 
 Only the platform API reaches PostgreSQL. Workers send alerts through Redis queues, and dhruva-ai reads data through the platform API. Sizes per phase:
 
@@ -97,7 +97,7 @@ Two cheaper GCP options were not used for the comparison. GKE Autopilot is cheap
 
 AWS costs about 10% less at list prices in every phase, and nearly all of the difference is containers. PostgreSQL costs the same on both clouds and is the largest line.
 
-&#91;embedded content: DhruvaOne cost model, 31 Oct 2026 · GCP list prices from Google's pricing pages; AWS Mumbai prices approximate\]
+![Cost Model](../static/aws-gcp-cost.png)
 
 How the model works:
 
@@ -219,7 +219,7 @@ Losing a zone costs no data and recovers within 5 minutes in every phase. Losing
 
 Production must be live and load-tested in Mumbai before the 5 January 2027 pilot. After that, each phase starts only when its load-test gate passes.
 
-&#91;embedded content: rollout by phase · dates from the MVP scope and the architecture's delivery gates\]
+![Rollout](../static/rollout-plan.png)
 
 Only commit to Savings Plans or reserved instances after three months of real usage, from about April 2027.
 
