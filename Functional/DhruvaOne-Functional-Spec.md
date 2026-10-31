@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Product** | DhruvaOne school ERP with the Dhruva AI assistant |
-| **Document** | Functional specification v1.1 (draft for client review) |
-| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25) |
+| **Document** | Functional specification v1.2 (draft for client review) |
+| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25; v1.2: identity APIs found missing while writing the API contracts, decision 26) |
 | **Status** | Draft: product body for sign-off, engineering annexes for build. All decisions in 10.2 (1 to 25) confirmed by the client on 31 October 2026 |
 | **Sample data** | All names, numbers and amounts are sample data (group "DPS Group", hero campus DPS Gurugram Sec 45, sample day Fri 9 Oct 2026; standalone school "Saraswati Vidya Niketan", Karnal) |
 | **Derived from** | The DhruvaOne design prototypes (desktop, phone, WhatsApp, website), the MVP scope and roadmap, and the functional overview (214 pages) |
@@ -827,7 +827,8 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 11. **Owner identity at tenant creation.** How the first Owner or School Admin is verified (design shows only "Add a campus" invites). Spec assumes DhruvaOne onboarding with a signed order form.
 12. **Phase of WhatsApp bot.** mvp-scope puts "Dhruva on WhatsApp" in Phase 1; prototypes show it now. Spec marks IDM-WAB as P2.
 13. **Retention of identity audit** (2 years proposed) and deletion 90 days after exit need Legal confirmation.
-14. **Who can approve a guardian link** that grants pickup rights (office vs two-person rule) and the relation to early-pickup approvals in Security & IT.
+14. **Who can approve a guardian link** that grants pickup rights (office vs two-person rule) and the relation to early-pickup approvals in Security & IT. This decides when `POST /v1/idm/guardianships` returns `403 two_person_required`.
+15. **Device limit per person.** `POST /v1/devices` refuses a device with `409 too_many_devices`, but no limit is set. Proposal: 5 active devices per person (phones and browsers together); revoking one frees a place.
 
 ---
 
@@ -874,11 +875,15 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 | PUT/DELETE /v1/devices/{id}/push-token | Register, replace or remove the push token | Authenticated, same device | 400 bad_token |
 | GET /v1/idm/roles | Role catalogue with scope levels | Staff | |
 | GET/POST /v1/idm/people, /v1/idm/profiles, /v1/idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
+| PATCH /v1/idm/memberships/{id} | Change a role's scope or end the assignment (sets the end date; the membership becomes ended) (v1.2) | Tenant Administrator (not Owner or Principal roles), HR (staff roles); Owner or Trustee approves where the matrix says A | 403, 409 invalid_transition |
+| POST /v1/idm/people/{id}/revoke-sessions | Sign a person out of every device, "Revoke sessions" on the Identity admin page (IDM-ADM-001) (v1.2) | Tenant Administrator; Principal (campus staff); HR (staff) | 403, 404 |
 | POST /v1/idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
 | POST /v1/idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
+| GET /v1/idm/number-add-requests and PATCH /v1/idm/number-add-requests/{id} | Office and HR read, match and close "Ask my school to add me" requests (IDM-NF-003); the number stays masked until opened, and opening it is audited (v1.2) | Office (parents), HR (staff), Tenant Administrator; requests matched to their school only | 403, 409 invalid_transition |
 | POST /v1/idm/guardianships and PATCH /v1/idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
 | POST /v1/idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
 | GET/PUT /v1/idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
+| GET/POST /v1/idm/break-glass-grants and DELETE /v1/idm/break-glass-grants/{id} | List, open (4 hours at most) or end DhruvaOne support access to the tenant's identity records on a written request (IDM-ADM-007) (v1.2) | Open and end: DhruvaOne support with the request reference; list: Tenant Administrator, Owner, School Admin | 403, 422 beyond_platform_limits |
 | POST /internal/v1/wa/identify | Resolve WhatsApp number to profiles | Internal service (WhatsApp gateway) | 404 unknown_number |
 | POST /internal/v1/wa/pin/verify | Verify PIN from WhatsApp Flow | Internal service (WhatsApp gateway) | 423 pin_locked |
 
@@ -7694,7 +7699,7 @@ Rows marked [Design] come from the AppNotifications catalogue and lock-screen sa
 | P3 | Phase 2: Oct 2027 to Mar 2028 | GPS and RFID on all buses, online tests and board analytics, purchase, inventory, health, library, visitor and CCTV, early warnings, open APIs |
 
 ## 10.2 Decisions taken in this specification
-These conflicts or gaps in the designs were resolved as follows so the sections agree. All of them (1 to 25) were confirmed by the client on 31 October 2026.
+These conflicts or gaps in the designs were resolved as follows so the sections agree. Decisions 1 to 25 were confirmed by the client on 31 October 2026. Decision 26 is an engineering change and adds no product behaviour.
 
 | # | Topic | Decision taken | Where |
 |---|---|---|---|
@@ -7723,6 +7728,7 @@ These conflicts or gaps in the designs were resolved as follows so the sections 
 | 23 | Website (v1.1) | The website is specified in Section 11 from the functional overview. Website requests are DhruvaOne sales leads (`POST /v1/leads`), read in the Platform console, never in a school's admissions CRM | Section 11 |
 | 24 | Owner Insights (v1.1) | The owner phone Insights tab is specified as MOB-STF-010 | Sections 6, 7 |
 | 25 | Website content (v1.1) | The MVP website is a static site. Page copy lives in the dhruva-site repository and changes through a reviewed pull request. A content management system is chosen later, expected in 2027 (P2) | Section 11 |
+| 26 | Identity API gaps (v1.2) | Writing the API contracts showed requirements with no API. Added to Annex 3-A: ending a role assignment (`PATCH /v1/idm/memberships/{id}`), signing a person out everywhere (`POST /v1/idm/people/{id}/revoke-sessions`), handling number-add requests (`/v1/idm/number-add-requests`) and break-glass access (`/v1/idm/break-glass-grants`). The device limit and the two-person rule are open questions 3.8 (14, 15) | Section 3 |
 
 ## 10.3 Open decisions for the client
 Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8, 8.8, 9.8). The ones that most affect scope and cost:

@@ -649,7 +649,8 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 11. **Owner identity at tenant creation.** How the first Owner or School Admin is verified (design shows only "Add a campus" invites). Spec assumes DhruvaOne onboarding with a signed order form.
 12. **Phase of WhatsApp bot.** mvp-scope puts "Dhruva on WhatsApp" in Phase 1; prototypes show it now. Spec marks IDM-WAB as P2.
 13. **Retention of identity audit** (2 years proposed) and deletion 90 days after exit need Legal confirmation.
-14. **Who can approve a guardian link** that grants pickup rights (office vs two-person rule) and the relation to early-pickup approvals in Security & IT.
+14. **Who can approve a guardian link** that grants pickup rights (office vs two-person rule) and the relation to early-pickup approvals in Security & IT. This decides when `POST /v1/idm/guardianships` returns `403 two_person_required`.
+15. **Device limit per person.** `POST /v1/devices` refuses a device with `409 too_many_devices`, but no limit is set. Proposal: 5 active devices per person (phones and browsers together); revoking one frees a place.
 
 ---
 
@@ -696,11 +697,15 @@ Default list, enforced by IDM-LCK-004: fee payment and refund initiation; any Ap
 | PUT/DELETE /v1/devices/{id}/push-token | Register, replace or remove the push token | Authenticated, same device | 400 bad_token |
 | GET /v1/idm/roles | Role catalogue with scope levels | Staff | |
 | GET/POST /v1/idm/people, /v1/idm/profiles, /v1/idm/memberships | Admin management of identity | Tenant Administrator, HR, Office (scoped) | 403, 409 conflict |
+| PATCH /v1/idm/memberships/{id} | Change a role's scope or end the assignment (sets the end date; the membership becomes ended) (v1.2) | Tenant Administrator (not Owner or Principal roles), HR (staff roles); Owner or Trustee approves where the matrix says A | 403, 409 invalid_transition |
+| POST /v1/idm/people/{id}/revoke-sessions | Sign a person out of every device, "Revoke sessions" on the Identity admin page (IDM-ADM-001) (v1.2) | Tenant Administrator; Principal (campus staff); HR (staff) | 403, 404 |
 | POST /v1/idm/profiles/{id}/invite, /suspend, /reactivate, /deactivate | Lifecycle | Per IDM-LIF-003 | 409 invalid_transition |
 | POST /v1/idm/number-changes | Start/confirm number change | Office (parents), HR (staff) | 409 number_in_use |
+| GET /v1/idm/number-add-requests and PATCH /v1/idm/number-add-requests/{id} | Office and HR read, match and close "Ask my school to add me" requests (IDM-NF-003); the number stays masked until opened, and opening it is audited (v1.2) | Office (parents), HR (staff), Tenant Administrator; requests matched to their school only | 403, 409 invalid_transition |
 | POST /v1/idm/guardianships and PATCH /v1/idm/guardianships/{id} | Child links and verification | Office, Principal | 409, 403 two_person_required |
 | POST /v1/idm/student-accounts | Create/switch off student login | Guardian of the child | 403, 409 band_not_allowed |
 | GET/PUT /v1/idm/policy | Read/set sign-in and PIN policy | Tenant Administrator | 422 beyond_platform_limits |
+| GET/POST /v1/idm/break-glass-grants and DELETE /v1/idm/break-glass-grants/{id} | List, open (4 hours at most) or end DhruvaOne support access to the tenant's identity records on a written request (IDM-ADM-007) (v1.2) | Open and end: DhruvaOne support with the request reference; list: Tenant Administrator, Owner, School Admin | 403, 422 beyond_platform_limits |
 | POST /internal/v1/wa/identify | Resolve WhatsApp number to profiles | Internal service (WhatsApp gateway) | 404 unknown_number |
 | POST /internal/v1/wa/pin/verify | Verify PIN from WhatsApp Flow | Internal service (WhatsApp gateway) | 423 pin_locked |
 

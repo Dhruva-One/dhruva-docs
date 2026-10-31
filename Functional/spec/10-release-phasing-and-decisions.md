@@ -8,7 +8,7 @@
 | P3 | Phase 2: Oct 2027 to Mar 2028 | GPS and RFID on all buses, online tests and board analytics, purchase, inventory, health, library, visitor and CCTV, early warnings, open APIs |
 
 ## 10.2 Decisions taken in this specification
-These conflicts or gaps in the designs were resolved as follows so the sections agree. All of them (1 to 25) were confirmed by the client on 31 October 2026.
+These conflicts or gaps in the designs were resolved as follows so the sections agree. Decisions 1 to 25 were confirmed by the client on 31 October 2026. Decision 26 is an engineering change and adds no product behaviour.
 
 | # | Topic | Decision taken | Where |
 |---|---|---|---|
@@ -37,6 +37,7 @@ These conflicts or gaps in the designs were resolved as follows so the sections 
 | 23 | Website (v1.1) | The website is specified in Section 11 from the functional overview. Website requests are DhruvaOne sales leads (`POST /v1/leads`), read in the Platform console, never in a school's admissions CRM | Section 11 |
 | 24 | Owner Insights (v1.1) | The owner phone Insights tab is specified as MOB-STF-010 | Sections 6, 7 |
 | 25 | Website content (v1.1) | The MVP website is a static site. Page copy lives in the dhruva-site repository and changes through a reviewed pull request. A content management system is chosen later, expected in 2027 (P2) | Section 11 |
+| 26 | Identity API gaps (v1.2) | Writing the API contracts showed requirements with no API. Added to Annex 3-A: ending a role assignment (`PATCH /v1/idm/memberships/{id}`), signing a person out everywhere (`POST /v1/idm/people/{id}/revoke-sessions`), handling number-add requests (`/v1/idm/number-add-requests`) and break-glass access (`/v1/idm/break-glass-grants`). The device limit and the two-person rule are open questions 3.8 (14, 15) | Section 3 |
 
 ## 10.3 Open decisions for the client
 Each section ends with its own open questions (3.8, 4.8, 5.8, 6.8 and 6.8b, 7.8, 8.8, 9.8). The ones that most affect scope and cost:
