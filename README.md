@@ -5,7 +5,7 @@ Product and technical documentation for **DhruvaOne**, a school ERP with the Dhr
 | | |
 |---|---|
 | Owner | DhruvaOne product and engineering |
-| Current spec | Functional specification **v1.1** (908 requirements); all decisions in section 10.2 confirmed by the client on 31 October 2026 |
+| Current spec | Functional specification **v1.2** (908 requirements); decisions 1 to 25 in section 10.2 confirmed by the client on 31 October 2026 |
 | Cloud decision | AWS: Mumbai (ap-south-1) primary, Hyderabad (ap-south-2) recovery |
 | Pilot | DPS Gurugram Sec 45 from 5 January 2027; all 14 DPS campuses by 31 March 2027 |
 
@@ -17,11 +17,12 @@ Product and technical documentation for **DhruvaOne**, a school ERP with the Dhr
 | [Functional overview (PDF)](Functional/DhruvaOne_Functional_Overview.pdf) | What every screen in the designs shows, role by role (214 pages) | You need the designed labels, flows or screens |
 | [Repositories and technology stack](Technology/DhruvaOne%20Repositories%20and%20Technology%20Stack.md) | Which repositories exist, the stack in each, and why | You start a new service or pick a library |
 | [Technical architecture](Technology/DhruvaOne-Technical-Architecture.md) | How the system carries the load: workload model, capacity per phase, data tier, scaling, resilience | You size, scale or change infrastructure |
+| [Schema and API contracts plan](Technology/Schema-and-API-Contracts-Plan.md) | How the database schema and API contracts are written, checked and frozen module by module before each is built; batch order to the staff test | You write or review a migration, an API contract or an event schema |
 | [Deployment strategy](Technology/Deployment-Strategy.md) | Where and how it runs: AWS against Google Cloud, cost by phase including AI models, environments, release process and rollout | You deploy, budget or revisit the cloud choice |
 
 ## How the functional spec is organised
 
-The master copy is one file, `Functional/DhruvaOne-Functional-Spec.md`. `Functional/spec/` holds the same text split by section for easier reading and review; when you change the combined file, update the matching split file in the same pull request. The code reads only the combined file.
+The master copy is one file, `Functional/DhruvaOne-Functional-Spec.md`. `Functional/spec/` holds the same text split by section for easier reading and review; after changing the combined file, run `python3 tools/split_spec.py` and commit the split files in the same pull request (`--check` reports any that are out of date). The code reads only the combined file.
 
 | Section | Area | Code |
 |---|---|---|

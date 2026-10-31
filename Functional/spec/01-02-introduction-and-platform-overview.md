@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **Product** | DhruvaOne school ERP with the Dhruva AI assistant |
-| **Document** | Functional specification v1.1 (draft for client review) |
-| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25) |
+| **Document** | Functional specification v1.2 (draft for client review) |
+| **Date** | 31 October 2026 (v1.1: API and event conflicts resolved, missing APIs added, website section added; see 10.2, decisions 11 to 25; v1.2: identity APIs found missing while writing the API contracts, decision 26) |
 | **Status** | Draft: product body for sign-off, engineering annexes for build. All decisions in 10.2 (1 to 25) confirmed by the client on 31 October 2026 |
 | **Sample data** | All names, numbers and amounts are sample data (group "DPS Group", hero campus DPS Gurugram Sec 45, sample day Fri 9 Oct 2026; standalone school "Saraswati Vidya Niketan", Karnal) |
 | **Derived from** | The DhruvaOne design prototypes (desktop, phone, WhatsApp, website), the MVP scope and roadmap, and the functional overview (214 pages) |
