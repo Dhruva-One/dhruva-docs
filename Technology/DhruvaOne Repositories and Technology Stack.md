@@ -62,7 +62,7 @@ Seven repositories give each deployable thing its own release cycle without spli
 
 Everything reaches data through `dhruva-platform`. The apps, the WhatsApp gateway and the AI service call its API with the signed-in person's identity, so a permission or feature switch is checked in one place. The platform publishes an OpenAPI description and a set of event schemas; a typed client is generated from them and consumed by `dhruva-apps` and `dhruva-whatsapp`. The contracts live in the platform repository, so they cannot drift from the code.
 
-&#91;embedded content: repository map · 7 repositories and the data they share\]
+![TAM_Diagram](../static/TechStackTAM.png)
 
 The apps, the WhatsApp gateway, the website and the AI service call the platform's API; the connectors sit inside the school and push and pull through it. Only the platform touches the database.
 
